@@ -1,1 +1,4 @@
-{"buildCommand":"node build-pages.js","outputDirectory":"."}
+{
+  "buildCommand":"node build-pages.js && node add-ai-nav.js",
+  "outputDirectory":"."
+}
