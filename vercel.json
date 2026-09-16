@@ -1,1 +1,1 @@
-{"buildCommand":"node build.js","outputDirectory":"."}
+{"buildCommand":"node build.js && node fix-glossary.js","outputDirectory":"."}
