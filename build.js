@@ -18,5 +18,6 @@ function shell(title,content,links){let h=nav(header);if(!h.includes('href="/"')
 fs.mkdirSync('impara',{recursive:true});fs.mkdirSync(path.join('strumenti','interesse-composto'),{recursive:true});
 fs.writeFileSync('index.html',shell('FINLAB — Educazione finanziaria',`${hero}${platform}${get('importante')}`,[['/','⌂','Home'],['/impara/','▦','Impara'],['#tools','⌘','Strumenti'],['/#importante','◎','Metodo']]));
 fs.writeFileSync('impara/index.html',shell('FINLAB — Impara',`${get('inizio')}${get('percorso')}`,[['/','⌂','Home'],['/impara/','▦','Impara'],['#tools','⌘','Strumenti'],['/impara/#lessonSearch','⌕','Cerca']]));
-fs.writeFileSync(path.join('strumenti','interesse-composto','index.html'),shell('FINLAB — Interesse composto',get('strumenti').replace(/id=["']strumenti["']/i,'id="interesse-composto"').replace(/>Impara anche attraverso i numeri\.</g,'>Interesse composto.<'),[['/','⌂','Home'],['/impara/','▦','Impara'],['#tools','⌘','Strumenti'],['/impara/#lessonSearch','⌕','Cerca']]));
+const interest=get('strumenti').replace(/id=["']strumenti["']/i,'id="interesse-composto"').replace('Impara anche attraverso i numeri.','Interesse composto.');
+fs.writeFileSync(path.join('strumenti','interesse-composto','index.html'),shell('FINLAB — Interesse composto',interest,[['/','⌂','Home'],['/impara/','▦','Impara'],['#tools','⌘','Strumenti'],['/impara/#lessonSearch','⌕','Cerca']]));
 console.log('FINLAB pages built: home, impara, interesse composto');
