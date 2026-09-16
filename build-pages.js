@@ -47,20 +47,50 @@ function replaceMobileNav(html, links) {
   return html.replace(/<nav\\b([^>]*id=["']appNav["'][^>]*)>[\\s\\S]*?<\\/nav>/i,
     (_, attrs) => `<nav${attrs}>${links.map(([href, icon, text]) => `<a href="${href}"><span class="app-nav-icon">${icon}</span><span>${text}</span></a>`).join('')}</nav>`);
 }
-const head = (source.match(/<head>[\\s\\S]*?<\\/head>/i) || ['<head></head>'])[0];
-const body = (source.match(/<body[^>]*>([\\s\\S]*?)<\\/body>/i) || ['', ''])[1];
+
+function enrichStudySource(html) {
+  const adds = [
+    'Nella pratica, questo concetto aiuta a leggere meglio ciò che accade quando cambiano prezzi, condizioni o obiettivi.',
+    'Comprenderlo permette di interpretare con più chiarezza le informazioni finanziarie e i possibili effetti delle diverse scelte.',
+    'È un punto di riferimento utile per collegare la teoria alle situazioni concrete che possono emergere nella gestione del denaro.',
+    'Capirlo bene rende più semplice confrontare informazioni, rischi e risultati senza fermarsi alla sola superficie del dato.'
+  ];
+  let i = 0;
+  html = html.replace(/(<div class="topic-detail"[^>]*>[\s\S]*?<h5>In parole semplici<\/h5>\s*<p>)([\s\S]*?)(<\/p>)/gi,
+    (m, a, p, c) => {
+      const add = adds[i++ % adds.length];
+      return a + (p.includes(add) ? p : p + ' ' + add) + c;
+    });
+
+  // Le opzioni del quiz devono essere leggibili a colpo d'occhio: manteniamo
+  // una sola frase completa, evitando spiegazioni troppo lunghe nelle risposte.
+  html = html.replace(/(<div class="lesson-quiz"[^>]*>[\s\S]*?<div class="quiz-options">)([\s\S]*?)(<\/div>\s*<div class="quiz-actions">)/gi,
+    (m, pre, body, post) => {
+      const out = body.replace(/(<span>)([\s\S]*?)(<\/span>)/gi, (mm, a, text, c) => {
+        const clean = text.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+        const sentence = (clean.match(/^(.+?[.!?])(?:\s|$)/) || [])[1] || clean;
+        return a + sentence + c;
+      });
+      return pre + out + post;
+    });
+  return html;
+}
+
+const head = (source.match(/<head>[\s\S]*?<\/head>/i) || ['<head></head>'])[0];
+const enrichedSource = enrichStudySource(source);
+const body = (enrichedSource.match(/<body[^>]*>([\s\S]*?)<\/body>/i) || ['', ''])[1];
 const header = extractTag(body, 'header');
 const footer = extractTag(body, 'footer');
-const mobileNav = extractTag(body, 'nav', tag => /\\bid=["']appNav["']/i.test(tag));
-const scripts = [...body.matchAll(/<script\\b[^>]*>[\\s\\S]*?<\\/script>/gi)].map(m => m[0]).join('\\n');
+const mobileNav = extractTag(body, 'nav', tag => /\bid=["']appNav["']/i.test(tag));
+const scripts = [...body.matchAll(/<script\b[^>]*>[\s\S]*?<\/script>/gi)].map(m => m[0]).join('\n');
 const sections = topLevelSections(body);
 const byId = id => sections.find(x => x.id === id)?.html || '';
 const reviews = sections.filter(x => /^review0[1-8]$/.test(x.id)).map(x => x.html).join('');
-const hero = (sections.find(x => !x.id && /class=["'][^"']*\\bhero\\b/i.test(x.html))?.html || '')
+const hero = (sections.find(x => !x.id && /class=["'][^"']*\bhero\b/i.test(x.html))?.html || '')
   .replace(/href=["']#percorso["']/g, 'href="/impara/"')
   .replace(/href=["']#strumenti["']/g, 'href="/simulatore/"')
   .replace(/href=["']#inizio["']/g, 'href="/impara/"');
-const platform = sections.find(x => !x.id && /class=["'][^"']*\\bplatform-strip\\b/i.test(x.html))?.html || '';
+const platform = sections.find(x => !x.id && /class=["'][^"']*\bplatform-strip\b/i.test(x.html))?.html || '';
 const studyTeaser = `<section class="section" id="studio-intro"><div class="wrap"><div class="eyebrow">01 — PERCORSO DI STUDIO</div><h2>Impara un concetto alla volta.</h2><p class="lead">Otto capitoli progressivi, 93 lezioni, esempi semplici, quiz e fonti istituzionali. Il percorso completo è raccolto in una pagina dedicata, così la homepage rimane essenziale.</p><a class="btn primary" href="/impara/">Inizia a studiare →</a></div></section>`;
 const simTeaser = `<section class="section" id="simula-intro"><div class="wrap"><div class="eyebrow">02 — SIMULA</div><h2>Metti i concetti nei numeri.</h2><p class="lead">Un simulatore semplice per esplorare, in uno scenario ipotetico, come capitale, versamenti, tempo, rendimento e inflazione possono influenzare un risultato.</p><div class="sim-intro"><strong>Vuoi provare?</strong><p>Apri il simulatore dedicato e costruisci il tuo scenario.</p></div><a class="btn primary" href="/simulatore/">Apri il simulatore →</a></div></section>`;
 
