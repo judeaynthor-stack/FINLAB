@@ -1,0 +1,38 @@
+name: Build FINLAB pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-pages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Generate pages
+        run: |
+          node build-pages.js
+          node add-ai-nav.js
+
+      - name: Commit generated pages
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html impara/index.html simulatore/index.html
+          if git diff --cached --quiet; then
+            echo "No generated page changes."
+          else
+            git commit -m "Build FINLAB pages"
+            git push
+          fi
