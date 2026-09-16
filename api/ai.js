@@ -45,6 +45,14 @@ function cleanHistory(history) {
     .map(m => ({ role: m.role, content: m.content.slice(0, 5000) }));
 }
 
+function addSource(sources, url, title) {
+  if (!url) return;
+  let domain = '';
+  try { domain = new URL(url).hostname.replace(/^www\./, ''); } catch { return; }
+  if (!OFFICIAL_DOMAINS.some(d => domain === d || domain.endsWith(`.${d}`))) return;
+  if (!sources.some(s => s.url === url)) sources.push({ title: title || domain, url });
+}
+
 module.exports = async (req, res) => {
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
@@ -65,7 +73,6 @@ module.exports = async (req, res) => {
 
   const history = cleanHistory(body.history);
   const context = typeof body.context === 'string' ? body.context.slice(0, 6000) : '';
-
   const input = [
     ...history,
     {
@@ -87,12 +94,9 @@ module.exports = async (req, res) => {
         model: process.env.FINLAB_AI_MODEL || 'gpt-5.6-luna',
         instructions: SYSTEM_PROMPT,
         input,
-        tools: [
-          {
-            type: 'web_search',
-            filters: { allowed_domains: OFFICIAL_DOMAINS }
-          }
-        ],
+        tools: [{ type: 'web_search', filters: { allowed_domains: OFFICIAL_DOMAINS } }],
+        tool_choice: 'auto',
+        include: ['web_search_call.action.sources'],
         max_output_tokens: 1200
       })
     });
@@ -108,16 +112,15 @@ module.exports = async (req, res) => {
 
     const sources = [];
     for (const item of Array.isArray(data.output) ? data.output : []) {
+      if (item.type === 'web_search_call') {
+        const action = item.action;
+        for (const source of Array.isArray(action?.sources) ? action.sources : []) {
+          addSource(sources, source.url, source.title);
+        }
+      }
       for (const content of Array.isArray(item.content) ? item.content : []) {
         for (const annotation of Array.isArray(content.annotations) ? content.annotations : []) {
-          if (annotation.type === 'url_citation' && annotation.url) {
-            const domain = (() => { try { return new URL(annotation.url).hostname.replace(/^www\./, ''); } catch { return ''; } })();
-            if (OFFICIAL_DOMAINS.some(d => domain === d || domain.endsWith(`.${d}`))) {
-              if (!sources.some(s => s.url === annotation.url)) {
-                sources.push({ title: annotation.title || domain, url: annotation.url });
-              }
-            }
-          }
+          if (annotation.type === 'url_citation') addSource(sources, annotation.url, annotation.title);
         }
       }
     }
