@@ -1,4 +1,5 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "node add-ai-nav.js"
+  "buildCommand": "node vercel-build.js",
+  "outputDirectory": "public"
 }
