@@ -12,8 +12,8 @@ const desktopTools = `
   </button>
   <div class="nav-dropdown-menu" role="menu">
     <a href="/strumenti/emergency-fund/" role="menuitem">Emergency Fund Planner</a>
-    <a href="/strumenti/portfolio-analyzer/" role="menuitem">Portfolio Analyzer</a>
-    <a href="/strumenti/strategy-lab/" role="menuitem">Strategy Lab</a>
+    <span class="nav-dropdown-disabled" role="menuitem" aria-disabled="true">Portfolio Analyzer <small>Prossimamente</small></span>
+    <span class="nav-dropdown-disabled" role="menuitem" aria-disabled="true">Strategy Lab <small>Prossimamente</small></span>
   </div>
 </div>`;
 
@@ -24,9 +24,11 @@ const desktopCss = `<style id="finlab-tools-nav-style">
 .nav-dropdown.open .nav-dropdown-toggle span{transform:rotate(180deg)}
 .nav-dropdown-menu{position:absolute;right:0;top:calc(100% + 14px);width:245px;background:#11110f;border:1px solid #35332e;box-shadow:0 18px 45px #0009;padding:7px;display:none;z-index:1000}
 .nav-dropdown.open .nav-dropdown-menu{display:block;animation:finlabDrop .18s ease both}
-.nav-dropdown-menu a{display:block;padding:12px 13px;color:#aaa69d;font-size:13px;border-bottom:1px solid #24231f}
-.nav-dropdown-menu a:last-child{border-bottom:0}
+.nav-dropdown-menu a,.nav-dropdown-disabled{display:block;padding:12px 13px;color:#aaa69d;font-size:13px;border-bottom:1px solid #24231f}
+.nav-dropdown-menu a:last-child,.nav-dropdown-disabled:last-child{border-bottom:0}
 .nav-dropdown-menu a:hover{color:#fff;background:#171613}
+.nav-dropdown-disabled{color:#68645d!important;cursor:default}
+.nav-dropdown-disabled small{float:right;color:#4f4b45;font-size:9px;text-transform:uppercase;letter-spacing:.08em;padding-top:2px}
 @keyframes finlabDrop{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
 </style>`;
 
@@ -37,9 +39,11 @@ const mobileCss = `<style id="finlab-tools-mobile-style">
   #appNav .finlab-mobile-tools .app-nav-icon{font-size:15px}
   .mobile-tools-panel{position:fixed;left:12px;right:12px;bottom:82px;z-index:1100;background:#11110f;border:1px solid #35332e;box-shadow:0 18px 45px #0009;padding:7px;display:none}
   .mobile-tools-panel.open{display:block;animation:finlabDrop .18s ease both}
-  .mobile-tools-panel a{display:block;padding:12px 13px;color:#aaa69d;font-size:12px;border-bottom:1px solid #24231f}
-  .mobile-tools-panel a:last-child{border-bottom:0}
+  .mobile-tools-panel a,.mobile-tools-panel .mobile-tool-disabled{display:block;padding:12px 13px;color:#aaa69d;font-size:12px;border-bottom:1px solid #24231f}
+  .mobile-tools-panel a:last-child,.mobile-tools-panel .mobile-tool-disabled:last-child{border-bottom:0}
   .mobile-tools-panel a:active{color:#fff;background:#171613}
+  .mobile-tools-panel .mobile-tool-disabled{color:#68645d}
+  .mobile-tools-panel .mobile-tool-disabled small{float:right;color:#4f4b45;font-size:9px;text-transform:uppercase;letter-spacing:.08em;padding-top:2px}
 }
 </style>`;
 
@@ -70,7 +74,7 @@ const script = `<script id="finlab-tools-nav-script">
     panel.className='mobile-tools-panel';
     panel.id='mobileToolsPanel';
     panel.setAttribute('aria-label','Strumenti');
-    panel.innerHTML='<a href="/strumenti/emergency-fund/">Emergency Fund Planner</a><a href="/strumenti/portfolio-analyzer/">Portfolio Analyzer</a><a href="/strumenti/strategy-lab/">Strategy Lab</a>';
+    panel.innerHTML='<a href="/strumenti/emergency-fund/">Emergency Fund Planner</a><span class="mobile-tool-disabled">Portfolio Analyzer <small>Prossimamente</small></span><span class="mobile-tool-disabled">Strategy Lab <small>Prossimamente</small></span>';
     document.body.appendChild(panel);
 
     toolsLink.addEventListener('click',function(e){
@@ -110,7 +114,6 @@ function enhance(file){
     return open+injected+close;
   });
 
-  html=html.replace(/<nav\b([^>]*id=["']appNav["'][^>]*)>[\s\S]*?<\/nav>/i,(m)=>m);
   html=html.replace(/<\/head>/i,desktopCss+mobileCss+'\n</head>');
   html=html.replace(/<\/body>/i,script+'\n</body>');
   fs.writeFileSync(file,html);
