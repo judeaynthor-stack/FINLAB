@@ -1,9 +1,9 @@
 const fs = require('fs');
 
 // FINLAB static build helper.
-// The generated HTML pages are already committed in the repository. This build
-// step only applies the shared navigation enhancement so Vercel can deploy
-// without depending on the old page-generation parser.
+// The generated HTML pages are committed in the repository. This build step
+// applies the shared Tools navigation to the desktop header and the mobile
+// bottom navigation before Vercel serves the static files.
 
 const desktopTools = `
 <div class="nav-dropdown">
@@ -22,17 +22,25 @@ const desktopCss = `<style id="finlab-tools-nav-style">
 .nav-dropdown-toggle{appearance:none;border:0;background:transparent;color:inherit;font:inherit;cursor:pointer;padding:0;display:inline-flex;align-items:center;gap:6px}
 .nav-dropdown-toggle span{font-size:12px;color:var(--gold);transition:transform .2s ease}
 .nav-dropdown.open .nav-dropdown-toggle span{transform:rotate(180deg)}
-.nav-dropdown-menu{position:absolute;right:0;top:calc(100% + 16px);width:245px;background:#11110f;border:1px solid #35332e;box-shadow:0 18px 45px #0009;padding:7px;display:none;z-index:1000}
+.nav-dropdown-menu{position:absolute;right:0;top:calc(100% + 14px);width:245px;background:#11110f;border:1px solid #35332e;box-shadow:0 18px 45px #0009;padding:7px;display:none;z-index:1000}
 .nav-dropdown.open .nav-dropdown-menu{display:block;animation:finlabDrop .18s ease both}
 .nav-dropdown-menu a{display:block;padding:12px 13px;color:#aaa69d;font-size:13px;border-bottom:1px solid #24231f}
 .nav-dropdown-menu a:last-child{border-bottom:0}
 .nav-dropdown-menu a:hover{color:#fff;background:#171613}
 @keyframes finlabDrop{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
-@media(max-width:650px){.nav-dropdown-menu{position:fixed;right:12px;top:72px;width:min(290px,calc(100vw - 24px))}}
 </style>`;
 
 const mobileCss = `<style id="finlab-tools-mobile-style">
-#appNav .finlab-mobile-tools{cursor:pointer}
+@media(max-width:650px){
+  #appNav{grid-template-columns:repeat(5,1fr)!important}
+  #appNav .finlab-mobile-tools{cursor:pointer;position:relative}
+  #appNav .finlab-mobile-tools .app-nav-icon{font-size:15px}
+  .mobile-tools-panel{position:fixed;left:12px;right:12px;bottom:82px;z-index:1100;background:#11110f;border:1px solid #35332e;box-shadow:0 18px 45px #0009;padding:7px;display:none}
+  .mobile-tools-panel.open{display:block;animation:finlabDrop .18s ease both}
+  .mobile-tools-panel a{display:block;padding:12px 13px;color:#aaa69d;font-size:12px;border-bottom:1px solid #24231f}
+  .mobile-tools-panel a:last-child{border-bottom:0}
+  .mobile-tools-panel a:active{color:#fff;background:#171613}
+}
 </style>`;
 
 const script = `<script id="finlab-tools-nav-script">
@@ -46,35 +54,63 @@ const script = `<script id="finlab-tools-nav-script">
       const open=drop.classList.toggle('open');
       btn.setAttribute('aria-expanded',String(open));
     });
+  });
+
+  const mobileNav=document.querySelector('#appNav');
+  if(mobileNav && !mobileNav.querySelector('.finlab-mobile-tools')){
+    const toolsLink=document.createElement('a');
+    toolsLink.href='#';
+    toolsLink.className='finlab-mobile-tools';
+    toolsLink.setAttribute('aria-expanded','false');
+    toolsLink.setAttribute('aria-controls','mobileToolsPanel');
+    toolsLink.innerHTML='<span class="app-nav-icon">⌘</span><span>Strumenti</span>';
+    mobileNav.insertBefore(toolsLink,mobileNav.lastElementChild);
+
+    const panel=document.createElement('div');
+    panel.className='mobile-tools-panel';
+    panel.id='mobileToolsPanel';
+    panel.setAttribute('aria-label','Strumenti');
+    panel.innerHTML='<a href="/strumenti/emergency-fund/">Emergency Fund Planner</a><a href="/strumenti/portfolio-analyzer/">Portfolio Analyzer</a><a href="/strumenti/strategy-lab/">Strategy Lab</a>';
+    document.body.appendChild(panel);
+
+    toolsLink.addEventListener('click',function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      const open=panel.classList.toggle('open');
+      toolsLink.setAttribute('aria-expanded',String(open));
+    });
+    panel.addEventListener('click',function(e){e.stopPropagation()});
     document.addEventListener('click',function(e){
-      if(!drop.contains(e.target)){
-        drop.classList.remove('open');
-        btn.setAttribute('aria-expanded','false');
+      if(!panel.contains(e.target) && !toolsLink.contains(e.target)){
+        panel.classList.remove('open');
+        toolsLink.setAttribute('aria-expanded','false');
       }
     });
     document.addEventListener('keydown',function(e){
       if(e.key==='Escape'){
-        drop.classList.remove('open');
-        btn.setAttribute('aria-expanded','false');
+        panel.classList.remove('open');
+        toolsLink.setAttribute('aria-expanded','false');
       }
     });
-  });
+  }
 })();
 </script>`;
 
-function enhance(file, mobile=false){
+function enhance(file){
   if(!fs.existsSync(file)) return;
   let html=fs.readFileSync(file,'utf8');
+
   html=html.replace(/<style id="finlab-tools-nav-style">[\s\S]*?<\/style>/i,'');
   html=html.replace(/<style id="finlab-tools-mobile-style">[\s\S]*?<\/style>/i,'');
   html=html.replace(/<script id="finlab-tools-nav-script">[\s\S]*?<\/script>/i,'');
 
   html=html.replace(/(<nav\b[^>]*class=["'][^"']*navlinks[^"']*["'][^>]*>)([\s\S]*?)(<\/nav>)/i,(m,open,body,close)=>{
     if(body.includes('class="nav-dropdown"')) return m;
-    const tools=desktopTools;
-    return open + body.replace(/<a\s+href=["']\/simulatore\/["'][^>]*>\s*Simula\s*<\/a>/i, x=>x+tools) + close;
+    const injected=body.replace(/<a\s+href=["']\/simulatore\/["'][^>]*>[\s\S]*?<\/a>/i, x=>x+desktopTools);
+    return open+injected+close;
   });
 
+  html=html.replace(/<nav\b([^>]*id=["']appNav["'][^>]*)>[\s\S]*?<\/nav>/i,(m)=>m);
   html=html.replace(/<\/head>/i,desktopCss+mobileCss+'\n</head>');
   html=html.replace(/<\/body>/i,script+'\n</body>');
   fs.writeFileSync(file,html);
@@ -83,4 +119,4 @@ function enhance(file, mobile=false){
 enhance('index.html');
 enhance('impara/index.html');
 enhance('simulatore/index.html');
-console.log('FINLAB: shared Strumenti dropdown applied.');
+console.log('FINLAB: desktop + mobile Strumenti navigation applied.');
