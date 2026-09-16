@@ -65,7 +65,10 @@ const hero = (unid.find(x => /class=["'][^"']*\\bhero\\b/i.test(x.html))?.html |
   .replace(/href=["']#strumenti["']/g, 'href="/simulatore/"');
 const platform = unid.find(x => /class=["'][^"']*\\bplatform-strip\\b/i.test(x.html))?.html || '';
 const start = byId('inizio').replace(/href=["']#chapter/g, 'href="/impara/#chapter');
-const glossary = byId('glossario');
+const glossaryMatches = sections.filter(x => x.id === 'glossario');
+const glossary = glossaryMatches.length ? glossaryMatches[0].html : '';
+const glossaryUX = `<style>#glossario .glossary-entry{display:none!important}#glossario .glossary-entry.glossary-show{display:block!important}#glossario #glossaryAlphabet{display:none}#glossario #glossaryAlphabet.glossary-show{display:flex}</style><script>(function(){const s=document.querySelector('#glossarySearch'),list=document.querySelector('#glossaryList'),alpha=document.querySelector('#glossaryAlphabet');if(!s||!list)return;function sync(){const q=s.value.trim();list.querySelectorAll('.glossary-entry').forEach(e=>e.classList.toggle('glossary-show',!!q&&!e.classList.contains('search-hidden')));alpha?.classList.toggle('glossary-show',!!q)}s.addEventListener('input',()=>setTimeout(sync,0));sync()})();</script>`;
+
 const studyTeaser = `<section class="section" id="studio-intro"><div class="wrap"><div class="eyebrow">01 — PERCORSO DI STUDIO</div><h2>Impara un concetto alla volta.</h2><p class="lead">Otto capitoli progressivi, lezioni brevi, esempi semplici e fonti istituzionali. Il percorso completo vive in una pagina dedicata, così la homepage rimane essenziale.</p><a class="btn primary" href="/impara/">Inizia a studiare →</a></div></section>`;
 const simTeaser = `<section class="section" id="simula-intro"><div class="wrap"><div class="eyebrow">02 — SIMULA</div><h2>Metti i concetti nei numeri.</h2><p class="lead">Un simulatore semplice per esplorare, in uno scenario ipotetico, come capitale, versamenti, tempo e rendimento possono influenzare un risultato.</p><div class="sim-intro"><strong>Vuoi provare?</strong><p>Apri il simulatore dedicato e costruisci il tuo scenario.</p></div><a class="btn primary" href="/simulatore/">Apri il simulatore →</a></div></section>`;
 
@@ -82,7 +85,7 @@ function shell(title, kind, content, mobileLinks) {
 
 fs.mkdirSync('impara', { recursive: true });
 fs.mkdirSync('simulatore', { recursive: true });
-fs.writeFileSync('index.html', shell('FINLAB — Educazione finanziaria', 'home', `${hero}${platform}${start}${studyTeaser}${glossary}${simTeaser}${byId('importante')}`, [['/','⌂','Home'],['/impara/','▦','Impara'],['/simulatore/','◌','Simula'],['#glossario','⌕','Cerca']]));
+fs.writeFileSync('index.html', shell('FINLAB — Educazione finanziaria', 'home', `${hero}${platform}${start}${studyTeaser}${glossary}${glossaryUX}${simTeaser}${byId('importante')}`, [['/','⌂','Home'],['/impara/','▦','Impara'],['/simulatore/','◌','Simula'],['#glossario','⌕','Cerca']]));
 fs.writeFileSync(path.join('impara','index.html'), shell('FINLAB — Impara', 'impara', `${byId('inizio')}${byId('percorso')}`, [['/','⌂','Home'],['#percorso','▦','Impara'],['/simulatore/','◌','Simula'],['#lessonSearch','⌕','Cerca']]));
 fs.writeFileSync(path.join('simulatore','index.html'), shell('FINLAB — Simulatore', 'sim', byId('strumenti').replace(/id=["']strumenti["']/i, 'id="simulatore"'), [['/','⌂','Home'],['/impara/','▦','Impara'],['#simulatore','◌','Simula'],['/#glossario','⌕','Cerca']]));
 console.log('FINLAB: built home, /impara/ and /simulatore/.');
