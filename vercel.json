@@ -1,1 +1,1 @@
-{"buildCommand":"node -e \"console.log('FINLAB static build')\"","outputDirectory":"."}
+{"buildCommand":"node build-pages.js","outputDirectory":"."}
