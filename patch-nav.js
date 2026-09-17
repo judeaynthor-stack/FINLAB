@@ -3,7 +3,16 @@ const nav='<nav class="navlinks"><a href="/">Home</a><a href="/impara/">Impara</
 const css='<style id="finlab-static-nav">.navlinks{display:flex;gap:30px;align-items:center;color:#c5c1b8;font-size:14px}.navlinks>a,.nav-dropdown{display:inline-flex;align-items:center}.navlinks a:hover{color:#fff}.nav-dropdown{position:relative}.nav-dropdown-toggle{border:0;background:none;color:inherit;font:inherit;cursor:pointer;padding:0;display:inline-flex;align-items:center;gap:7px;line-height:1;min-height:28px}.nav-dropdown-menu{display:none;position:absolute;right:0;top:calc(100% + 10px);width:260px;background:#10100e;border:1px solid #3a3832;border-radius:14px;box-shadow:0 20px 50px rgba(0,0,0,.45);padding:7px;z-index:1000}.nav-dropdown.open .nav-dropdown-menu,.nav-dropdown:hover .nav-dropdown-menu{display:block}.nav-dropdown-menu a,.nav-dropdown-menu span{display:block;padding:12px 13px;color:#aaa69d;font-size:13px;border-bottom:1px solid #24231f;border-radius:9px}.nav-dropdown-menu a:hover{color:#fff;background:#181714}.nav-dropdown-menu span:last-child{border:0;color:#68645d}.nav-dropdown-menu small{float:right;color:#4f4b45;font-size:9px;text-transform:uppercase}</style>';
 const js='<script id="finlab-static-nav-script">(()=>{document.querySelectorAll(".nav-dropdown").forEach(d=>{const b=d.querySelector("button");b?.addEventListener("click",e=>{e.stopPropagation();const open=d.classList.toggle("open");b.setAttribute("aria-expanded",String(open));document.querySelectorAll(".nav-dropdown").forEach(x=>{if(x!==d)x.classList.remove("open")})})});document.addEventListener("click",()=>document.querySelectorAll(".nav-dropdown").forEach(d=>d.classList.remove("open")))})();</script>';
 for(const file of ['strumenti/emergency-fund/index.html','strumenti/index.html','strumenti/strategy-lab/index.html']){if(!fs.existsSync(file))continue;let h=fs.readFileSync(file,'utf8');h=h.replace(/<nav\b[^>]*class=["'][^"']*navlinks[^"']*["'][^>]*>[\s\S]*?<\/nav>/i,nav);if(!h.includes('id="finlab-static-nav"'))h=h.replace('</head>',css+'</head>');if(!h.includes('id="finlab-static-nav-script"'))h=h.replace('</body>',js+'</body>');fs.writeFileSync(file,h)}
+
 const learning='impara/index.html';
 const extra=fs.existsSync('learning-extra.html')?fs.readFileSync('learning-extra.html','utf8'):'';
-if(fs.existsSync(learning)&&extra&&!fs.readFileSync(learning,'utf8').includes('id="capitoli-extra"')){let h=fs.readFileSync(learning,'utf8');h=h.replace('</main>',extra+'</main>');h=h.replace('Otto capitoli','Dieci capitoli');fs.writeFileSync(learning,h);console.log('FINLAB chapters 09 and 10 added; chapters 01-08 unchanged')}
+if(fs.existsSync(learning)&&extra&&!fs.readFileSync(learning,'utf8').includes('id="percorso-avanzato"')){
+  let h=fs.readFileSync(learning,'utf8');
+  h=h.replace('</main>',extra+'</main>');
+  h=h.replace(/Otto capitoli/gi,'Dieci capitoli');
+  fs.writeFileSync(learning,h);
+  console.log('FINLAB advanced learning added: chapters 09–10; chapters 01–08 unchanged');
+}else if(fs.existsSync(learning)&&fs.readFileSync(learning,'utf8').includes('id="percorso-avanzato"')){
+  console.log('FINLAB advanced learning already present');
+}
 console.log('FINLAB static patch complete');
