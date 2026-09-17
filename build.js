@@ -23,5 +23,5 @@ fs.mkdirSync('impara',{recursive:true});fs.mkdirSync(path.join('strumenti','inte
 fs.writeFileSync('index.html',shell('FINLAB — Educazione finanziaria',`${hero}${platform}`,[['/','⌂','Home'],['/impara/','▦','Impara'],['#tools','⌘','Strumenti']]));
 fs.writeFileSync('impara/index.html',shell('FINLAB — Impara',`${get('inizio')}${get('percorso')}`,[['/','⌂','Home'],['/impara/','▦','Impara'],['#tools','⌘','Strumenti']]));
 const interest=get('strumenti').replace(/id=[\"']strumenti[\"']/i,'id=\"interesse-composto\"').replace('Impara anche attraverso i numeri.','Interesse composto.');
-fs.writeFileSync(path.join('strumenti','interesse-composto','index.html'),shell('FINLAB — Interesse composto',interest,[['/','⌂','Home'],['/impara/','▦','Strumenti'],['#tools','⌘','Strumenti']]));
+fs.writeFileSync(path.join('strumenti','interesse-composto','index.html'),shell('FINLAB — Interesse composto',interest,[['/','⌂','Home'],['/impara/','▦','Impara'],['#tools','⌘','Strumenti']]));
 console.log('FINLAB pages built: home, impara, interesse composto');
