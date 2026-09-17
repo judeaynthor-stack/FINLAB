@@ -1,1 +1,1 @@
-{"buildCommand":"node build.js","outputDirectory":".","rewrites":[{"source":"/","destination":"/home-new.html"},{"source":"/impara","destination":"/impara/index.html"},{"source":"/strumenti","destination":"/strumenti-new.html"}]}
+{"buildCommand":"node build.js","outputDirectory":"."}
