@@ -1,23 +1,190 @@
-const fs=require('fs'),path=require('path');
-const source=fs.readFileSync('source.html','utf8');
-function tag(html,name,pred=()=>true){const re=new RegExp(`<${name}\\b[^>]*>`,'gi');let m;while(m=re.exec(html)){if(!pred(m[0]))continue;const start=m.index,t=new RegExp(`<\\/?${name}\\b[^>]*>`,'gi');t.lastIndex=re.lastIndex;let d=1,x;while(x=t.exec(html)){if(x[0].startsWith('</'))d--;else if(!x[0].endsWith('/>'))d++;if(!d)return html.slice(start,t.lastIndex)}}return ''}
-function sections(body){const out=[],re=/<\\/?section\\b[^>]*>/gi;let d=0,s=-1,m;while(m=re.exec(body)){if(!m[0].startsWith('</')){if(!d)s=m.index;d++}else{d--;if(!d&&s>=0){const html=body.slice(s,re.lastIndex),id=(html.match(/<section\\b[^>]*\\bid=["']([^"']+)["']/i)||[])[1]||'';out.push({id,html});s=-1}}}return out}
-const head=(source.match(/<head>[\\s\\S]*?<\\/head>/i)||['<head></head>'])[0];
-const body=(source.match(/<body[^>]*>([\\s\\S]*?)<\\/body>/i)||['',''])[1];
-const header=tag(body,'header'),footer=tag(body,'footer');
-const mobile=tag(body,'nav',x=>/\\bid=["']appNav["']/i.test(x));
-const scripts=[...body.matchAll(/<script\\b[^>]*>[\\s\\S]*?<\\/script>/gi)].map(x=>x[0]).join('\\n');
-const sec=sections(body),get=id=>sec.find(x=>x.id===id)?.html||'';
-const hero=(sec.find(x=>!x.id&&/class=["'][^"']*\\bhero\\b/i.test(x.html))?.html||'').replace(/href=["']#percorso["']/g,'href="/impara/"').replace(/href=["']#strumenti["']/g,'href="/strumenti/interesse-composto/"').replace(/href=["']#inizio["']/g,'href="/impara/"');
-const platform=sec.find(x=>!x.id&&/class=["'][^"']*\\bplatform-strip\\b/i.test(x.html))?.html||'';
-const tools=`<div class="nav-dropdown"><button class="nav-dropdown-toggle" type="button" aria-expanded="false">Strumenti <span>⌄</span></button><div class="nav-dropdown-menu"><a href="/strumenti/interesse-composto/">Interesse composto</a><a href="/strumenti/emergency-fund/">Emergency Fund Planner</a><span>Portfolio Analyzer <small>Prossimamente</small></span><span>Strategy Lab <small>Prossimamente</small></span></div></div>`;
-const css=`<style id="finlab-builder-nav">.nav-dropdown{position:relative;display:inline-flex}.nav-dropdown-toggle{border:0;background:none;color:inherit;font:inherit;cursor:pointer;padding:0}.nav-dropdown-toggle span{color:var(--gold);font-size:12px}.nav-dropdown-menu{display:none;position:absolute;right:0;top:calc(100% + 14px);width:260px;background:#11110f;border:1px solid #35332e;box-shadow:0 18px 45px #0009;padding:7px;z-index:1000}.nav-dropdown.open .nav-dropdown-menu{display:block}.nav-dropdown-menu a,.nav-dropdown-menu span{display:block;padding:12px 13px;color:#aaa69d;font-size:13px;border-bottom:1px solid #24231f}.nav-dropdown-menu a:hover{color:#fff;background:#171613}.nav-dropdown-menu span:last-child{border:0;color:#68645d}.nav-dropdown-menu small{float:right;color:#4f4b45;font-size:9px;text-transform:uppercase}.mobile-tools-panel{display:none}@media(max-width:850px){.nav-dropdown{display:none}}@media(max-width:650px){#appNav{grid-template-columns:repeat(5,1fr)!important}.mobile-tools-panel{position:fixed;left:12px;right:12px;bottom:82px;z-index:1100;background:#11110f;border:1px solid #35332e;box-shadow:0 18px 45px #0009;padding:7px;border-radius:16px}.mobile-tools-panel.open{display:block}.mobile-tools-panel a,.mobile-tools-panel span{display:block;padding:13px;color:#aaa69d;font-size:12px;border-bottom:1px solid #24231f}.mobile-tools-panel span{color:#68645d}.mobile-tools-panel small{float:right;color:#4f4b45;font-size:9px;text-transform:uppercase}}</style>`;
-const js=`<script id="finlab-builder-nav-script">(()=>{document.querySelectorAll('.nav-dropdown').forEach(d=>{const b=d.querySelector('button');b.onclick=e=>{e.stopPropagation();d.classList.toggle('open');b.setAttribute('aria-expanded',d.classList.contains('open'))}});document.addEventListener('click',()=>document.querySelectorAll('.nav-dropdown').forEach(d=>d.classList.remove('open')));const n=document.querySelector('#appNav');if(!n)return;const a=document.createElement('a');a.href='#';a.className='app-nav-tools';a.innerHTML='<span class="app-nav-icon">⌘</span><span>Strumenti</span>';n.insertBefore(a,n.lastElementChild);const p=document.createElement('div');p.className='mobile-tools-panel';p.innerHTML='<a href="/strumenti/interesse-composto/">Interesse composto</a><a href="/strumenti/emergency-fund/">Emergency Fund Planner</a><span>Portfolio Analyzer <small>Prossimamente</small></span><span>Strategy Lab <small>Prossimamente</small></span>';document.body.appendChild(p);a.onclick=e=>{e.preventDefault();e.stopPropagation();p.classList.toggle('open')};p.onclick=e=>e.stopPropagation()})();</script>`;
-function nav(h){return h.replace(/<nav\\b([^>]*class=["'][^"']*navlinks[^"']*["'][^>]*)>[\\s\\S]*?<\\/nav>/i,(_,a)=>`<nav${a}><a href="/">Home</a><a href="/impara/">Impara</a>${tools}<a href="/#importante">Metodo</a></nav>`)}
-function shell(title,content,links){let h=nav(header);if(!h.includes('href="/"'))h=h.replace(/<a class="brand" href="#top">/i,'<a class="brand" href="/">');const m=mobile.replace(/<nav\\b([^>]*id=["']appNav["'][^>]*)>[\\s\\S]*?<\\/nav>/i,(_,a)=>`<nav${a}>${links.map(x=>`<a href="${x[0]}"><span class="app-nav-icon">${x[1]}</span><span>${x[2]}</span></a>`).join('')}</nav>`);return `<!DOCTYPE html><html lang="it">${head.replace(/<title>[\\s\\S]*?<\\/title>/i,`<title>${title}</title>`)}${css}<body>${h}<main>${content}</main>${footer}${scripts}${m}${js}</body></html>`}
-fs.mkdirSync('impara',{recursive:true});fs.mkdirSync(path.join('strumenti','interesse-composto'),{recursive:true});
-fs.writeFileSync('index.html',shell('FINLAB — Educazione finanziaria',`${hero}${platform}${get('importante')}`,[['/','⌂','Home'],['/impara/','▦','Impara'],['#tools','⌘','Strumenti'],['/#importante','◎','Metodo']]));
-fs.writeFileSync('impara/index.html',shell('FINLAB — Impara',`${get('inizio')}${get('percorso')}`,[['/','⌂','Home'],['/impara/','▦','Impara'],['#tools','⌘','Strumenti'],['/impara/#lessonSearch','⌕','Cerca']]));
-const interest=get('strumenti').replace(/id=["']strumenti["']/i,'id="interesse-composto"').replace('Impara anche attraverso i numeri.','Interesse composto.');
-fs.writeFileSync(path.join('strumenti','interesse-composto','index.html'),shell('FINLAB — Interesse composto',interest,[['/','⌂','Home'],['/impara/','▦','Impara'],['#tools','⌘','Strumenti'],['/impara/#lessonSearch','⌕','Cerca']]));
+const fs = require('fs'), path = require('path');
+
+const source = fs.readFileSync('source.html', 'utf8');
+
+function tag(html, name, pred = () => true) {
+  const re = new RegExp(`<${name}\\b[^>]*>`, 'gi');
+  let m;
+  while ((m = re.exec(html))) {
+    if (!pred(m[0])) continue;
+    const start = m.index;
+    const t = new RegExp(`<\\/?${name}\\b[^>]*>`, 'gi');
+    t.lastIndex = re.lastIndex;
+    let d = 1, x;
+    while ((x = t.exec(html))) {
+      if (x[0].startsWith('</')) d--;
+      else if (!x[0].endsWith('/>')) d++;
+      if (!d) return html.slice(start, t.lastIndex);
+    }
+  }
+  return '';
+}
+
+function sections(body) {
+  const out = [];
+  const re = /<\/?section\b[^>]*>/gi;
+  let d = 0, s = -1, m;
+
+  while ((m = re.exec(body))) {
+    if (!m[0].startsWith('</')) {
+      if (!d) s = m.index;
+      d++;
+    } else {
+      d--;
+      if (!d && s >= 0) {
+        const html = body.slice(s, re.lastIndex);
+        const id = (html.match(/<section\b[^>]*\bid=["']([^"']+)["']/i) || [])[1] || '';
+        out.push({ id, html });
+        s = -1;
+      }
+    }
+  }
+  return out;
+}
+
+const head = (source.match(/<head>[\s\S]*?<\/head>/i) || ['<head></head>'])[0];
+const body = (source.match(/<body[^>]*>([\s\S]*?)<\/body>/i) || ['', ''])[1];
+
+const header = tag(body, 'header');
+const footer = tag(body, 'footer');
+const mobile = tag(body, 'nav', x => /\bid=["']appNav["']/i.test(x));
+const scripts = [...body.matchAll(/<script\b[^>]*>[\s\S]*?<\/script>/gi)].map(x => x[0]).join('\n');
+
+const sec = sections(body);
+const get = id => sec.find(x => x.id === id)?.html || '';
+
+const hero = (sec.find(x => !x.id && /class=["'][^"']*\bhero\b/i.test(x.html))?.html || '')
+  .replace(/href=["']#percorso["']/g, 'href="/impara/"')
+  .replace(/href=["']#strumenti["']/g, 'href="/strumenti/interesse-composto/"')
+  .replace(/href=["']#inizio["']/g, 'href="/impara/"');
+
+const platform = sec.find(x => !x.id && /class=["'][^"']*\bplatform-strip\b/i.test(x.html))?.html || '';
+
+const tools = `<div class="nav-dropdown">
+  <button class="nav-dropdown-toggle" type="button" aria-expanded="false">Strumenti <span>⌄</span></button>
+  <div class="nav-dropdown-menu">
+    <a href="/strumenti/interesse-composto/">Interesse composto</a>
+    <a href="/strumenti/emergency-fund/">Emergency Fund Planner</a>
+    <span>Portfolio Analyzer <small>Prossimamente</small></span>
+    <span>Strategy Lab <small>Prossimamente</small></span>
+  </div>
+</div>`;
+
+const css = `<style id="finlab-builder-nav">
+.nav-dropdown{position:relative;display:inline-flex}
+.nav-dropdown-toggle{border:0;background:none;color:inherit;font:inherit;cursor:pointer;padding:0}
+.nav-dropdown-toggle span{color:var(--gold);font-size:12px}
+.nav-dropdown-menu{display:none;position:absolute;right:0;top:calc(100% + 14px);width:260px;background:#11110f;border:1px solid #35332e;box-shadow:0 18px 45px #0009;padding:7px;z-index:1000}
+.nav-dropdown.open .nav-dropdown-menu{display:block}
+.nav-dropdown-menu a,.nav-dropdown-menu span{display:block;padding:12px 13px;color:#aaa69d;font-size:13px;border-bottom:1px solid #24231f}
+.nav-dropdown-menu a:hover{color:#fff;background:#171613}
+.nav-dropdown-menu span:last-child{border:0;color:#68645d}
+.nav-dropdown-menu small{float:right;color:#4f4b45;font-size:9px;text-transform:uppercase}
+.mobile-tools-panel{display:none}
+@media(max-width:850px){.nav-dropdown{display:none}}
+@media(max-width:650px){
+  #appNav{grid-template-columns:repeat(5,1fr)!important}
+  .mobile-tools-panel{position:fixed;left:12px;right:12px;bottom:82px;z-index:1100;background:#11110f;border:1px solid #35332e;box-shadow:0 18px 45px #0009;padding:7px;border-radius:16px}
+  .mobile-tools-panel.open{display:block}
+  .mobile-tools-panel a,.mobile-tools-panel span{display:block;padding:13px;color:#aaa69d;font-size:12px;border-bottom:1px solid #24231f}
+  .mobile-tools-panel span{color:#68645d}
+  .mobile-tools-panel small{float:right;color:#4f4b45;font-size:9px;text-transform:uppercase}
+}
+</style>`;
+
+const js = `<script id="finlab-builder-nav-script">
+(()=> {
+  document.querySelectorAll('.nav-dropdown').forEach(d => {
+    const b = d.querySelector('button');
+    b.onclick = e => {
+      e.stopPropagation();
+      d.classList.toggle('open');
+      b.setAttribute('aria-expanded', d.classList.contains('open'));
+    };
+  });
+
+  document.addEventListener('click', () =>
+    document.querySelectorAll('.nav-dropdown').forEach(d => d.classList.remove('open'))
+  );
+
+  const n = document.querySelector('#appNav');
+  if (!n) return;
+
+  const a = document.createElement('a');
+  a.href = '#';
+  a.className = 'app-nav-tools';
+  a.innerHTML = '<span class="app-nav-icon">⌘</span><span>Strumenti</span>';
+  n.insertBefore(a, n.lastElementChild);
+
+  const p = document.createElement('div');
+  p.className = 'mobile-tools-panel';
+  p.innerHTML = '<a href="/strumenti/interesse-composto/">Interesse composto</a><a href="/strumenti/emergency-fund/">Emergency Fund Planner</a><span>Portfolio Analyzer <small>Prossimamente</small></span><span>Strategy Lab <small>Prossimamente</small></span>';
+  document.body.appendChild(p);
+
+  a.onclick = e => {
+    e.preventDefault();
+    e.stopPropagation();
+    p.classList.toggle('open');
+  };
+
+  p.onclick = e => e.stopPropagation();
+})();
+</script>`;
+
+function nav(h) {
+  return h.replace(
+    /<nav\b([^>]*class=["'][^"']*navlinks[^"']*["'][^>]*)>[\s\S]*?<\/nav>/i,
+    (_, a) => `<nav${a}><a href="/">Home</a><a href="/impara/">Impara</a>${tools}<a href="/#importante">Metodo</a></nav>`
+  );
+}
+
+function shell(title, content, links) {
+  let h = nav(header);
+
+  if (!h.includes('href="/"')) {
+    h = h.replace(/<a class="brand" href="#top">/i, '<a class="brand" href="/">');
+  }
+
+  const m = mobile.replace(
+    /<nav\b([^>]*id=["']appNav["'][^>]*)>[\s\S]*?<\/nav>/i,
+    (_, a) => `<nav${a}>${links.map(x => `<a href="${x[0]}"><span class="app-nav-icon">${x[1]}</span><span>${x[2]}</span></a>`).join('')}</nav>`
+  );
+
+  return `<!DOCTYPE html><html lang="it">${head.replace(/<title>[\s\S]*?<\/title>/i, `<title>${title}</title>`)}${css}<body>${h}<main>${content}</main>${footer}${scripts}${m}${js}</body></html>`;
+}
+
+fs.mkdirSync('impara', { recursive: true });
+fs.mkdirSync(path.join('strumenti', 'interesse-composto'), { recursive: true });
+
+fs.writeFileSync(
+  'index.html',
+  shell(
+    'FINLAB — Educazione finanziaria',
+    `${hero}${platform}${get('importante')}`,
+    [['/', '⌂', 'Home'], ['/impara/', '▦', 'Impara'], ['#tools', '⌘', 'Strumenti'], ['/#importante', '◎', 'Metodo']]
+  )
+);
+
+fs.writeFileSync(
+  'impara/index.html',
+  shell(
+    'FINLAB — Impara',
+    `${get('inizio')}${get('percorso')}`,
+    [['/', '⌂', 'Home'], ['/impara/', '▦', 'Impara'], ['#tools', '⌘', 'Strumenti'], ['/impara/#lessonSearch', '⌕', 'Cerca']]
+  )
+);
+
+const interest = get('strumenti')
+  .replace(/id=["']strumenti["']/i, 'id="interesse-composto"')
+  .replace('Impara anche attraverso i numeri.', 'Interesse composto.');
+
+fs.writeFileSync(
+  path.join('strumenti', 'interesse-composto', 'index.html'),
+  shell(
+    'FINLAB — Interesse composto',
+    interest,
+    [['/', '⌂', 'Home'], ['/impara/', '▦', 'Impara'], ['#tools', '⌘', 'Strumenti'], ['/impara/#lessonSearch', '⌕', 'Cerca']]
+  )
+);
+
 console.log('FINLAB pages built: home, impara, interesse composto');
