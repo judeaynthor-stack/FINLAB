@@ -42,6 +42,158 @@
 #strumenti .sim-intro{margin-top:18px;margin-bottom:20px}
 #importante .darkbox{padding:28px}
 @media(max-width:650px){#strumenti.section,#importante.section{padding-top:42px;padding-bottom:42px}#strumenti.section h2,#importante.section h2{font-size:32px}#importante .darkbox{padding:21px}}
+
+/* FINLAB — iOS-inspired rounded UI pass */
+:root{
+  --radius-card:24px;
+  --radius-panel:22px;
+  --radius-control:16px;
+  --radius-pill:999px;
+}
+.card,
+.start-card,
+.chapter-panel,
+.darkbox,
+.chart-wrap,
+.form,
+.path-guide,
+.path-card,
+.topic-detail,
+.sim-intro,
+.feedback-note,
+.journey-stat,
+.journey-note,
+.paper,
+.platform-strip,
+.platform-dashboard{
+  border-radius:var(--radius-card);
+}
+.chapter-card{
+  border-radius:26px !important;
+  overflow:hidden;
+  -webkit-tap-highlight-color:transparent;
+}
+.chapter-card:hover{
+  transform:translateY(-2px);
+  box-shadow:0 12px 30px rgba(0,0,0,.18);
+}
+.chapter-card:active{
+  transform:scale(.985);
+}
+.chapter-card .chapter-status{
+  border-radius:var(--radius-pill) !important;
+  min-width:58px;
+  text-align:center;
+}
+.chapter-card .open-label{
+  display:inline-flex !important;
+  align-items:center;
+  gap:8px;
+  padding:10px 15px;
+  border:1px solid #3a3832;
+  border-radius:var(--radius-pill);
+  transition:background .2s ease,border-color .2s ease,transform .2s ease;
+}
+.chapter-card:hover .open-label{
+  border-color:#5b5548;
+  background:#171613;
+}
+.chapter-card:active .open-label{
+  transform:scale(.97);
+}
+.topic{
+  border-radius:18px;
+  min-height:54px;
+  -webkit-tap-highlight-color:transparent;
+}
+.topic:active{
+  transform:scale(.985);
+}
+.topic-detail{
+  border-radius:20px;
+}
+.btn,
+.source-link,
+.badge,
+.arrow{
+  border-radius:var(--radius-pill);
+}
+.field input{
+  border-radius:14px;
+}
+.calc-btn{
+  min-height:48px;
+  padding-inline:20px;
+}
+.progress-track{
+  border-radius:var(--radius-pill);
+}
+.bar{
+  border-radius:10px 10px 2px 2px;
+}
+.section-actions .btn{
+  min-height:44px;
+}
+.app-nav{
+  border-radius:28px !important;
+  overflow:hidden;
+  margin-left:12px !important;
+  margin-right:12px !important;
+  margin-bottom:max(12px,env(safe-area-inset-bottom)) !important;
+  padding:7px 8px !important;
+  background:rgba(12,12,11,.88) !important;
+  backdrop-filter:blur(22px) saturate(140%);
+  -webkit-backdrop-filter:blur(22px) saturate(140%);
+  border:1px solid #3a3832 !important;
+  box-shadow:0 12px 35px rgba(0,0,0,.38);
+}
+.app-nav a{
+  border-radius:20px !important;
+  min-height:54px;
+  transition:background .2s ease,transform .15s ease,color .2s ease;
+}
+.app-nav a:active{
+  transform:scale(.94);
+}
+.app-nav a:hover{
+  background:rgba(255,255,255,.045);
+}
+.app-nav-icon{
+  width:34px !important;
+  height:34px !important;
+  display:inline-flex !important;
+  align-items:center;
+  justify-content:center;
+  border-radius:50% !important;
+}
+@media(max-width:650px){
+  .card,
+  .start-card,
+  .chapter-panel,
+  .darkbox,
+  .chart-wrap,
+  .form,
+  .path-guide,
+  .path-card{
+    border-radius:20px;
+  }
+  .chapter-card{
+    border-radius:24px !important;
+    padding:22px !important;
+  }
+  .topic{
+    border-radius:16px;
+  }
+  .app-nav{
+    border-radius:26px !important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .chapter-card,.topic,.app-nav a,.btn,.chapter-card .open-label{
+    transition:none !important;
+  }
+}
+
 </style>
 </head>
 <body>
