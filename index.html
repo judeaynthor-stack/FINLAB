@@ -194,6 +194,118 @@
   }
 }
 
+
+/* FINLAB — extra-rounded mobile/app UI */
+:root{
+  --radius-card-xl:34px;
+  --radius-card-lg:30px;
+  --radius-control-xl:24px;
+  --radius-icon-xl:18px;
+}
+/* Chapter cards: clearly rounded, never squared */
+.chapter-card,
+.chapter-card.card{
+  border-radius:34px !important;
+  overflow:hidden !important;
+  clip-path:inset(0 round 34px);
+}
+.chapter-card .chapter-status{
+  border-radius:999px !important;
+  min-width:62px;
+  min-height:44px;
+  padding:8px 14px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+/* Every small rectangular interactive element gets softer corners */
+.chapter-card .open-label,
+.chapter-card button,
+.chapter-card a,
+.section-actions .btn,
+.btn,
+.source-link,
+.badge,
+.topic,
+.topic button,
+.lesson-complete,
+.quiz-check,
+.arrow,
+.start-card,
+.path-card,
+.journey-stat,
+.form,
+.field input,
+.chart-wrap,
+.darkbox,
+.chapter-panel,
+.topic-detail,
+.feedback-note,
+.sim-intro,
+.path-guide{
+  border-radius:var(--radius-control-xl) !important;
+}
+/* Icon containers: round rather than rounded-square */
+.app-nav-icon,
+.icon,
+[class*="icon"]{
+  border-radius:50% !important;
+}
+/* Bottom app navigation */
+.app-nav{
+  border-radius:32px !important;
+  overflow:hidden !important;
+}
+.app-nav a{
+  border-radius:24px !important;
+}
+.app-nav-icon{
+  width:36px !important;
+  height:36px !important;
+  min-width:36px !important;
+  border-radius:50% !important;
+}
+/* Circular arrow controls */
+.arrow{
+  border-radius:50% !important;
+}
+/* Mobile touch targets */
+@media(max-width:650px){
+  .chapter-card,
+  .chapter-card.card{
+    border-radius:32px !important;
+    clip-path:inset(0 round 32px);
+    padding:24px !important;
+  }
+  .chapter-card .chapter-status{
+    min-width:60px;
+    min-height:42px;
+  }
+  .chapter-card .open-label{
+    border-radius:999px !important;
+    padding:11px 17px;
+  }
+  .topic{
+    border-radius:20px !important;
+  }
+  .app-nav{
+    border-radius:30px !important;
+  }
+}
+/* Keep the rounded language consistent across desktop/tablet too */
+@media(min-width:651px){
+  .card,
+  .start-card,
+  .chapter-panel,
+  .darkbox,
+  .chart-wrap,
+  .form,
+  .path-guide,
+  .path-card{
+    border-radius:26px;
+  }
+}
+
 </style>
 </head>
 <body>
