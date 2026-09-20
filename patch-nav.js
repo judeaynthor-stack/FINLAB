@@ -4,15 +4,4 @@ const css='<style id="finlab-static-nav">.navlinks{display:flex;gap:30px;align-i
 const js='<script id="finlab-static-nav-script">(()=>{document.querySelectorAll(".nav-dropdown").forEach(d=>{const b=d.querySelector("button");b?.addEventListener("click",e=>{e.stopPropagation();const open=d.classList.toggle("open");b.setAttribute("aria-expanded",String(open));document.querySelectorAll(".nav-dropdown").forEach(x=>{if(x!==d)x.classList.remove("open")})})});document.addEventListener("click",()=>document.querySelectorAll(".nav-dropdown").forEach(d=>d.classList.remove("open")))})();</script>';
 for(const file of ['strumenti/emergency-fund/index.html','strumenti/index.html','strumenti/strategy-lab/index.html']){if(!fs.existsSync(file))continue;let h=fs.readFileSync(file,'utf8');h=h.replace(/<nav\b[^>]*class=["'][^"']*navlinks[^"']*["'][^>]*>[\s\S]*?<\/nav>/i,nav);if(!h.includes('id="finlab-static-nav"'))h=h.replace('</head>',css+'</head>');if(!h.includes('id="finlab-static-nav-script"'))h=h.replace('</body>',js+'</body>');fs.writeFileSync(file,h)}
 
-const learning='impara/index.html';
-const extra=fs.existsSync('learning-extra.html')?fs.readFileSync('learning-extra.html','utf8'):'';
-if(fs.existsSync(learning)&&extra&&!fs.readFileSync(learning,'utf8').includes('id="percorso-avanzato"')){
-  let h=fs.readFileSync(learning,'utf8');
-  h=h.replace('</main>',extra+'</main>');
-  h=h.replace(/Otto capitoli/gi,'Dieci capitoli');
-  fs.writeFileSync(learning,h);
-  console.log('FINLAB advanced learning added: chapters 09–10; chapters 01–08 unchanged');
-}else if(fs.existsSync(learning)&&fs.readFileSync(learning,'utf8').includes('id="percorso-avanzato"')){
-  console.log('FINLAB advanced learning already present');
-}
 console.log('FINLAB static patch complete');
