@@ -184,17 +184,17 @@ input:focus,select:focus,textarea:focus{outline:none;box-shadow:0 0 0 4px rgba(2
   <h2>Leggi il tuo portafoglio.</h2>
   <div class="pa-intro">
     <strong>Una fotografia chiara di ciò che possiedi.</strong>
-    <p>Inserisci ticker o ISIN: FINLAB riconosce automaticamente lo strumento e recupera categoria, settore, geografia, TER e dividendo quando i dati sono disponibili. Tu inserisci solo valore attuale e capitale investito.</p>
+    <p>Inserisci manualmente i dati descrittivi delle tue posizioni. FINLAB li usa per costruire una fotografia del portafoglio, senza collegamenti a provider esterni.</p>
   </div>
 
   <div class="portfolio-analyzer">
     <div class="pa-input">
       <div class="eyebrow">01 — POSIZIONI</div>
       <h3 style="font:normal 28px Georgia,serif;margin:10px 0 8px">Inserisci il portafoglio</h3>
-      <p class="lead" style="font-size:13px">Cerca un ticker o ISIN. Dopo il riconoscimento, FINLAB compila automaticamente le informazioni descrittive; valore attuale e investito restano a tuo carico.</p>
+      <p class="lead" style="font-size:13px">Inserisci il nome dello strumento, scegli categoria, settore e geografia. Valore e capitale investito sono i dati necessari per l'analisi; TER e dividendo sono opzionali.</p>
 
       <div class="pa-table" id="paRows">
-        <div class="pa-row head"><span>Ticker / ISIN</span><span>Strumento</span><span>Categoria</span><span>Valore</span><span>Investito</span><span>Rimuovi</span></div>
+        <div class="pa-row head"><span>Strumento</span><span>Categoria</span><span>Valore</span><span>Investito</span><span>Rimuovi</span></div>
       </div>
 
       <div class="pa-actions">
@@ -202,7 +202,7 @@ input:focus,select:focus,textarea:focus{outline:none;box-shadow:0 0 0 4px rgba(2
         <button class="btn primary" id="paAnalyze" type="button">Analizza portafoglio</button>
       </div>
 
-      <div class="pa-disclaimer">I dati identificativi e di classificazione provengono dal provider collegato e possono essere incompleti o aggiornarsi nel tempo. Per gli ETF, la geografia può usare regioni e paesi delle partecipazioni disponibili; per le azioni, la geografia rappresenta il paese associato allo strumento. FINLAB non interpreta questi dati come indicazioni di acquisto o vendita.</div>
+      <div class="pa-disclaimer">I dati vengono inseriti da te e non vengono recuperati automaticamente da servizi esterni. TER e dividendo possono essere lasciati vuoti. Le classificazioni di settore e geografia servono a leggere l'esposizione del portafoglio e non costituiscono indicazioni di acquisto o vendita.</div>
     </div>
 
     <div class="pa-dashboard">
@@ -402,147 +402,69 @@ input:focus,select:focus,textarea:focus{outline:none;box-shadow:0 0 0 4px rgba(2
   const rows=document.querySelector('#paRows'), add=document.querySelector('#paAdd'), analyze=document.querySelector('#paAnalyze');
   if(!rows||!add||!analyze)return;
   const colors=['#d0b477','#9c927f','#6f685b','#c9c4b9','#77736b','#b8ad99','#514e47'];
+  const categories=["Azione","ETF","Obbligazione","Crypto","Fondo","ETC","ETP","REIT","Materia prima","Liquidità","Derivato","Altro"];
+  const sectors=["Tecnologia","Semiconduttori","Software","Hardware","Internet e servizi digitali","Telecomunicazioni","Servizi di comunicazione","Finanza","Banche","Assicurazioni","Servizi finanziari","Fintech","Sanità","Biotecnologia","Farmaceutica","Dispositivi medici","Servizi sanitari","Industria","Aerospace & Defense","Automotive","Trasporti","Logistica","Macchinari","Infrastrutture","Energia","Energia e acqua","Petrolio e gas","Utilities","Materiali di base","Metalli e minerario","Chimica","Beni di consumo","Beni di consumo discrezionali","Beni di consumo di base","Alimentari e bevande","Retail","Immobiliare","Costruzioni","Turismo e tempo libero","Media e intrattenimento","Agricoltura","Servizi professionali","Altro / Diversificato"];
+  const geographies=["Globale","Globale ex USA","Europa","Europa ex Regno Unito","Eurozona","Regno Unito","Mercati emergenti","Emergenti ex Cina","Asia","Asia ex Giappone","Nord America","Oceania","Pacifico","USA","Canada","Giappone","Cina","India","Corea del Sud","Hong Kong","Taiwan","Singapore","Australia","Nuova Zelanda","Brasile","Messico","Sudafrica","Arabia Saudita","Emirati Arabi Uniti","Afghanistan","Albania","Algeria","Andorra","Angola","Antigua e Barbuda","Argentina","Armenia","Australia","Austria","Azerbaigian","Bahamas","Bahrein","Bangladesh","Barbados","Belarus","Belgio","Belize","Benin","Bhutan","Bolivia","Bosnia ed Erzegovina","Botswana","Brasile","Brunei","Bulgaria","Burkina Faso","Burundi","Cabo Verde","Cambogia","Camerun","Canada","Ciad","Cile","Cina","Cipro","Colombia","Comore","Congo","Corea del Nord","Corea del Sud","Costa d'Avorio","Costa Rica","Croazia","Cuba","Danimarca","Dominica","Ecuador","Egitto","El Salvador","Emirati Arabi Uniti","Eritrea","Estonia","Eswatini","Etiopia","Figi","Filippine","Finlandia","Francia","Gabon","Gambia","Georgia","Germania","Ghana","Giamaica","Giappone","Gibuti","Giordania","Grecia","Grenada","Guatemala","Guinea","Guinea-Bissau","Guinea Equatoriale","Guyana","Haiti","Honduras","India","Indonesia","Iran","Iraq","Irlanda","Islanda","Isole Marshall","Isole Salomone","Israele","Italia","Kazakhstan","Kenya","Kirghizistan","Kiribati","Kuwait","Laos","Lesotho","Lettonia","Libano","Liberia","Libia","Liechtenstein","Lituania","Lussemburgo","Macedonia del Nord","Madagascar","Malawi","Maldive","Malesia","Mali","Malta","Marocco","Mauritania","Mauritius","Messico","Micronesia","Moldavia","Monaco","Mongolia","Montenegro","Mozambico","Myanmar","Namibia","Nauru","Nepal","Nicaragua","Niger","Nigeria","Norvegia","Nuova Zelanda","Oman","Paesi Bassi","Pakistan","Palau","Panama","Papua Nuova Guinea","Paraguay","Perù","Polonia","Portogallo","Qatar","Repubblica Ceca","Repubblica Centrafricana","Repubblica Democratica del Congo","Repubblica Dominicana","Romania","Russia","Ruanda","Saint Kitts e Nevis","Saint Lucia","Saint Vincent e Grenadine","Samoa","San Marino","Sao Tomé e Principe","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Siria","Slovacchia","Slovenia","Somalia","Spagna","Sri Lanka","Stati Uniti","Sudafrica","Sudan","Sudan del Sud","Suriname","Svezia","Svizzera","Tagikistan","Tanzania","Thailandia","Timor Est","Togo","Tonga","Trinidad e Tobago","Tunisia","Turchia","Turkmenistan","Tuvalu","Ucraina","Uganda","Ungheria","Uruguay","Uzbekistan","Vanuatu","Vaticano","Venezuela","Vietnam","Yemen","Zambia","Zimbabwe","Palestina","Kosovo","Taiwan"];
   let rowId=0;
-
   function money(n){return new Intl.NumberFormat('it-IT',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(n||0)}
   function pct(n){return (n||0).toLocaleString('it-IT',{maximumFractionDigits:1})+'%'}
   function safe(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
-  function meta(value='—'){return safe(value||'—')}
-
+  function selectHtml(list,placeholder,value=''){
+    return '<select class="pa-select"><option value="">'+placeholder+'</option>'+list.map(x=>'<option value="'+safe(x)+'"'+(x===value?' selected':'')+'>'+safe(x)+'</option>').join('')+'</select>';
+  }
+  function metaInput(cls,placeholder,value=''){
+    return '<input class="'+cls+' pa-small-input" type="number" min="0" step="0.01" placeholder="'+placeholder+'" value="'+(value??'')+'">';
+  }
   function addRow(data={}){
-    const id=++rowId;
-    const row=document.createElement('div'); row.className='pa-row'; row.dataset.rowId=id;
-    row.innerHTML=`<input class="pa-lookup" aria-label="Ticker o ISIN" placeholder="es. VWCE, AAPL o ISIN" value="${safe(data.query||'')}">
-      <div><input class="pa-name" aria-label="Nome strumento" placeholder="Nome strumento" value="${safe(data.name||'')}" readonly></div>
-      <div><input class="pa-cat" aria-label="Categoria" placeholder="Categoria" value="${safe(data.cat||'')}" readonly></div>
-      <input class="pa-value" aria-label="Valore attuale" type="number" min="0" step="0.01" placeholder="Valore €" value="${data.value||''}">
-      <input class="pa-invested" aria-label="Capitale investito" type="number" min="0" step="0.01" placeholder="Investito €" value="${data.invested||''}">
-      <button class="pa-remove" type="button" aria-label="Rimuovi posizione">×</button>
-      <div class="pa-meta">
-        <div class="pa-meta-item"><span>Settore</span><b class="pa-sector-value">${meta(data.sector)}</b></div>
-        <div class="pa-meta-item"><span>Geografia</span><b class="pa-geo-value">${meta(data.geo)}</b></div>
-        <div class="pa-meta-item"><span>TER</span><b class="pa-ter-value">${meta(data.ter)}</b></div>
-        <div class="pa-meta-item"><span>Dividendo</span><b class="pa-income-value">${meta(data.dividend)}</b></div>
-        <div class="pa-meta-item"><span>Identificativo</span><b class="pa-id-value">${meta(data.symbol)}</b></div>
-      </div>
-      <div class="pa-search-status" aria-live="polite"></div>`;
+    const id=++rowId,row=document.createElement('div');
+    row.className='pa-row';row.dataset.rowId=id;
+    row.innerHTML='<div class="pa-name-cell"><input class="pa-name" aria-label="Nome strumento" placeholder="es. Vanguard FTSE All-World"></div>'
+      +selectHtml(categories,'Categoria',data.cat)
+      +'<input class="pa-value" aria-label="Valore attuale" type="number" min="0" step="0.01" placeholder="Valore €" value="'+(data.value||'')+'">'
+      +'<input class="pa-invested" aria-label="Capitale investito" type="number" min="0" step="0.01" placeholder="Investito €" value="'+(data.invested||'')+'">'
+      +'<button class="pa-remove" type="button" aria-label="Rimuovi posizione">×</button>'
+      +'<div class="pa-meta"><div class="pa-meta-item"><span>Settore</span>'+selectHtml(sectors,'Seleziona settore',data.sector)+'</div>'
+      +'<div class="pa-meta-item"><span>Geografia</span>'+selectHtml(geographies,'Seleziona area o paese',data.geo)+'</div>'
+      +'<div class="pa-meta-item"><span>TER %</span>'+metaInput('pa-ter-input','opzionale',data.ter)+'</div>'
+      +'<div class="pa-meta-item"><span>Dividendo % <em>opzionale</em></span>'+metaInput('pa-dividend-input','opzionale',data.dividendYield)+'</div></div>';
     row.querySelector('.pa-remove').onclick=()=>{row.remove();analyzePortfolio()};
     rows.appendChild(row);
-    bindLookup(row);
   }
-
-  function applyLookup(row,d){
-    row.querySelector('.pa-name').value=d.name||'';
-    row.querySelector('.pa-cat').value=d.category||'';
-    row.querySelector('.pa-sector-value').textContent=d.sector||'Non disponibile';
-    row.querySelector('.pa-geo-value').textContent=d.geography?.length?d.geography.map(x=>x.name+' '+pct(x.weight)).join(' · '):'Non disponibile';
-    row.querySelector('.pa-ter-value').textContent=d.ter!=null?d.ter.toLocaleString('it-IT',{maximumFractionDigits:2})+'%':'Non disponibile';
-    row.querySelector('.pa-income-value').textContent=d.dividendYield!=null?d.dividendYield.toLocaleString('it-IT',{maximumFractionDigits:2})+'%':'Non disponibile';
-    row.querySelector('.pa-id-value').textContent=d.symbol||d.isin||'—';
-    row.dataset.meta=JSON.stringify(d);
-    const status=row.querySelector('.pa-search-status'); status.textContent='✓ Strumento riconosciuto'; status.className='pa-search-status ok';
-    analyzePortfolio();
-  }
-
-  async function lookup(row){
-    const input=row.querySelector('.pa-lookup'), q=input.value.trim(), status=row.querySelector('.pa-search-status');
-    if(!q){status.textContent='';status.className='pa-search-status';return}
-    status.textContent='Ricerca strumento…';status.className='pa-search-status';
-    try{
-      const res=await fetch('/api/portfolio-lookup?q='+encodeURIComponent(q),{headers:{Accept:'application/json'}});
-      const data=await res.json();
-      if(!res.ok||!data.ok)throw new Error(data.message||'Strumento non trovato');
-      applyLookup(row,data.instrument);
-    }catch(err){
-      status.textContent='⚠ '+(err.message||'Strumento non trovato');status.className='pa-search-status error';
-    }
-  }
-
-  function bindLookup(row){
-    let timer;
-    const input=row.querySelector('.pa-lookup');
-    input.addEventListener('input',()=>{
-      clearTimeout(timer);
-      const q=input.value.trim();
-      row.querySelector('.pa-name').value='';
-      row.querySelector('.pa-cat').value='';
-      if(q.length<3){row.querySelector('.pa-search-status').textContent='';return}
-      timer=setTimeout(()=>lookup(row),500);
-    });
-    input.addEventListener('blur',()=>{if(input.value.trim().length>=3)lookup(row)});
-  }
-
-  addRow(); addRow();
-  add.addEventListener('click',()=>addRow());
-
   function getData(){
     return [...rows.querySelectorAll('.pa-row:not(.head)')].map(r=>{
-      let meta={};try{meta=JSON.parse(r.dataset.meta||'{}')}catch{}
-      return {
-        name:r.querySelector('.pa-name').value.trim()||'Posizione',
-        cat:r.querySelector('.pa-cat').value.trim()||'Non indicata',
-        value:Number(r.querySelector('.pa-value').value)||0,
-        invested:Number(r.querySelector('.pa-invested').value)||0,
-        sector:meta.sector||'Non indicato',
-        geo:Array.isArray(meta.geography)?meta.geography:[],
-        ter:Number(meta.ter)||0,
-        dividendYield:Number(meta.dividendYield)||0
-      };
+      const ms=[...r.querySelectorAll('.pa-meta-item .pa-select')];
+      return {name:r.querySelector('.pa-name').value.trim()||'Posizione',cat:r.querySelector('.pa-row>.pa-select')?.value||'Non indicata',
+        value:Number(r.querySelector('.pa-value').value)||0,invested:Number(r.querySelector('.pa-invested').value)||0,
+        sector:ms[0]?.value||'Non indicato',geo:ms[1]?.value||'Non indicata',
+        ter:Number(r.querySelector('.pa-ter-input')?.value)||0,dividendYield:Number(r.querySelector('.pa-dividend-input')?.value)||0};
     }).filter(x=>x.value>0);
   }
-
   function set(id,v){const e=document.querySelector(id);if(e)e.textContent=v}
   function list(id,items){
     const e=document.querySelector(id);if(!e)return;
-    e.innerHTML=items.length?items.map(x=>`<div class="pa-list-row"><span>${safe(x[0])}</span><span>${pct(x[1])}</span></div>`).join(''):'<div class="pa-empty">Nessun dato disponibile.</div>';
+    e.innerHTML=items.length?items.map(x=>'<div class="pa-list-row"><span>'+safe(x[0])+'</span><span>'+pct(x[1])+'</span></div>').join(''):'<div class="pa-empty">Nessun dato disponibile.</div>';
   }
-
   function analyzePortfolio(){
-    const data=getData(), total=data.reduce((a,x)=>a+x.value,0), invested=data.reduce((a,x)=>a+x.invested,0), pl=total-invested, ret=invested?pl/invested*100:0;
+    const data=getData(),total=data.reduce((a,x)=>a+x.value,0),invested=data.reduce((a,x)=>a+x.invested,0),pl=total-invested,ret=invested?pl/invested*100:0;
     set('#paTotal',money(total));set('#paInvested',money(invested));set('#paPL',money(pl));set('#paReturn',pct(ret));set('#paPositions',data.length);
     const top5=[...data].sort((a,b)=>b.value-a.value).slice(0,5).reduce((a,x)=>a+x.value,0);set('#paTop5',pct(total?top5/total*100:0));
-
     const byCat={},bySector={},byGeo={};
-    data.forEach(x=>{
-      byCat[x.cat]=(byCat[x.cat]||0)+x.value;
-      if(x.sector&&x.sector!=='Non indicato')bySector[x.sector]=(bySector[x.sector]||0)+x.value;
-      x.geo.forEach(g=>{if(g.name&&g.weight>0)byGeo[g.name]=(byGeo[g.name]||0)+x.value*g.weight/100});
-    });
-
-    const catsData=Object.entries(byCat).sort((a,b)=>b[1]-a[1]), sectors=Object.entries(bySector).sort((a,b)=>b[1]-a[1]);
-    const geos=Object.entries(byGeo).sort((a,b)=>b[1]-a[1]).slice(0,10);
-    renderDonut(catsData,total);
-    list('#paSectors',sectors.map(x=>[x[0],total?x[1]/total*100:0]));
-    list('#paGeography',geos.map(x=>[x[0],total?x[1]/total*100:0]));
-
-    const concentration=[...data].sort((a,b)=>b.value-a.value).slice(0,5).map(x=>[x.name,total?x.value/total*100:0]);list('#paConcentration',concentration);
-
-    const overlaps=[];
-    Object.entries(bySector).forEach(([k,v])=>{const count=data.filter(x=>x.sector===k).length;if(count>1)overlaps.push([`${k} · ${count} posizioni`,total?v/total*100:0])});
-    Object.entries(byGeo).forEach(([k,v])=>{const count=data.reduce((n,x)=>n+x.geo.filter(g=>g.name===k).length,0);if(count>1)overlaps.push([`${k} · ${count} esposizioni`,total?v/total*100:0])});
-    list('#paOverlap',overlaps.slice(0,8));
-
-    const terBase=data.reduce((a,x)=>a+x.value*x.ter/100,0);
-    const divWeighted=data.reduce((a,x)=>a+x.value*x.dividendYield/100,0);
-    set('#paTer',pct(total?terBase/total*100:0));
-    set('#paDividends',pct(total?divWeighted/total*100:0));
-
+    data.forEach(x=>{byCat[x.cat]=(byCat[x.cat]||0)+x.value;if(x.sector&&x.sector!=='Non indicato')bySector[x.sector]=(bySector[x.sector]||0)+x.value;if(x.geo&&x.geo!=='Non indicata')byGeo[x.geo]=(byGeo[x.geo]||0)+x.value});
+    const catsData=Object.entries(byCat).sort((a,b)=>b[1]-a[1]),sectorsData=Object.entries(bySector).sort((a,b)=>b[1]-a[1]),geos=Object.entries(byGeo).sort((a,b)=>b[1]-a[1]);
+    renderDonut(catsData,total);list('#paSectors',sectorsData.map(x=>[x[0],total?x[1]/total*100:0]));list('#paGeography',geos.map(x=>[x[0],total?x[1]/total*100:0]));
+    list('#paConcentration',[...data].sort((a,b)=>b.value-a.value).slice(0,5).map(x=>[x.name,total?x.value/total*100:0]));
+    const overlaps=[];Object.entries(bySector).forEach(([k,v])=>{const count=data.filter(x=>x.sector===k).length;if(count>1)overlaps.push([k+' · '+count+' posizioni',total?v/total*100:0])});Object.entries(byGeo).forEach(([k,v])=>{const count=data.filter(x=>x.geo===k).length;if(count>1)overlaps.push([k+' · '+count+' esposizioni',total?v/total*100:0])});list('#paOverlap',overlaps.slice(0,8));
+    const terBase=data.reduce((a,x)=>a+x.value*x.ter/100,0),divWeighted=data.reduce((a,x)=>a+x.value*x.dividendYield/100,0);
+    set('#paTer',pct(total?terBase/total*100:0));set('#paDividends',pct(total?divWeighted/total*100:0));
     set('#paS10',money(total*.9));set('#paS20',money(total*.8));set('#paS30',money(total*.7));set('#paS50',money(total*.5));
-    const perf=[...data].filter(x=>x.invested>0).sort((a,b)=>(b.value-b.invested)-(a.value-a.invested)).slice(0,8).map(x=>[x.name,(x.value/x.invested-1)*100]);list('#paPerformance',perf);
+    list('#paPerformance',[...data].filter(x=>x.invested>0).sort((a,b)=>(b.value-b.invested)-(a.value-a.invested)).slice(0,8).map(x=>[x.name,(x.value/x.invested-1)*100]));
   }
-
   function renderDonut(items,total){
     const g=document.querySelector('#paDonut'),legend=document.querySelector('#paLegend');if(!g||!legend)return;
     g.innerHTML='';legend.innerHTML='';let offset=0;const C=2*Math.PI*45;
-    items.forEach(([name,val],i)=>{
-      const len=total?val/total*C:0;
-      const c=document.createElementNS('http://www.w3.org/2000/svg','circle');
-      c.setAttribute('cx','60');c.setAttribute('cy','60');c.setAttribute('r','45');c.setAttribute('stroke',colors[i%colors.length]);c.setAttribute('stroke-dasharray',`${len} ${C-len}`);c.setAttribute('stroke-dashoffset',-offset);g.appendChild(c);offset+=len;
-      const li=document.createElement('div');li.className='pa-legend-item';li.innerHTML=`<span><i class="pa-dot" style="background:${colors[i%colors.length]}"></i>${safe(name)}</span><span>${pct(val/total*100)}</span>`;legend.appendChild(li);
-    });
+    items.forEach(([name,val],i)=>{const len=total?val/total*C:0,c=document.createElementNS('http://www.w3.org/2000/svg','circle');c.setAttribute('cx','60');c.setAttribute('cy','60');c.setAttribute('r','45');c.setAttribute('stroke',colors[i%colors.length]);c.setAttribute('stroke-dasharray',len+' '+(C-len));c.setAttribute('stroke-dashoffset',-offset);g.appendChild(c);offset+=len;const li=document.createElement('div');li.className='pa-legend-item';li.innerHTML='<span><i class="pa-dot" style="background:'+colors[i%colors.length]+'"></i>'+safe(name)+'</span><span>'+pct(val/total*100)+'</span>';legend.appendChild(li)});
   }
-
-  analyze.addEventListener('click',analyzePortfolio);
-  rows.addEventListener('input',()=>{});
-})();</script>
+  addRow();addRow();add.addEventListener('click',()=>addRow());analyze.addEventListener('click',analyzePortfolio);rows.addEventListener('input',()=>{});
+})();
+</script>
 </body></html>
