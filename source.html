@@ -45,18 +45,29 @@
 
 /* Portfolio Analyzer */
 .portfolio-analyzer{margin-top:34px}
-.pa-intro{background:#0d0d0b;border:1px solid var(--line);padding:22px;max-width:900px}
+.pa-intro{background:#0d0d0b;border:1px solid var(--line);padding:22px;max-width:900px;border-radius:22px}
 .pa-intro strong{display:block;font:normal 25px Georgia,serif;margin-bottom:8px}
 .pa-intro p{margin:0;color:#9f9b92}
-.pa-input{background:var(--panel);border:1px solid var(--line);padding:22px;margin-top:18px}
-.pa-table{display:grid;gap:8px}
-.pa-row{display:grid;grid-template-columns:1.35fr .85fr .8fr .8fr .9fr .9fr .6fr .75fr auto;gap:8px;align-items:center}
-.pa-row input,.pa-row select{width:100%;padding:10px 11px;background:#0a0a09;border:1px solid #35332e;color:#fff;border-radius:10px;font:inherit;min-width:0}
-.pa-row.head{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:#77736b;padding:0 4px 2px}
-.pa-remove{width:38px;height:38px;border:1px solid #35332e;background:#0a0a09;color:#aaa69d;border-radius:50%;cursor:pointer}
+.pa-input{background:var(--panel);border:1px solid var(--line);padding:22px;margin-top:18px;border-radius:24px}
+.pa-table{display:grid;gap:10px;margin-top:18px}
+.pa-row{display:grid;grid-template-columns:1.05fr 1.35fr .8fr .8fr .8fr auto;gap:9px;align-items:start;padding:12px;border:1px solid var(--line);background:rgba(0,0,0,.12);border-radius:18px}
+.pa-row.head{border:0;background:transparent;padding:0 6px 2px;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:#77736b}
+.pa-row input{width:100%;padding:11px 12px;background:#0a0a09;border:1px solid #35332e;color:#fff;border-radius:14px;font:inherit;min-width:0}
+.pa-row input::placeholder{color:#68645d}
+.pa-row input:read-only{color:#d7d0c2;background:rgba(208,180,119,.045)}
+.pa-remove{width:40px;height:40px;border:1px solid #35332e;background:#0a0a09;color:#aaa69d;border-radius:50%;cursor:pointer}
+.pa-remove:hover{border-color:rgba(208,180,119,.5);color:#fff}
+.pa-meta{grid-column:1/-1;display:grid;grid-template-columns:repeat(5,1fr);gap:8px;padding:10px 2px 0;border-top:1px solid rgba(255,255,255,.06);margin-top:2px}
+.pa-meta-item{min-width:0}
+.pa-meta-item span{display:block;font-size:9px;text-transform:uppercase;letter-spacing:.09em;color:#6f6b64;margin-bottom:4px}
+.pa-meta-item b{display:block;color:#c9c4b9;font-size:12px;line-height:1.35;white-space:normal}
+.pa-meta-item.loading b{color:#77736b}
+.pa-search-status{grid-column:1/-1;font-size:10px;color:#77736b;margin-top:-2px}
+.pa-search-status.ok{color:#c7a96b}
+.pa-search-status.error{color:#b7a5a0}
 .pa-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}
 .pa-dashboard{display:grid;grid-template-columns:1.1fr .9fr;gap:14px;margin-top:18px}
-.pa-card{background:#0d0d0b;border:1px solid var(--line);padding:22px}
+.pa-card{background:#0d0d0b;border:1px solid var(--line);padding:22px;border-radius:24px}
 .pa-card h3{font:normal 24px Georgia,serif;margin:0 0 8px}
 .pa-card p{color:#8f8b83;font-size:12px}
 .pa-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}
@@ -77,15 +88,16 @@
 .pa-list{display:grid;gap:8px;margin-top:14px}
 .pa-list-row{display:flex;justify-content:space-between;gap:14px;padding-bottom:9px;border-bottom:1px solid #25241f;font-size:12px}
 .pa-list-row span:last-child{color:#c9c4b9}
-.pa-warning{margin-top:14px;border-left:2px solid var(--gold);padding:12px 14px;background:#11110f;color:#9f9b92;font-size:12px}
+.pa-warning{margin-top:14px;border-left:2px solid var(--gold);padding:12px 14px;background:#11110f;color:#9f9b92;font-size:12px;border-radius:0 12px 12px 0}
 .pa-empty{color:#77736b;font-size:12px;padding:18px 0}
 .pa-scenario{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}
-.pa-scenario div{border:1px solid var(--line);padding:14px}
+.pa-scenario div{border:1px solid var(--line);padding:14px;border-radius:16px}
 .pa-scenario b{display:block;font:normal 19px Georgia,serif;color:var(--paper)}
 .pa-scenario span{font-size:10px;color:#77736b}
-.pa-disclaimer{margin-top:16px;color:#77736b;font-size:11px}
-@media(max-width:850px){.pa-row{grid-template-columns:1fr 1fr 1fr}.pa-dashboard,.pa-grid{grid-template-columns:1fr}.pa-metrics{grid-template-columns:repeat(2,1fr)}.pa-row{grid-template-columns:1fr 1fr}.pa-row .pa-hide-mobile{display:none}.pa-row.head{display:none}.pa-donut-wrap{grid-template-columns:150px 1fr}.pa-donut{width:150px;height:150px}.pa-scenario{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:560px){.pa-input,.pa-card{padding:16px}.pa-row{grid-template-columns:1fr 1fr}.pa-row input,.pa-row select{font-size:12px}.pa-row .pa-name{grid-column:1/-1}.pa-row .pa-remove{grid-column:2;justify-self:end}.pa-donut-wrap{grid-template-columns:1fr}.pa-donut{margin:auto}.pa-metrics{grid-template-columns:1fr 1fr}.pa-breakdown{grid-template-columns:1fr 1fr}}
+.pa-disclaimer{margin-top:16px;color:#77736b;font-size:11px;line-height:1.55}
+select option{background:#11120f;color:#f7f5ef}
+@media(max-width:850px){.pa-row{grid-template-columns:1fr 1fr}.pa-dashboard,.pa-grid{grid-template-columns:1fr}.pa-metrics{grid-template-columns:repeat(2,1fr)}.pa-row.head{display:none}.pa-meta{grid-template-columns:repeat(3,1fr)}.pa-donut-wrap{grid-template-columns:150px 1fr}.pa-donut{width:150px;height:150px}.pa-scenario{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.pa-input,.pa-card{padding:16px}.pa-row{grid-template-columns:1fr 1fr;padding:11px}.pa-row .pa-name{grid-column:1/-1}.pa-row .pa-remove{grid-column:2;justify-self:end;margin-top:-45px}.pa-meta{grid-template-columns:1fr 1fr;gap:10px}.pa-donut-wrap{grid-template-columns:1fr}.pa-donut{margin:auto}.pa-metrics{grid-template-columns:1fr 1fr}.pa-breakdown{grid-template-columns:1fr 1fr}.pa-intro{padding:18px}}
 <style>
 .advanced-path{margin-top:48px;padding:30px;border:1px solid var(--line);border-radius:28px;background:rgba(13,13,11,.58);box-shadow:0 20px 60px rgba(0,0,0,.16)}
 .advanced-path-head{display:flex;justify-content:space-between;align-items:end;gap:28px;padding:4px 4px 26px}
@@ -105,7 +117,7 @@ header,nav{border-color:var(--line)!important}.nav,.topbar,.site-header{backdrop
 .card,.panel,.tool-card,.lesson-card,.chapter-card,.resource-card,.source-card,.box,.form,.calculator,.result,.section-card,.feature,.module,.topic,.lesson,.accordion,.faq-item,.table-wrap,.callout,.strategy-card,.scenario-card{border-color:var(--line)!important;border-radius:24px!important;background:linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.012))!important;box-shadow:0 12px 34px rgba(0,0,0,.22)}
 .card:hover,.tool-card:hover,.lesson-card:hover,.chapter-card:hover,.feature:hover,.module:hover{border-color:rgba(208,180,119,.28)!important;box-shadow:0 18px 40px rgba(0,0,0,.26)}
 button,.btn,.button,.pill,.badge,.tag,.source-link{border-radius:999px!important}.icon,.app-nav-icon,[class*="icon"]{border-radius:50%!important}
-input,select,textarea{border-radius:16px!important;border-color:var(--line)!important;background:rgba(0,0,0,.18)!important;color:var(--white)}
+input,select,textarea{border-radius:16px!important;border-color:var(--line)!important;background:rgba(0,0,0,.18)!important;color:var(--white)}select{color-scheme:dark;appearance:auto}select option{background:#11120f!important;color:#f7f5ef!important}
 input:focus,select:focus,textarea:focus{outline:none;box-shadow:0 0 0 4px rgba(208,180,119,.12);border-color:rgba(208,180,119,.5)!important}
 .panel,.chapter-panel,.tool-panel,.lesson-panel,.content-panel{box-shadow:var(--shadow)}
 .app-nav{background:rgba(18,19,16,.86)!important;border:1px solid rgba(255,255,255,.09)!important;box-shadow:0 18px 50px rgba(0,0,0,.4)!important;backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border-radius:25px!important}
@@ -172,21 +184,25 @@ input:focus,select:focus,textarea:focus{outline:none;box-shadow:0 0 0 4px rgba(2
   <h2>Leggi il tuo portafoglio.</h2>
   <div class="pa-intro">
     <strong>Una fotografia chiara di ciò che possiedi.</strong>
-    <p>Inserisci le tue posizioni e FINLAB calcola valore, performance, distribuzione degli asset, concentrazione, esposizione e scenari ipotetici. L'analisi descrive i dati inseriti: non indica cosa comprare o vendere.</p>
+    <p>Inserisci ticker o ISIN: FINLAB riconosce automaticamente lo strumento e recupera categoria, settore, geografia, TER e dividendo quando i dati sono disponibili. Tu inserisci solo valore attuale e capitale investito.</p>
   </div>
+
   <div class="portfolio-analyzer">
     <div class="pa-input">
       <div class="eyebrow">01 — POSIZIONI</div>
       <h3 style="font:normal 28px Georgia,serif;margin:10px 0 8px">Inserisci il portafoglio</h3>
-      <p class="lead" style="font-size:13px">Per ogni posizione indica almeno nome, categoria e valore attuale. Gli altri dati rendono l'analisi più completa.</p>
+      <p class="lead" style="font-size:13px">Cerca un ticker o ISIN. Dopo il riconoscimento, FINLAB compila automaticamente le informazioni descrittive; valore attuale e investito restano a tuo carico.</p>
+
       <div class="pa-table" id="paRows">
-        <div class="pa-row head"><span>Strumento</span><span>Categoria</span><span>Valore</span><span>Investito</span><span>Settore</span><span>Geografia</span><span>TER</span><span>Income</span><span></span></div>
+        <div class="pa-row head"><span>Ticker / ISIN</span><span>Strumento</span><span>Categoria</span><span>Valore</span><span>Investito</span><span>Rimuovi</span></div>
       </div>
+
       <div class="pa-actions">
         <button class="btn" id="paAdd" type="button">+ Aggiungi posizione</button>
         <button class="btn primary" id="paAnalyze" type="button">Analizza portafoglio</button>
       </div>
-      <div class="pa-disclaimer">I calcoli sono basati esclusivamente sui dati inseriti. Le esposizioni settoriali e geografiche sono riferite ai dati che fornisci per ciascuna posizione; non vengono ricostruite automaticamente le partecipazioni interne degli ETF.</div>
+
+      <div class="pa-disclaimer">I dati identificativi e di classificazione provengono dal provider collegato e possono essere incompleti o aggiornarsi nel tempo. Per gli ETF, la geografia può usare regioni e paesi delle partecipazioni disponibili; per le azioni, la geografia rappresenta il paese associato allo strumento. FINLAB non interpreta questi dati come indicazioni di acquisto o vendita.</div>
     </div>
 
     <div class="pa-dashboard">
@@ -238,18 +254,18 @@ input:focus,select:focus,textarea:focus{outline:none;box-shadow:0 0 0 4px rgba(2
       <div class="pa-card">
         <div class="eyebrow">06 — SOVRAPPOSIZIONI</div>
         <h3>Possibili aree comuni.</h3>
-        <p>FINLAB evidenzia quando più posizioni condividono la stessa categoria, settore o area geografica indicata dall'utente. Non ricostruisce automaticamente le partecipazioni interne degli ETF.</p>
+        <p>FINLAB evidenzia quando più posizioni condividono la stessa categoria, settore o area geografica. Per gli ETF, la sovrapposizione resta basata sui dati geografici e settoriali forniti dal provider e non sostituisce una ricostruzione completa delle partecipazioni.</p>
         <div class="pa-list" id="paOverlap"><div class="pa-empty">Nessun dato.</div></div>
       </div>
 
       <div class="pa-card">
-        <div class="eyebrow">07 — COSTI & INCOME</div>
+        <div class="eyebrow">07 — COSTI & DIVIDENDI</div>
         <h3>Costi e distribuzioni.</h3>
         <div class="pa-metrics">
           <div class="pa-metric"><b id="paTer">0%</b><span>TER medio</span></div>
-          <div class="pa-metric"><b id="paDividends">€0</b><span>Dividendi / cedole</span></div>
+          <div class="pa-metric"><b id="paDividends">0%</b><span>Dividendo medio</span></div>
         </div>
-        <p>Il TER è una stima ponderata sui valori inseriti per le posizioni che hanno un costo indicato. Dividendi e cedole sono quelli che inserisci nell'analisi.</p>
+        <p>Il TER viene ponderato sul valore delle posizioni per cui è disponibile. Il dividendo mostra il rendimento da distribuzione disponibile nel dato dello strumento, non l'importo effettivamente incassato dal tuo portafoglio.</p>
       </div>
 
       <div class="pa-card">
@@ -386,77 +402,147 @@ input:focus,select:focus,textarea:focus{outline:none;box-shadow:0 0 0 4px rgba(2
   const rows=document.querySelector('#paRows'), add=document.querySelector('#paAdd'), analyze=document.querySelector('#paAnalyze');
   if(!rows||!add||!analyze)return;
   const colors=['#d0b477','#9c927f','#6f685b','#c9c4b9','#77736b','#b8ad99','#514e47'];
-  const cats=['Azioni','ETF','Obbligazioni','Crypto','Oro / Commodities','Liquidità','Altro'];
+  let rowId=0;
+
   function money(n){return new Intl.NumberFormat('it-IT',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(n||0)}
   function pct(n){return (n||0).toLocaleString('it-IT',{maximumFractionDigits:1})+'%'}
+  function safe(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
+  function meta(value='—'){return safe(value||'—')}
+
   function addRow(data={}){
-    const row=document.createElement('div'); row.className='pa-row';
-    row.innerHTML=`<input class="pa-name" placeholder="es. ETF globale" value="${data.name||''}">
-      <select class="pa-cat">${cats.map(x=>`<option ${data.cat===x?'selected':''}>${x}</option>`).join('')}</select>
-      <input class="pa-value" type="number" min="0" step="0.01" placeholder="Valore €" value="${data.value||''}">
-      <input class="pa-invested" type="number" min="0" step="0.01" placeholder="Investito €" value="${data.invested||''}">
-      <input class="pa-sector pa-hide-mobile" placeholder="es. Tecnologia" value="${data.sector||''}">
-      <button class="pa-remove" type="button" aria-label="Rimuovi posizione">×</button>`;
+    const id=++rowId;
+    const row=document.createElement('div'); row.className='pa-row'; row.dataset.rowId=id;
+    row.innerHTML=`<input class="pa-lookup" aria-label="Ticker o ISIN" placeholder="es. VWCE, AAPL o ISIN" value="${safe(data.query||'')}">
+      <div><input class="pa-name" aria-label="Nome strumento" placeholder="Nome strumento" value="${safe(data.name||'')}" readonly></div>
+      <div><input class="pa-cat" aria-label="Categoria" placeholder="Categoria" value="${safe(data.cat||'')}" readonly></div>
+      <input class="pa-value" aria-label="Valore attuale" type="number" min="0" step="0.01" placeholder="Valore €" value="${data.value||''}">
+      <input class="pa-invested" aria-label="Capitale investito" type="number" min="0" step="0.01" placeholder="Investito €" value="${data.invested||''}">
+      <button class="pa-remove" type="button" aria-label="Rimuovi posizione">×</button>
+      <div class="pa-meta">
+        <div class="pa-meta-item"><span>Settore</span><b class="pa-sector-value">${meta(data.sector)}</b></div>
+        <div class="pa-meta-item"><span>Geografia</span><b class="pa-geo-value">${meta(data.geo)}</b></div>
+        <div class="pa-meta-item"><span>TER</span><b class="pa-ter-value">${meta(data.ter)}</b></div>
+        <div class="pa-meta-item"><span>Dividendo</span><b class="pa-income-value">${meta(data.dividend)}</b></div>
+        <div class="pa-meta-item"><span>Identificativo</span><b class="pa-id-value">${meta(data.symbol)}</b></div>
+      </div>
+      <div class="pa-search-status" aria-live="polite"></div>`;
     row.querySelector('.pa-remove').onclick=()=>{row.remove();analyzePortfolio()};
     rows.appendChild(row);
+    bindLookup(row);
   }
+
+  function applyLookup(row,d){
+    row.querySelector('.pa-name').value=d.name||'';
+    row.querySelector('.pa-cat').value=d.category||'';
+    row.querySelector('.pa-sector-value').textContent=d.sector||'Non disponibile';
+    row.querySelector('.pa-geo-value').textContent=d.geography?.length?d.geography.map(x=>x.name+' '+pct(x.weight)).join(' · '):'Non disponibile';
+    row.querySelector('.pa-ter-value').textContent=d.ter!=null?d.ter.toLocaleString('it-IT',{maximumFractionDigits:2})+'%':'Non disponibile';
+    row.querySelector('.pa-income-value').textContent=d.dividendYield!=null?d.dividendYield.toLocaleString('it-IT',{maximumFractionDigits:2})+'%':'Non disponibile';
+    row.querySelector('.pa-id-value').textContent=d.symbol||d.isin||'—';
+    row.dataset.meta=JSON.stringify(d);
+    const status=row.querySelector('.pa-search-status'); status.textContent='✓ Strumento riconosciuto'; status.className='pa-search-status ok';
+    analyzePortfolio();
+  }
+
+  async function lookup(row){
+    const input=row.querySelector('.pa-lookup'), q=input.value.trim(), status=row.querySelector('.pa-search-status');
+    if(!q){status.textContent='';status.className='pa-search-status';return}
+    status.textContent='Ricerca strumento…';status.className='pa-search-status';
+    try{
+      const res=await fetch('/api/portfolio-lookup?q='+encodeURIComponent(q),{headers:{Accept:'application/json'}});
+      const data=await res.json();
+      if(!res.ok||!data.ok)throw new Error(data.message||'Strumento non trovato');
+      applyLookup(row,data.instrument);
+    }catch(err){
+      status.textContent='⚠ '+(err.message||'Strumento non trovato');status.className='pa-search-status error';
+    }
+  }
+
+  function bindLookup(row){
+    let timer;
+    const input=row.querySelector('.pa-lookup');
+    input.addEventListener('input',()=>{
+      clearTimeout(timer);
+      const q=input.value.trim();
+      row.querySelector('.pa-name').value='';
+      row.querySelector('.pa-cat').value='';
+      if(q.length<3){row.querySelector('.pa-search-status').textContent='';return}
+      timer=setTimeout(()=>lookup(row),500);
+    });
+    input.addEventListener('blur',()=>{if(input.value.trim().length>=3)lookup(row)});
+  }
+
   addRow(); addRow();
   add.addEventListener('click',()=>addRow());
+
   function getData(){
-    return [...rows.querySelectorAll('.pa-row:not(.head)')].map(r=>({
-      name:r.querySelector('.pa-name').value.trim()||'Posizione',
-      cat:r.querySelector('.pa-cat').value,
-      value:Number(r.querySelector('.pa-value').value)||0,
-      invested:Number(r.querySelector('.pa-invested').value)||0,
-      sector:r.querySelector('.pa-sector').value.trim()||'Non indicato',
-      geo:r.querySelector('.pa-geo')?.value.trim()||'Non indicata',
-      ter:Number(r.querySelector('.pa-ter')?.value)||0,
-      income:Number(r.querySelector('.pa-income')?.value)||0
-    })).filter(x=>x.value>0);
+    return [...rows.querySelectorAll('.pa-row:not(.head)')].map(r=>{
+      let meta={};try{meta=JSON.parse(r.dataset.meta||'{}')}catch{}
+      return {
+        name:r.querySelector('.pa-name').value.trim()||'Posizione',
+        cat:r.querySelector('.pa-cat').value.trim()||'Non indicata',
+        value:Number(r.querySelector('.pa-value').value)||0,
+        invested:Number(r.querySelector('.pa-invested').value)||0,
+        sector:meta.sector||'Non indicato',
+        geo:Array.isArray(meta.geography)?meta.geography:[],
+        ter:Number(meta.ter)||0,
+        dividendYield:Number(meta.dividendYield)||0
+      };
+    }).filter(x=>x.value>0);
   }
+
   function set(id,v){const e=document.querySelector(id);if(e)e.textContent=v}
   function list(id,items){
     const e=document.querySelector(id);if(!e)return;
-    e.innerHTML=items.length?items.map(x=>`<div class="pa-list-row"><span>${x[0]}</span><span>${pct(x[1])}</span></div>`).join(''):'<div class="pa-empty">Nessun dato disponibile.</div>';
+    e.innerHTML=items.length?items.map(x=>`<div class="pa-list-row"><span>${safe(x[0])}</span><span>${pct(x[1])}</span></div>`).join(''):'<div class="pa-empty">Nessun dato disponibile.</div>';
   }
+
   function analyzePortfolio(){
     const data=getData(), total=data.reduce((a,x)=>a+x.value,0), invested=data.reduce((a,x)=>a+x.invested,0), pl=total-invested, ret=invested?pl/invested*100:0;
     set('#paTotal',money(total));set('#paInvested',money(invested));set('#paPL',money(pl));set('#paReturn',pct(ret));set('#paPositions',data.length);
     const top5=[...data].sort((a,b)=>b.value-a.value).slice(0,5).reduce((a,x)=>a+x.value,0);set('#paTop5',pct(total?top5/total*100:0));
-    const byCat={},bySector={};
-    data.forEach(x=>{byCat[x.cat]=(byCat[x.cat]||0)+x.value;bySector[x.sector]=(bySector[x.sector]||0)+x.value});
-    const catsData=Object.entries(byCat).sort((a,b)=>b[1]-a[1]), sectors=Object.entries(bySector).filter(x=>x[0]!=='Non indicato').sort((a,b)=>b[1]-a[1]);
+
+    const byCat={},bySector={},byGeo={};
+    data.forEach(x=>{
+      byCat[x.cat]=(byCat[x.cat]||0)+x.value;
+      if(x.sector&&x.sector!=='Non indicato')bySector[x.sector]=(bySector[x.sector]||0)+x.value;
+      x.geo.forEach(g=>{if(g.name&&g.weight>0)byGeo[g.name]=(byGeo[g.name]||0)+x.value*g.weight/100});
+    });
+
+    const catsData=Object.entries(byCat).sort((a,b)=>b[1]-a[1]), sectors=Object.entries(bySector).sort((a,b)=>b[1]-a[1]);
+    const geos=Object.entries(byGeo).sort((a,b)=>b[1]-a[1]).slice(0,10);
     renderDonut(catsData,total);
     list('#paSectors',sectors.map(x=>[x[0],total?x[1]/total*100:0]));
+    list('#paGeography',geos.map(x=>[x[0],total?x[1]/total*100:0]));
+
     const concentration=[...data].sort((a,b)=>b.value-a.value).slice(0,5).map(x=>[x.name,total?x.value/total*100:0]);list('#paConcentration',concentration);
+
     const overlaps=[];
-    Object.entries(bySector).forEach(([k,v])=>{const count=data.filter(x=>x.sector===k&&k!=='Non indicato').length;if(count>1)overlaps.push([`${k} · ${count} posizioni`,total?v/total*100:0])});
-    Object.entries(byCat).forEach(([k,v])=>{const count=data.filter(x=>x.cat===k).length;if(count>1)overlaps.push([`${k} · ${count} posizioni`,total?v/total*100:0])});
+    Object.entries(bySector).forEach(([k,v])=>{const count=data.filter(x=>x.sector===k).length;if(count>1)overlaps.push([`${k} · ${count} posizioni`,total?v/total*100:0])});
+    Object.entries(byGeo).forEach(([k,v])=>{const count=data.reduce((n,x)=>n+x.geo.filter(g=>g.name===k).length,0);if(count>1)overlaps.push([`${k} · ${count} esposizioni`,total?v/total*100:0])});
     list('#paOverlap',overlaps.slice(0,8));
-    const terBase=data.reduce((a,x)=>a+x.value*x.ter/100,0);set('#paTer',pct(total?terBase/total*100:0));set('#paDividends',money(data.reduce((a,x)=>a+x.income,0)));
+
+    const terBase=data.reduce((a,x)=>a+x.value*x.ter/100,0);
+    const divWeighted=data.reduce((a,x)=>a+x.value*x.dividendYield/100,0);
+    set('#paTer',pct(total?terBase/total*100:0));
+    set('#paDividends',pct(total?divWeighted/total*100:0));
+
     set('#paS10',money(total*.9));set('#paS20',money(total*.8));set('#paS30',money(total*.7));set('#paS50',money(total*.5));
     const perf=[...data].filter(x=>x.invested>0).sort((a,b)=>(b.value-b.invested)-(a.value-a.invested)).slice(0,8).map(x=>[x.name,(x.value/x.invested-1)*100]);list('#paPerformance',perf);
-    const mainCat=catsData[0], mainSector=sectors[0], liquid=(byCat['Liquidità']||0), liquidPct=total?liquid/total*100:0;
-    const summary=[
-      [data.length+' posizioni',100],
-      [mainCat?mainCat[0]+' · '+pct(mainCat[1]/total*100):'Nessuna categoria',0],
-      [mainSector?mainSector[0]+' · '+pct(mainSector[1]/total*100):'Settore non indicato',0],
-      [liquidPct>0?'Liquidità · '+pct(liquidPct):'Liquidità non indicata',liquidPct]
-    ];
-    const se=document.querySelector('#paSummary'); if(se) se.innerHTML=summary.map(x=>'<div class="pa-list-row"><span>'+x[0]+'</span><span>'+(x[1]===100?'':'Quota '+pct(x[1]))+'</span></div>').join('');
   }
+
   function renderDonut(items,total){
     const g=document.querySelector('#paDonut'),legend=document.querySelector('#paLegend');if(!g||!legend)return;
-    g.innerHTML='';legend.innerHTML='';let offset=0;
-    const C=2*Math.PI*45;
+    g.innerHTML='';legend.innerHTML='';let offset=0;const C=2*Math.PI*45;
     items.forEach(([name,val],i)=>{
       const len=total?val/total*C:0;
-      const c=document.createElementNS('http://www.w3.org/2000/svg','circle');c.setAttribute('cx','60');c.setAttribute('cy','60');c.setAttribute('r','45');c.setAttribute('stroke',colors[i%colors.length]);c.setAttribute('stroke-dasharray',`${len} ${C-len}`);c.setAttribute('stroke-dashoffset',-offset);g.appendChild(c);offset+=len;
-      const li=document.createElement('div');li.className='pa-legend-item';li.innerHTML=`<span><i class="pa-dot" style="background:${colors[i%colors.length]}"></i>${name}</span><span>${pct(val/total*100)}</span>`;legend.appendChild(li);
+      const c=document.createElementNS('http://www.w3.org/2000/svg','circle');
+      c.setAttribute('cx','60');c.setAttribute('cy','60');c.setAttribute('r','45');c.setAttribute('stroke',colors[i%colors.length]);c.setAttribute('stroke-dasharray',`${len} ${C-len}`);c.setAttribute('stroke-dashoffset',-offset);g.appendChild(c);offset+=len;
+      const li=document.createElement('div');li.className='pa-legend-item';li.innerHTML=`<span><i class="pa-dot" style="background:${colors[i%colors.length]}"></i>${safe(name)}</span><span>${pct(val/total*100)}</span>`;legend.appendChild(li);
     });
   }
+
   analyze.addEventListener('click',analyzePortfolio);
   rows.addEventListener('input',()=>{});
-})();
-</script>
+})();</script>
 </body></html>
