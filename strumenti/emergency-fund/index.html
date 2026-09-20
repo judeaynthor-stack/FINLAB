@@ -51,20 +51,20 @@ input:focus,select:focus,textarea:focus{outline:none;box-shadow:0 0 0 4px rgba(2
 <main>
 <section class="hero"><div class="wrap"><div class="eyebrow">01 — EMERGENCY FUND PLANNER</div><h1>Costruisci un riferimento per il tuo fondo di emergenza.</h1><p class="lead">Inserisci le tue spese essenziali mensili, scegli un orizzonte di copertura e indica quanto hai già accantonato. Il risultato è un semplice riferimento numerico, non una regola universale.</p></div></section>
 <section><div class="wrap tool-grid">
-<div class="panel"><h2>I tuoi dati</h2><p class="panel-intro">Usa valori mensili realistici per le spese che considereresti essenziali.</p>
+<div class="panel"><h2>I tuoi dati</h2><p class="panel-intro">Inserisci le tue spese essenziali mensili.</p>
 <div class="field"><label for="expenses">Spese essenziali mensili</label><div class="input-wrap"><span>€</span><input id="expenses" type="number" min="0" step="50" value="1000" inputmode="decimal"></div></div>
 <div class="field"><label>Orizzonte di copertura</label><div class="months" id="months"><button class="month-btn active" type="button" data-months="3">3 mesi</button><button class="month-btn" type="button" data-months="6">6 mesi</button><button class="month-btn" type="button" data-months="9">9 mesi</button><button class="month-btn" type="button" data-months="12">12 mesi</button></div></div>
 <div class="field"><label for="saved">Già disponibili nel fondo</label><div class="input-wrap"><span>€</span><input id="saved" type="number" min="0" step="50" value="1500" inputmode="decimal"></div></div>
 <div class="field"><label for="contribution">Quanto puoi accantonare ogni mese?</label><div class="input-wrap"><span>€</span><input id="contribution" type="number" min="0" step="25" value="300" inputmode="decimal"></div></div>
 <button class="calc-btn" id="calculate" type="button">Calcola il riferimento →</button>
-<p class="note">Il calcolo considera esclusivamente le spese essenziali indicate. Non considera stipendio, investimenti, rendimenti o inflazione.</p></div>
+<p class="note">Il calcolo usa solo le spese essenziali indicate.</p></div>
 <div class="panel"><div class="result-top"><div><div class="result-label">Obiettivo selezionato</div><div class="result" id="target">€3.000</div><div class="result-sub" id="targetSub">3 mesi di spese essenziali</div></div></div>
 <div class="progress"><div class="progress-bar" id="progressBar"></div></div><div class="progress-label"><span id="progressText">50% già coperto</span><span id="missingText">Mancano €1.500</span></div>
 <div class="metrics"><div class="metric"><strong id="available">€1.500</strong><span>già disponibili</span></div><div class="metric"><strong id="missing">€1.500</strong><span>da accantonare</span></div><div class="metric"><strong id="monthly">€1.000</strong><span>spese mensili</span></div></div>
 <div class="section-card"><div class="table-title">Come cambia l'obiettivo</div><table class="horizon-table"><thead><tr><th>Copertura</th><th>Importo</th></tr></thead><tbody id="horizonRows"></tbody></table></div>
-<div class="plan"><div class="plan-head"><div><div class="plan-title">Il tuo percorso</div><p class="plan-copy">Una stima matematica basata sull'accantonamento mensile inserito.</p></div><div class="plan-date"><strong id="etaDate">—</strong><span>data stimata</span></div></div><div class="plan-result"><div class="plan-metric"><strong id="etaMonths">—</strong><span>tempo stimato</span></div><div class="plan-metric"><strong id="etaContribution">€300</strong><span>accantonamento mensile</span></div></div>
+<div class="plan"><div class="plan-head"><div><div class="plan-title">Il tuo percorso</div><p class="plan-copy">Una stima basata sull'importo che accantoni ogni mese.</p></div><div class="plan-date"><strong id="etaDate">—</strong><span>data stimata</span></div></div><div class="plan-result"><div class="plan-metric"><strong id="etaMonths">—</strong><span>tempo stimato</span></div><div class="plan-metric"><strong id="etaContribution">€300</strong><span>accantonamento mensile</span></div></div>
 <div class="scenario"><div class="table-title">Scenari di accantonamento</div><table class="scenario-table"><tbody id="scenarioRows"></tbody></table></div></div>
-<div class="explain"><h3>Come funziona</h3><p>Il riferimento viene calcolato moltiplicando le spese essenziali mensili per il numero di mesi scelto.</p><div class="formula">Spese essenziali mensili × mesi di copertura = obiettivo</div><p>Il tempo del percorso è una semplice stima: importo ancora da accumulare ÷ accantonamento mensile. La data risultante è indicativa e non considera variazioni future.</p><p>Il numero di mesi appropriato può dipendere dalla situazione personale, dalla stabilità delle entrate, dalle responsabilità e da altre caratteristiche del proprio bilancio. FINLAB presenta quindi diversi orizzonti senza considerarne uno universalmente corretto.</p></div>
+<div class="explain"><h3>Come funziona</h3><p>Il riferimento si calcola moltiplicando le spese mensili per i mesi scelti.</p><div class="formula">Spese essenziali mensili × mesi di copertura = obiettivo</div><p>Il tempo stimato è: importo da accumulare ÷ accantonamento mensile. La data è indicativa.</p><p>Il numero di mesi può variare in base alla propria situazione. FINLAB mostra diversi orizzonti senza indicar­ne uno come universale.</p></div>
 <a class="back" href="/strumenti/">← Torna agli strumenti</a></div>
 </div></section>
 
@@ -72,16 +72,16 @@ input:focus,select:focus,textarea:focus{outline:none;box-shadow:0 0 0 4px rgba(2
   <div class="ef-education-inner">
     <div class="ef-education-kicker">CAPIRLO PRIMA DI USARLO</div>
     <h2 id="ef-education-title">Perché esiste un fondo di emergenza?</h2>
-    <p class="ef-education-intro">Un fondo di emergenza serve a creare una riserva di liquidità destinata a spese impreviste o a periodi in cui il reddito può ridursi temporaneamente. Il suo obiettivo è aiutare a gestire questi eventi senza dover ricorrere necessariamente a nuovo debito o utilizzare denaro destinato ad altri obiettivi.</p>
+    <p class="ef-education-intro">Un fondo di emergenza è una riserva di liquidità per spese impreviste o periodi di reddito ridotto.</p>
     <div class="ef-education-grid">
-      <article><span>01</span><h3>Spese impreviste</h3><p>Riparazioni, spese familiari, sostituzioni o altre uscite non previste possono richiedere liquidità disponibile in tempi brevi.</p></article>
-      <article><span>02</span><h3>Reddito temporaneamente ridotto</h3><p>Una riserva può contribuire a coprire le spese essenziali durante un periodo di reddito più basso o assente.</p></article>
-      <article><span>03</span><h3>Essenziali ≠ discrezionali</h3><p>Per stimare il fondo si possono distinguere le spese necessarie per vivere da quelle che possono essere ridotte o rinviate.</p></article>
-      <article><span>04</span><h3>Quanti mesi?</h3><p>Non esiste un numero universale valido per tutti. Nel planner scegli tu il periodo di copertura e il sistema calcola l'obiettivo sulla base dei dati inseriti.</p></article>
+      <article><span>01</span><h3>Spese impreviste</h3><p>Riparazioni o altre uscite non previste possono richiedere liquidità disponibile subito.</p></article>
+      <article><span>02</span><h3>Reddito ridotto</h3><p>La riserva può aiutare a coprire le spese essenziali quando il reddito diminuisce.</p></article>
+      <article><span>03</span><h3>Essenziali ≠ discrezionali</h3><p>Distingui le spese necessarie da quelle che puoi ridurre o rimandare.</p></article>
+      <article><span>04</span><h3>Quanti mesi?</h3><p>Non esiste un numero valido per tutti. Scegli il periodo e il planner calcola l'obiettivo.</p></article>
     </div>
     <div class="ef-source-note">
       <strong>Approfondisci</strong>
-      <p>Il fondo di emergenza è un concetto di gestione della liquidità: le esigenze possono variare in base alla situazione personale, alle entrate e alle spese.</p>
+      <p>Le esigenze possono variare in base alla propria situazione, alle entrate e alle spese.</p>
       <div class="ef-sources">
         <a href="https://www.bancaditalia.it/compiti/tutela-educazione/educazione-finanziaria/index.html" target="_blank" rel="noopener">Banca d'Italia · Educazione finanziaria ↗</a>
         <a href="https://www.consob.it/web/investor-education" target="_blank" rel="noopener">CONSOB · Investor Education ↗</a>
