@@ -43,6 +43,9 @@
 #importante .darkbox{padding:28px}
 @media(max-width:650px){#strumenti.section,#importante.section{padding-top:42px;padding-bottom:42px}#strumenti.section h2,#importante.section h2{font-size:32px}#importante .darkbox{padding:21px}}
 
+/* Portfolio Analyzer — real exposure */
+.pa-meta-wide{grid-column:span 2}
+.pa-exposure-note{grid-column:1/-1;color:#77736b;font-size:10px;line-height:1.45;margin-top:2px}
 /* Portfolio Analyzer */
 .portfolio-analyzer{margin-top:34px}
 .pa-intro{background:#0d0d0b;border:1px solid var(--line);padding:22px;max-width:900px;border-radius:22px}
@@ -285,11 +288,7 @@ input:focus,select:focus,textarea:focus{outline:none;box-shadow:0 0 0 4px rgba(2
         </div>
       </div>
 
-      <div class="pa-card">
-        <div class="eyebrow">09 — PERFORMANCE</div>
-        <h3>Risultato delle posizioni.</h3>
-        <div class="pa-list" id="paPerformance"><div class="pa-empty">Inserisci il capitale investito per visualizzare il risultato.</div></div>
-      </div>
+
     </div>
   </div>
 </div>
@@ -408,8 +407,20 @@ input:focus,select:focus,textarea:focus{outline:none;box-shadow:0 0 0 4px rgba(2
   if(!rows||!add||!analyze)return;
   const colors=['#d0b477','#9c927f','#6f685b','#c9c4b9','#77736b','#b8ad99','#514e47'];
   const categories=["Azione","ETF","Obbligazione","Crypto","Fondo","ETC","ETP","REIT","Materia prima","Liquidità","Derivato","Altro"];
-  const sectors=["Tecnologia","Semiconduttori","Software","Hardware","Internet e servizi digitali","Telecomunicazioni","Servizi di comunicazione","Finanza","Banche","Assicurazioni","Servizi finanziari","Fintech","Sanità","Biotecnologia","Farmaceutica","Dispositivi medici","Servizi sanitari","Industria","Aerospace & Defense","Automotive","Trasporti","Logistica","Macchinari","Infrastrutture","Energia","Energia e acqua","Petrolio e gas","Utilities","Materiali di base","Metalli e minerario","Chimica","Beni di consumo","Beni di consumo discrezionali","Beni di consumo di base","Alimentari e bevande","Retail","Immobiliare","Costruzioni","Turismo e tempo libero","Media e intrattenimento","Agricoltura","Servizi professionali","Altro / Diversificato"];
+  const sectors=["Globale","Tecnologia","Semiconduttori","Software","Hardware","Internet e servizi digitali","Telecomunicazioni","Servizi di comunicazione","Finanza","Banche","Assicurazioni","Servizi finanziari","Fintech","Sanità","Biotecnologia","Farmaceutica","Dispositivi medici","Servizi sanitari","Industria","Aerospace & Defense","Automotive","Trasporti","Logistica","Macchinari","Infrastrutture","Energia","Energia e acqua","Petrolio e gas","Utilities","Materiali di base","Metalli e minerario","Chimica","Beni di consumo","Beni di consumo discrezionali","Beni di consumo di base","Alimentari e bevande","Retail","Immobiliare","Costruzioni","Turismo e tempo libero","Media e intrattenimento","Agricoltura","Servizi professionali","Altro / Diversificato"];
   const geographies=["Globale","Globale ex USA","Europa","Europa ex Regno Unito","Eurozona","Regno Unito","Mercati emergenti","Emergenti ex Cina","Asia","Asia ex Giappone","Nord America","Oceania","Pacifico","USA","Canada","Giappone","Cina","India","Corea del Sud","Hong Kong","Taiwan","Singapore","Australia","Nuova Zelanda","Brasile","Messico","Sudafrica","Arabia Saudita","Emirati Arabi Uniti","Afghanistan","Albania","Algeria","Andorra","Angola","Antigua e Barbuda","Argentina","Armenia","Australia","Austria","Azerbaigian","Bahamas","Bahrein","Bangladesh","Barbados","Belarus","Belgio","Belize","Benin","Bhutan","Bolivia","Bosnia ed Erzegovina","Botswana","Brasile","Brunei","Bulgaria","Burkina Faso","Burundi","Cabo Verde","Cambogia","Camerun","Canada","Ciad","Cile","Cina","Cipro","Colombia","Comore","Congo","Corea del Nord","Corea del Sud","Costa d'Avorio","Costa Rica","Croazia","Cuba","Danimarca","Dominica","Ecuador","Egitto","El Salvador","Emirati Arabi Uniti","Eritrea","Estonia","Eswatini","Etiopia","Figi","Filippine","Finlandia","Francia","Gabon","Gambia","Georgia","Germania","Ghana","Giamaica","Giappone","Gibuti","Giordania","Grecia","Grenada","Guatemala","Guinea","Guinea-Bissau","Guinea Equatoriale","Guyana","Haiti","Honduras","India","Indonesia","Iran","Iraq","Irlanda","Islanda","Isole Marshall","Isole Salomone","Israele","Italia","Kazakhstan","Kenya","Kirghizistan","Kiribati","Kuwait","Laos","Lesotho","Lettonia","Libano","Liberia","Libia","Liechtenstein","Lituania","Lussemburgo","Macedonia del Nord","Madagascar","Malawi","Maldive","Malesia","Mali","Malta","Marocco","Mauritania","Mauritius","Messico","Micronesia","Moldavia","Monaco","Mongolia","Montenegro","Mozambico","Myanmar","Namibia","Nauru","Nepal","Nicaragua","Niger","Nigeria","Norvegia","Nuova Zelanda","Oman","Paesi Bassi","Pakistan","Palau","Panama","Papua Nuova Guinea","Paraguay","Perù","Polonia","Portogallo","Qatar","Repubblica Ceca","Repubblica Centrafricana","Repubblica Democratica del Congo","Repubblica Dominicana","Romania","Russia","Ruanda","Saint Kitts e Nevis","Saint Lucia","Saint Vincent e Grenadine","Samoa","San Marino","Sao Tomé e Principe","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Siria","Slovacchia","Slovenia","Somalia","Spagna","Sri Lanka","Stati Uniti","Sudafrica","Sudan","Sudan del Sud","Suriname","Svezia","Svizzera","Tagikistan","Tanzania","Thailandia","Timor Est","Togo","Tonga","Trinidad e Tobago","Tunisia","Turchia","Turkmenistan","Tuvalu","Ucraina","Uganda","Ungheria","Uruguay","Uzbekistan","Vanuatu","Vaticano","Venezuela","Vietnam","Yemen","Zambia","Zimbabwe","Palestina","Kosovo","Taiwan"];
+  const exposureProfiles=["Nessun profilo — usa classificazione 100%","FTSE All-World — Vanguard · dati 31/05/2026"];
+  const exposureData={
+    "FTSE All-World — Vanguard · dati 31/05/2026":{
+      geo:{"USA":61.8,"Giappone":5.8,"Cina":2.7,"Corea del Sud":2.9,"Taiwan":3.3,"Svizzera":2.0,"Regno Unito":3.2,"Francia":2.0,"Canada":2.9,"Germania":1.9,"Altri mercati":11.5},
+      sector:{"Tecnologia":35.3,"Finanza":14.4,"Industria":12.4,"Beni di consumo discrezionali":11.5,"Sanità":7.4,"Energia":4.0,"Beni di consumo di base":3.8,"Telecomunicazioni":3.5,"Materiali di base":3.4,"Utilities":2.6,"Immobiliare":1.8},
+      source:"Vanguard · factsheet 31 maggio 2026"
+    }
+  };
+  function normalizedExposure(obj){
+    const entries=Object.entries(obj||{}),sum=entries.reduce((s,[,v])=>s+(Number(v)||0),0);
+    return sum?entries.map(([k,v])=>[k,(Number(v)||0)/sum*100]):[];
+  }
   let rowId=0;
   function money(n){return new Intl.NumberFormat('it-IT',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(n||0)}
   function pct(n){return (n||0).toLocaleString('it-IT',{maximumFractionDigits:1})+'%'}
@@ -430,8 +441,10 @@ input:focus,select:focus,textarea:focus{outline:none;box-shadow:0 0 0 4px rgba(2
       +'<button class="pa-remove" type="button" aria-label="Rimuovi posizione">×</button>'
       +'<div class="pa-meta"><div class="pa-meta-item"><span>Settore</span>'+selectHtml(sectors,'Seleziona settore',data.sector)+'</div>'
       +'<div class="pa-meta-item"><span>Geografia</span>'+selectHtml(geographies,'Seleziona area o paese',data.geo)+'</div>'
+      +'<div class="pa-meta-item pa-meta-wide"><span>Profilo esposizione reale</span>'+selectHtml(exposureProfiles,'Classificazione 100%',data.exposureProfile)+'</div>'
       +'<div class="pa-meta-item"><span>TER %</span>'+metaInput('pa-ter-input','opzionale',data.ter)+'</div>'
-      +'<div class="pa-meta-item"><span>Dividendo % <em>opzionale</em></span>'+metaInput('pa-dividend-input','opzionale',data.dividendYield)+'</div></div>';
+      +'<div class="pa-meta-item"><span>Dividendo % <em>opzionale</em></span>'+metaInput('pa-dividend-input','opzionale',data.dividendYield)+'</div></div>'
+      +'<div class="pa-exposure-note">Il profilo reale corregge l'analisi di settore e geografia quando uno strumento, come un ETF globale, contiene più Paesi e settori. Se non scegli un profilo, FINLAB usa la classificazione indicata come 100%.</div>';
     row.querySelector('.pa-remove').onclick=()=>{row.remove();analyzePortfolio()};
     rows.appendChild(row);
   }
@@ -441,6 +454,7 @@ input:focus,select:focus,textarea:focus{outline:none;box-shadow:0 0 0 4px rgba(2
       return {name:r.querySelector('.pa-name').value.trim()||'Posizione',cat:r.querySelector('.pa-row>.pa-select')?.value||'Non indicata',
         value:Number(r.querySelector('.pa-value').value)||0,invested:Number(r.querySelector('.pa-invested').value)||0,
         sector:ms[0]?.value||'Non indicato',geo:ms[1]?.value||'Non indicata',
+        exposureProfile:ms[2]?.value||'',
         ter:Number(r.querySelector('.pa-ter-input')?.value)||0,dividendYield:Number(r.querySelector('.pa-dividend-input')?.value)||0};
     }).filter(x=>x.value>0);
   }
@@ -454,7 +468,17 @@ input:focus,select:focus,textarea:focus{outline:none;box-shadow:0 0 0 4px rgba(2
     set('#paTotal',money(total));set('#paInvested',money(invested));set('#paPL',money(pl));set('#paReturn',pct(ret));set('#paPositions',data.length);
     const top5=[...data].sort((a,b)=>b.value-a.value).slice(0,5).reduce((a,x)=>a+x.value,0);set('#paTop5',pct(total?top5/total*100:0));
     const byCat={},bySector={},byGeo={};
-    data.forEach(x=>{byCat[x.cat]=(byCat[x.cat]||0)+x.value;if(x.sector&&x.sector!=='Non indicato')bySector[x.sector]=(bySector[x.sector]||0)+x.value;if(x.geo&&x.geo!=='Non indicata')byGeo[x.geo]=(byGeo[x.geo]||0)+x.value});
+    data.forEach(x=>{
+      byCat[x.cat]=(byCat[x.cat]||0)+x.value;
+      const profile=exposureData[x.exposureProfile];
+      if(profile){
+        normalizedExposure(profile.sector).forEach(([k,p])=>{bySector[k]=(bySector[k]||0)+x.value*p/100});
+        normalizedExposure(profile.geo).forEach(([k,p])=>{byGeo[k]=(byGeo[k]||0)+x.value*p/100});
+      }else{
+        if(x.sector&&x.sector!=='Non indicato')bySector[x.sector]=(bySector[x.sector]||0)+x.value;
+        if(x.geo&&x.geo!=='Non indicata')byGeo[x.geo]=(byGeo[x.geo]||0)+x.value;
+      }
+    });
     const catsData=Object.entries(byCat).sort((a,b)=>b[1]-a[1]),sectorsData=Object.entries(bySector).sort((a,b)=>b[1]-a[1]),geos=Object.entries(byGeo).sort((a,b)=>b[1]-a[1]);
     renderDonut(catsData,total);list('#paSectors',sectorsData.map(x=>[x[0],total?x[1]/total*100:0]));list('#paGeography',geos.map(x=>[x[0],total?x[1]/total*100:0]));
     list('#paConcentration',[...data].sort((a,b)=>b.value-a.value).slice(0,5).map(x=>[x.name,total?x.value/total*100:0]));
@@ -462,14 +486,23 @@ input:focus,select:focus,textarea:focus{outline:none;box-shadow:0 0 0 4px rgba(2
     const terBase=data.reduce((a,x)=>a+x.value*x.ter/100,0),divWeighted=data.reduce((a,x)=>a+x.value*x.dividendYield/100,0);
     set('#paTer',pct(total?terBase/total*100:0));set('#paDividends',pct(total?divWeighted/total*100:0));
     set('#paS10',money(total*.9));set('#paS20',money(total*.8));set('#paS30',money(total*.7));set('#paS50',money(total*.5));
-    list('#paPerformance',[...data].filter(x=>x.invested>0).sort((a,b)=>(b.value-b.invested)-(a.value-a.invested)).slice(0,8).map(x=>[x.name,(x.value/x.invested-1)*100]));
   }
   function renderDonut(items,total){
     const g=document.querySelector('#paDonut'),legend=document.querySelector('#paLegend');if(!g||!legend)return;
     g.innerHTML='';legend.innerHTML='';let offset=0;const C=2*Math.PI*45;
     items.forEach(([name,val],i)=>{const len=total?val/total*C:0,c=document.createElementNS('http://www.w3.org/2000/svg','circle');c.setAttribute('cx','60');c.setAttribute('cy','60');c.setAttribute('r','45');c.setAttribute('stroke',colors[i%colors.length]);c.setAttribute('stroke-dasharray',len+' '+(C-len));c.setAttribute('stroke-dashoffset',-offset);g.appendChild(c);offset+=len;const li=document.createElement('div');li.className='pa-legend-item';li.innerHTML='<span><i class="pa-dot" style="background:'+colors[i%colors.length]+'"></i>'+safe(name)+'</span><span>'+pct(val/total*100)+'</span>';legend.appendChild(li)});
   }
-  addRow();addRow();add.addEventListener('click',()=>addRow());analyze.addEventListener('click',analyzePortfolio);rows.addEventListener('input',()=>{});
+  addRow();addRow();add.addEventListener('click',()=>addRow());analyze.addEventListener('click',analyzePortfolio);
+  rows.addEventListener('input',e=>{
+    if(!e.target.classList.contains('pa-name'))return;
+    const value=e.target.value.toLowerCase(),row=e.target.closest('.pa-row');
+    const selects=[...row.querySelectorAll('.pa-meta-item .pa-select')];
+    if(value.includes('ftse all-world')||value.includes('all-world')||value.includes('vwce')){
+      if(selects[0]&&!selects[0].value)selects[0].value='Globale';
+      if(selects[1]&&!selects[1].value)selects[1].value='Globale';
+      if(selects[2]&&!selects[2].value)selects[2].value=exposureProfiles[1];
+    }
+  });
 })();
 </script>
 </body></html>
