@@ -50,14 +50,19 @@
 .pa-intro p{margin:0;color:#9f9b92}
 .pa-input{background:var(--panel);border:1px solid var(--line);padding:22px;margin-top:18px;border-radius:24px}
 .pa-table{display:grid;gap:10px;margin-top:18px}
-.pa-row{display:grid;grid-template-columns:1.05fr 1.35fr .8fr .8fr .8fr auto;gap:9px;align-items:start;padding:12px;border:1px solid var(--line);background:rgba(0,0,0,.12);border-radius:18px}
+.pa-row{display:grid;grid-template-columns:1.35fr 1fr .85fr .85fr auto;gap:9px;align-items:start;padding:12px;border:1px solid var(--line);background:rgba(0,0,0,.12);border-radius:18px}
 .pa-row.head{border:0;background:transparent;padding:0 6px 2px;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:#77736b}
 .pa-row input{width:100%;padding:11px 12px;background:#0a0a09;border:1px solid #35332e;color:#fff;border-radius:14px;font:inherit;min-width:0}
 .pa-row input::placeholder{color:#68645d}
 .pa-row input:read-only{color:#d7d0c2;background:rgba(208,180,119,.045)}
+.pa-select{width:100%;min-width:0;padding:11px 12px;background:#0a0a09;border:1px solid #35332e;color:#fff;border-radius:14px;font:inherit;color-scheme:dark}
+.pa-select:focus,.pa-small-input:focus,.pa-row input:focus{outline:none;border-color:rgba(208,180,119,.72);box-shadow:0 0 0 3px rgba(208,180,119,.09)}
+.pa-select option{background:#11120f;color:#f7f5ef}
+.pa-small-input{width:100%;padding:11px 12px;background:#0a0a09;border:1px solid #35332e;color:#fff;border-radius:14px;font:inherit;min-width:0}
+.pa-meta-item em{font-style:normal;text-transform:none;letter-spacing:0;color:#77736b}
 .pa-remove{width:40px;height:40px;border:1px solid #35332e;background:#0a0a09;color:#aaa69d;border-radius:50%;cursor:pointer}
 .pa-remove:hover{border-color:rgba(208,180,119,.5);color:#fff}
-.pa-meta{grid-column:1/-1;display:grid;grid-template-columns:repeat(5,1fr);gap:8px;padding:10px 2px 0;border-top:1px solid rgba(255,255,255,.06);margin-top:2px}
+.pa-meta{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:10px 2px 0;border-top:1px solid rgba(255,255,255,.06);margin-top:2px}
 .pa-meta-item{min-width:0}
 .pa-meta-item span{display:block;font-size:9px;text-transform:uppercase;letter-spacing:.09em;color:#6f6b64;margin-bottom:4px}
 .pa-meta-item b{display:block;color:#c9c4b9;font-size:12px;line-height:1.35;white-space:normal}
@@ -96,8 +101,8 @@
 .pa-scenario span{font-size:10px;color:#77736b}
 .pa-disclaimer{margin-top:16px;color:#77736b;font-size:11px;line-height:1.55}
 select option{background:#11120f;color:#f7f5ef}
-@media(max-width:850px){.pa-row{grid-template-columns:1fr 1fr}.pa-dashboard,.pa-grid{grid-template-columns:1fr}.pa-metrics{grid-template-columns:repeat(2,1fr)}.pa-row.head{display:none}.pa-meta{grid-template-columns:repeat(3,1fr)}.pa-donut-wrap{grid-template-columns:150px 1fr}.pa-donut{width:150px;height:150px}.pa-scenario{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:560px){.pa-input,.pa-card{padding:16px}.pa-row{grid-template-columns:1fr 1fr;padding:11px}.pa-row .pa-name{grid-column:1/-1}.pa-row .pa-remove{grid-column:2;justify-self:end;margin-top:-45px}.pa-meta{grid-template-columns:1fr 1fr;gap:10px}.pa-donut-wrap{grid-template-columns:1fr}.pa-donut{margin:auto}.pa-metrics{grid-template-columns:1fr 1fr}.pa-breakdown{grid-template-columns:1fr 1fr}.pa-intro{padding:18px}}
+@media(max-width:850px){.pa-row{grid-template-columns:1fr 1fr}.pa-dashboard,.pa-grid{grid-template-columns:1fr}.pa-metrics{grid-template-columns:repeat(2,1fr)}.pa-row.head{display:none}.pa-meta{grid-template-columns:repeat(2,1fr)}.pa-donut-wrap{grid-template-columns:150px 1fr}.pa-donut{width:150px;height:150px}.pa-scenario{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.pa-input,.pa-card{padding:16px}.pa-row{grid-template-columns:1fr 1fr;padding:11px}.pa-name-cell{grid-column:1/-1}.pa-row .pa-name{grid-column:auto}.pa-row .pa-remove{grid-column:2;justify-self:end;margin-top:-45px}.pa-meta{grid-template-columns:1fr 1fr;gap:10px}.pa-donut-wrap{grid-template-columns:1fr}.pa-donut{margin:auto}.pa-metrics{grid-template-columns:1fr 1fr}.pa-breakdown{grid-template-columns:1fr 1fr}.pa-intro{padding:18px}}
 <style>
 .advanced-path{margin-top:48px;padding:30px;border:1px solid var(--line);border-radius:28px;background:rgba(13,13,11,.58);box-shadow:0 20px 60px rgba(0,0,0,.16)}
 .advanced-path-head{display:flex;justify-content:space-between;align-items:end;gap:28px;padding:4px 4px 26px}
