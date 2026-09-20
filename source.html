@@ -43,7 +43,23 @@
 #importante .darkbox{padding:28px}
 @media(max-width:650px){#strumenti.section,#importante.section{padding-top:42px;padding-bottom:42px}#strumenti.section h2,#importante.section h2{font-size:32px}#importante .darkbox{padding:21px}}
 </style>
-</head>
+
+<style id="finlab-global-redesign">
+:root{--bg:#080908;--panel:#11120f;--paper:#f1eadc;--ink:#171614;--muted:#a6a79f;--line:rgba(255,255,255,.085);--gold:#d0b477;--white:#f7f5ef;--shadow:0 22px 60px rgba(0,0,0,.32)}
+html{background:var(--bg)}body{background:radial-gradient(850px 450px at 80% -10%,rgba(208,180,119,.08),transparent 65%),var(--bg);color:var(--white)}
+button,input,select,textarea{font:inherit}a{transition:color .2s,opacity .2s}
+header,nav{border-color:var(--line)!important}.nav,.topbar,.site-header{backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.card,.panel,.tool-card,.lesson-card,.chapter-card,.resource-card,.source-card,.box,.form,.calculator,.result,.section-card,.feature,.module,.topic,.lesson,.accordion,.faq-item,.table-wrap,.callout,.strategy-card,.scenario-card{border-color:var(--line)!important;border-radius:24px!important;background:linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.012))!important;box-shadow:0 12px 34px rgba(0,0,0,.22)}
+.card:hover,.tool-card:hover,.lesson-card:hover,.chapter-card:hover,.feature:hover,.module:hover{border-color:rgba(208,180,119,.28)!important;box-shadow:0 18px 40px rgba(0,0,0,.26)}
+button,.btn,.button,.pill,.badge,.tag,.source-link{border-radius:999px!important}.icon,.app-nav-icon,[class*="icon"]{border-radius:50%!important}
+input,select,textarea{border-radius:16px!important;border-color:var(--line)!important;background:rgba(0,0,0,.18)!important;color:var(--white)}
+input:focus,select:focus,textarea:focus{outline:none;box-shadow:0 0 0 4px rgba(208,180,119,.12);border-color:rgba(208,180,119,.5)!important}
+.panel,.chapter-panel,.tool-panel,.lesson-panel,.content-panel{box-shadow:var(--shadow)}
+.app-nav{background:rgba(18,19,16,.86)!important;border:1px solid rgba(255,255,255,.09)!important;box-shadow:0 18px 50px rgba(0,0,0,.4)!important;backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border-radius:25px!important}
+.app-nav a{border-radius:20px!important}.app-nav a:hover,.app-nav a.active{background:rgba(208,180,119,.11)!important}
+@media(max-width:700px){.card,.panel,.tool-card,.lesson-card,.chapter-card,.resource-card,.source-card,.box,.form,.calculator,.result,.section-card,.feature,.module,.topic,.lesson,.accordion,.faq-item,.table-wrap,.callout,.strategy-card,.scenario-card{border-radius:22px!important}.wrap,.container{width:min(100% - 20px,1180px)!important}.app-nav{left:10px!important;right:10px!important;bottom:10px!important}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}}
+</style></head>
 <body>
 <header class="wrap nav"><a class="brand" href="#top">FIN<span>LAB</span></a><nav class="navlinks"><a href="#inizio">Inizia</a><a href="#percorso">Percorso</a><a href="#strumenti">Simulatore</a><a href="#importante">Metodo</a></nav></header>
 <main id="top">
