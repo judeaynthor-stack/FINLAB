@@ -50,7 +50,7 @@
 .pa-intro p{margin:0;color:#9f9b92}
 .pa-input{background:var(--panel);border:1px solid var(--line);padding:22px;margin-top:18px}
 .pa-table{display:grid;gap:8px}
-.pa-row{display:grid;grid-template-columns:1.45fr .85fr .85fr .85fr .7fr auto;gap:8px;align-items:center}
+.pa-row{display:grid;grid-template-columns:1.35fr .85fr .8fr .8fr .9fr .9fr .6fr .75fr auto;gap:8px;align-items:center}
 .pa-row input,.pa-row select{width:100%;padding:10px 11px;background:#0a0a09;border:1px solid #35332e;color:#fff;border-radius:10px;font:inherit;min-width:0}
 .pa-row.head{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:#77736b;padding:0 4px 2px}
 .pa-remove{width:38px;height:38px;border:1px solid #35332e;background:#0a0a09;color:#aaa69d;border-radius:50%;cursor:pointer}
@@ -84,7 +84,7 @@
 .pa-scenario b{display:block;font:normal 19px Georgia,serif;color:var(--paper)}
 .pa-scenario span{font-size:10px;color:#77736b}
 .pa-disclaimer{margin-top:16px;color:#77736b;font-size:11px}
-@media(max-width:850px){.pa-dashboard,.pa-grid{grid-template-columns:1fr}.pa-metrics{grid-template-columns:repeat(2,1fr)}.pa-row{grid-template-columns:1.5fr 1fr 1fr 1fr}.pa-row .pa-hide-mobile{display:none}.pa-row.head{display:none}.pa-donut-wrap{grid-template-columns:150px 1fr}.pa-donut{width:150px;height:150px}.pa-scenario{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:850px){.pa-row{grid-template-columns:1fr 1fr 1fr}.pa-dashboard,.pa-grid{grid-template-columns:1fr}.pa-metrics{grid-template-columns:repeat(2,1fr)}.pa-row{grid-template-columns:1fr 1fr}.pa-row .pa-hide-mobile{display:none}.pa-row.head{display:none}.pa-donut-wrap{grid-template-columns:150px 1fr}.pa-donut{width:150px;height:150px}.pa-scenario{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:560px){.pa-input,.pa-card{padding:16px}.pa-row{grid-template-columns:1fr 1fr}.pa-row input,.pa-row select{font-size:12px}.pa-row .pa-name{grid-column:1/-1}.pa-row .pa-remove{grid-column:2;justify-self:end}.pa-donut-wrap{grid-template-columns:1fr}.pa-donut{margin:auto}.pa-metrics{grid-template-columns:1fr 1fr}.pa-breakdown{grid-template-columns:1fr 1fr}}
 </style>
 
@@ -171,7 +171,7 @@ input:focus,select:focus,textarea:focus{outline:none;box-shadow:0 0 0 4px rgba(2
       <h3 style="font:normal 28px Georgia,serif;margin:10px 0 8px">Inserisci il portafoglio</h3>
       <p class="lead" style="font-size:13px">Per ogni posizione indica almeno nome, categoria e valore attuale. Gli altri dati rendono l'analisi più completa.</p>
       <div class="pa-table" id="paRows">
-        <div class="pa-row head"><span>Strumento</span><span>Categoria</span><span>Valore</span><span>Investito</span><span>Settore</span><span></span></div>
+        <div class="pa-row head"><span>Strumento</span><span>Categoria</span><span>Valore</span><span>Investito</span><span>Settore</span><span>Geografia</span><span>TER</span><span>Income</span><span></span></div>
       </div>
       <div class="pa-actions">
         <button class="btn" id="paAdd" type="button">+ Aggiungi posizione</button>
@@ -427,6 +427,14 @@ input:focus,select:focus,textarea:focus{outline:none;box-shadow:0 0 0 4px rgba(2
     const terBase=data.reduce((a,x)=>a+x.value*x.ter/100,0);set('#paTer',pct(total?terBase/total*100:0));set('#paDividends',money(data.reduce((a,x)=>a+x.income,0)));
     set('#paS10',money(total*.9));set('#paS20',money(total*.8));set('#paS30',money(total*.7));set('#paS50',money(total*.5));
     const perf=[...data].filter(x=>x.invested>0).sort((a,b)=>(b.value-b.invested)-(a.value-a.invested)).slice(0,8).map(x=>[x.name,(x.value/x.invested-1)*100]);list('#paPerformance',perf);
+    const mainCat=catsData[0], mainSector=sectors[0], liquid=(byCat['Liquidità']||0), liquidPct=total?liquid/total*100:0;
+    const summary=[
+      [data.length+' posizioni',100],
+      [mainCat?mainCat[0]+' · '+pct(mainCat[1]/total*100):'Nessuna categoria',0],
+      [mainSector?mainSector[0]+' · '+pct(mainSector[1]/total*100):'Settore non indicato',0],
+      [liquidPct>0?'Liquidità · '+pct(liquidPct):'Liquidità non indicata',liquidPct]
+    ];
+    const se=document.querySelector('#paSummary'); if(se) se.innerHTML=summary.map(x=>'<div class="pa-list-row"><span>'+x[0]+'</span><span>'+(x[1]===100?'':'Quota '+pct(x[1]))+'</span></div>').join('');
   }
   function renderDonut(items,total){
     const g=document.querySelector('#paDonut'),legend=document.querySelector('#paLegend');if(!g||!legend)return;
