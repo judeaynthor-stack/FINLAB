@@ -210,6 +210,16 @@ main section{scroll-margin-top:92px}
  .command-input{font-size:15px!important}
 }
 @media(prefers-reduced-motion:reduce){header.nav,.pa-row,.btn,.nav-tool{transition:none}}
+</style><style id="finlab-bottom-nav-refresh">
+@media(max-width:650px){
+ .app-nav{grid-template-columns:repeat(4,1fr)!important;padding:7px 5px!important;border-radius:22px!important}
+ .app-nav a{min-height:52px!important;gap:4px!important;padding:7px 4px!important;font-size:9px!important;letter-spacing:.07em!important}
+ .app-nav-icon{width:25px!important;height:25px!important;display:grid!important;place-items:center!important;font-size:0!important;color:var(--gold)!important}
+ .app-nav-icon svg{width:23px!important;height:23px!important;stroke-width:1.7!important}
+ .app-nav a.active .app-nav-icon,.app-nav a:hover .app-nav-icon{color:#f1eadc!important;transform:scale(1.06)}
+ .app-nav a{transition:color .2s ease,background .2s ease}
+ .app-nav a.active{background:rgba(208,180,119,.11)!important;color:#f7f5ef!important}
+}
 </style></head>
 <body>
 <header class="wrap nav"><a class="brand" href="#top">FIN<span>LAB</span></a><nav class="navlinks"><a href="#inizio">Inizia</a><a href="#percorso">Percorso</a><a href="#strumenti">Simulatore</a><a href="#importante">Metodo</a></nav></header>
@@ -695,4 +705,11 @@ backdrop.addEventListener('click',e=>{if(e.target===backdrop)closeCmd()});
 document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();openCmd()}if(e.key==='Escape')closeCmd()});
 $('.app-nav a').forEach(a=>{const href=a.getAttribute('href');const iconMap=href==='#top'?'home':href==='#percorso'?'book':href==='#strumenti'?'tool':'chart';const ic=$('.app-nav-icon',a);if(ic&&!ic.innerHTML.trim())ic.innerHTML=icons[iconMap]});
 })();
+</script><script id="finlab-bottom-nav-icons-refresh">
+(()=>{const $=(s,e=document)=>[...e.querySelectorAll(s)];const icons={
+home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m3 10 9-7 9 7"/><path d="M5 9v11h14V9"/><path d="M9 20v-6h6v6"/></svg>',
+learn:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5v-16Z"/><path d="M4 5.5v16M8 7h8M8 11h6"/></svg>',
+tools:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a5 5 0 0 0-6.4 6.4L3 18l3 3 5.3-5.3a5 5 0 0 0 6.4-6.4l-3.1 3.1-2.1-.6-.6-2.1 3.1-3.1Z"/></svg>',
+chart:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5M4 19h16"/><path d="m7 15 4-5 3 3 5-7"/></svg>'
+};$('.app-nav a').forEach(a=>{const href=a.getAttribute('href');const key=href==='#top'?'home':href==='#percorso'?'learn':href==='#strumenti'?'tools':'chart';const el=a.querySelector('.app-nav-icon');if(el)el.innerHTML=icons[key]});})();
 </script></body></html>
