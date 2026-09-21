@@ -220,7 +220,17 @@ main section{scroll-margin-top:92px}
  .app-nav a{transition:color .2s ease,background .2s ease}
  .app-nav a.active{background:rgba(208,180,119,.11)!important;color:#f7f5ef!important}
 }
-</style></head>
+</style>
+<style id="finlab-bottom-nav-icons-fix">
+@media(max-width:650px){
+  .app-nav{display:grid!important;grid-template-columns:repeat(4,1fr);align-items:stretch;gap:0;}
+  .app-nav a{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:5px!important;min-height:64px!important;}
+  .app-nav-icon{width:32px!important;height:32px!important;display:flex!important;align-items:center!important;justify-content:center!important;flex:0 0 32px!important;color:currentColor!important;line-height:0!important;}
+  .app-nav-icon svg{width:27px!important;height:27px!important;display:block!important;overflow:visible!important;stroke:currentColor!important;fill:none!important;stroke-width:1.8!important;}
+  .app-nav-label{display:block!important;line-height:1!important;}
+}
+</style>
+</head>
 <body>
 <header class="wrap nav"><a class="brand" href="#top">FIN<span>LAB</span></a><nav class="navlinks"><a href="#inizio">Inizia</a><a href="#percorso">Percorso</a><a href="#strumenti">Simulatore</a><a href="#importante">Metodo</a></nav></header>
 <main id="top">
