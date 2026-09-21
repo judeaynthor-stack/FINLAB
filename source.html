@@ -706,7 +706,7 @@ header.nav{position:relative;z-index:1100}
     const brand=one('.brand',nav);
     if(brand&&!brand.querySelector('.nav-brand-mark')) brand.insertAdjacentHTML('afterbegin','<span class="nav-brand-mark">'+icons.chart+'</span>');
     const map=['home','book','tool','chart'];
-    one('.navlinks a',nav).forEach((a,i)=>{
+    all('.navlinks a',nav).forEach((a,i)=>{
       if(map[i]&&!a.querySelector('.nav-icon')) a.insertAdjacentHTML('afterbegin','<span class="nav-icon">'+icons[map[i]]+'</span>');
     });
     if(!one('.nav-tools',nav)){
@@ -715,8 +715,8 @@ header.nav{position:relative;z-index:1100}
       tools.innerHTML='<button class="nav-tool" id="globalSearchBtn" type="button" aria-label="Cerca nel sito">'+icons.search+'</button>';
       nav.appendChild(tools);
     }
-    const sections=one('main section[id]');
-    const links=one('.navlinks a',nav);
+    const sections=all('main section[id]');
+    const links=all('.navlinks a',nav);
     if(window.IntersectionObserver&&sections.length){
       const io=new IntersectionObserver(entries=>{
         entries.forEach(en=>{
@@ -737,7 +737,7 @@ header.nav{position:relative;z-index:1100}
   }
   const input=one('#commandInput'),results=one('#commandResults');
   const entries=[
-    ...one('.chapter-card').map(x=>({title:x.querySelector('h3')?.textContent||'Capitolo',sub:x.querySelector('.num')?.textContent||'Percorso di studio',href:x.dataset.chapter?'#'+x.dataset.chapter:'#percorso',icon:'book'})),
+    ...all('.chapter-card').map(x=>({title:x.querySelector('h3')?.textContent||'Capitolo',sub:x.querySelector('.num')?.textContent||'Percorso di studio',href:x.dataset.chapter?'#'+x.dataset.chapter:'#percorso',icon:'book'})),
     {title:'Portfolio Analyzer',sub:'Strumenti · analisi del portafoglio',href:'#strumenti',icon:'chart'},
     {title:'Simulatore',sub:'Strumenti matematici',href:'#strumenti',icon:'tool'},
     {title:'Inizia da qui',sub:'Percorsi di apprendimento',href:'#inizio',icon:'home'}
@@ -764,7 +764,7 @@ header.nav{position:relative;z-index:1100}
       ['#strumenti','tool','Strumenti'],
       ['#lessonSearch','search','Cerca']
     ];
-    const anchors=one('a',appNav);
+    const anchors=all('a',appNav);
     anchors.forEach((a,i)=>{
       const item=navItems[i];
       if(!item)return;
