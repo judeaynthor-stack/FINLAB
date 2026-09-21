@@ -692,7 +692,7 @@ if(nav){
  tools.innerHTML='<button class="nav-tool" id="globalSearchBtn" aria-label="Cerca nel sito">'+icons.search+'</button><button class="nav-tool mobile-tools-trigger" id="mobileSearchBtn" aria-label="Cerca">'+icons.search+'</button>';
  nav.appendChild(tools);
  window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>8),{passive:true});
- const sections=[...$('main section[id]')];
+ const sections=$('main section[id]');
  const links=$('.navlinks a',nav);
  const io=new IntersectionObserver(entries=>entries.forEach(en=>{if(en.isIntersecting){links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+en.target.id))}}),{rootMargin:'-35% 0px -55% 0px',threshold:0});
  sections.forEach(s=>io.observe(s));
