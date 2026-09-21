@@ -269,6 +269,127 @@ header.nav{position:relative;z-index:1100}
   .app-nav-icon{display:flex!important;visibility:visible!important;width:30px!important;height:30px!important;align-items:center!important;justify-content:center!important;color:var(--gold)!important;line-height:0!important}
   .app-nav a>span:last-child{display:block!important;font-size:9px!important;line-height:1!important;color:inherit!important}
 }
+</style><style id="finlab-navigation-stable">
+/* Stable navigation: mobile layout is explicit and independent from SVG rendering */
+@media(max-width:850px){
+  header.nav{
+    height:64px!important;
+    padding:0 12px!important;
+    display:flex!important;
+    align-items:center!important;
+    gap:8px!important;
+    position:sticky!important;
+    top:0!important;
+    z-index:1100!important;
+  }
+  header.nav .brand{
+    flex:0 0 auto!important;
+    font-size:13px!important;
+    white-space:nowrap!important;
+  }
+  header.nav .navlinks{
+    display:flex!important;
+    flex:1 1 auto!important;
+    min-width:0!important;
+    max-width:none!important;
+    gap:5px!important;
+    overflow-x:auto!important;
+    overflow-y:hidden!important;
+    scrollbar-width:none!important;
+  }
+  header.nav .navlinks::-webkit-scrollbar{display:none}
+  header.nav .navlinks a{
+    flex:0 0 auto!important;
+    min-width:0!important;
+    padding:7px 8px!important;
+    font-size:10px!important;
+    white-space:nowrap!important;
+    border-radius:999px!important;
+  }
+  header.nav .navlinks a:nth-child(4){display:none!important}
+  header.nav .nav-tools{
+    flex:0 0 38px!important;
+    width:38px!important;
+    margin:0!important;
+  }
+  header.nav .nav-tool{
+    width:38px!important;
+    height:38px!important;
+    padding:0!important;
+  }
+}
+@media(max-width:650px){
+  body{padding-bottom:96px!important}
+  .app-nav{
+    display:flex!important;
+    flex-direction:row!important;
+    align-items:stretch!important;
+    justify-content:space-around!important;
+    position:fixed!important;
+    left:10px!important;
+    right:10px!important;
+    bottom:10px!important;
+    width:auto!important;
+    height:78px!important;
+    min-height:78px!important;
+    max-height:78px!important;
+    padding:5px!important;
+    gap:0!important;
+    overflow:hidden!important;
+    z-index:5000!important;
+  }
+  .app-nav a{
+    flex:1 1 25%!important;
+    width:25%!important;
+    min-width:0!important;
+    max-width:none!important;
+    height:68px!important;
+    min-height:68px!important;
+    padding:5px 2px!important;
+    margin:0!important;
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:center!important;
+    justify-content:center!important;
+    gap:4px!important;
+    overflow:hidden!important;
+  }
+  .app-nav-icon{
+    display:flex!important;
+    width:30px!important;
+    height:30px!important;
+    flex:0 0 30px!important;
+    align-items:center!important;
+    justify-content:center!important;
+    color:var(--gold)!important;
+    font-size:0!important;
+    line-height:1!important;
+  }
+  /* iOS/Safari-safe fallback icons: labels and navigation do not depend on inline SVG painting. */
+  .app-nav-icon svg{display:none!important}
+  .app-nav a:nth-child(1) .app-nav-icon:before{content:"⌂"}
+  .app-nav a:nth-child(2) .app-nav-icon:before{content:"▤"}
+  .app-nav a:nth-child(3) .app-nav-icon:before{content:"⚒"}
+  .app-nav a:nth-child(4) .app-nav-icon:before{content:"⌕"}
+  .app-nav-icon:before{
+    display:block!important;
+    font-family:Arial,sans-serif!important;
+    font-size:25px!important;
+    font-weight:400!important;
+    line-height:30px!important;
+    color:var(--gold)!important;
+  }
+  .app-nav a>span:last-child{
+    display:block!important;
+    max-width:100%!important;
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+    white-space:nowrap!important;
+    font-size:9px!important;
+    line-height:12px!important;
+    color:inherit!important;
+  }
+}
 </style></head>
 <body>
 <header class="wrap nav"><a class="brand" href="#top">FIN<span>LAB</span></a><nav class="navlinks"><a href="#inizio">Inizia</a><a href="#percorso">Percorso</a><a href="#strumenti">Simulatore</a><a href="#importante">Metodo</a></nav></header>
