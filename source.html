@@ -246,6 +246,29 @@ header.nav{position:relative;z-index:1100}
   .app-nav-icon svg{display:block!important;width:26px!important;height:26px!important;stroke:currentColor!important;fill:none!important}
   .app-nav a>span:last-child{display:block!important;color:inherit!important;font-size:9px!important;line-height:1!important}
 }
+</style><style id="finlab-navigation-final-fix-2">
+/* Final navigation: one source of truth */
+.navlinks{display:flex}
+.navlinks a{display:inline-flex!important;align-items:center;gap:7px}
+.nav-icon{display:inline-flex;width:18px;height:18px;align-items:center;justify-content:center}
+.nav-icon svg{width:16px;height:16px;display:block}
+.app-nav-icon svg{display:block!important;width:26px!important;height:26px!important;fill:none!important;stroke:currentColor!important;stroke-width:1.8!important;stroke-linecap:round!important;stroke-linejoin:round!important}
+@media(max-width:850px){
+  header.nav{display:flex!important;visibility:visible!important;opacity:1!important;position:sticky!important;top:0!important;z-index:1100!important}
+  header.nav .navlinks{display:flex!important;visibility:visible!important;opacity:1!important;flex:1!important;overflow-x:auto!important;max-width:calc(100% - 120px)!important;gap:8px!important;scrollbar-width:none!important}
+  header.nav .navlinks::-webkit-scrollbar{display:none}
+  header.nav .navlinks a{font-size:10px!important;padding:7px 9px!important;white-space:nowrap!important;border:1px solid var(--line)!important;border-radius:999px!important}
+  header.nav .nav-tools{display:flex!important;margin-left:6px!important}
+  header.nav .nav-tool{display:grid!important;place-items:center!important;width:38px!important;height:38px!important}
+  header.nav .nav-brand-mark{display:none!important}
+}
+@media(max-width:650px){
+  body{padding-bottom:92px!important}
+  .app-nav{display:grid!important;visibility:visible!important;opacity:1!important;position:fixed!important;left:10px!important;right:10px!important;bottom:10px!important;z-index:3000!important;grid-template-columns:repeat(4,1fr)!important;min-height:74px!important;padding:7px 5px!important}
+  .app-nav a{display:flex!important;visibility:visible!important;opacity:1!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:5px!important;min-height:58px!important;padding:5px 2px!important}
+  .app-nav-icon{display:flex!important;visibility:visible!important;width:30px!important;height:30px!important;align-items:center!important;justify-content:center!important;color:var(--gold)!important;line-height:0!important}
+  .app-nav a>span:last-child{display:block!important;font-size:9px!important;line-height:1!important;color:inherit!important}
+}
 </style></head>
 <body>
 <header class="wrap nav"><a class="brand" href="#top">FIN<span>LAB</span></a><nav class="navlinks"><a href="#inizio">Inizia</a><a href="#percorso">Percorso</a><a href="#strumenti">Simulatore</a><a href="#importante">Metodo</a></nav></header>
@@ -523,7 +546,7 @@ header.nav{position:relative;z-index:1100}
   }));
   const revealObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');revealObserver.unobserve(entry.target)}}),{threshold:.08});document.querySelectorAll('.reveal').forEach(el=>revealObserver.observe(el));
 })();
-</script><nav aria-label="Navigazione mobile" class="app-nav" id="appNav"><a href="#top"><span class="app-nav-icon">⌂</span><span>Home</span></a><a href="#percorso"><span class="app-nav-icon">▦</span><span>Impara</span></a><a href="#strumenti"><span class="app-nav-icon">◌</span><span>Simula</span></a><a href="#lessonSearch"><span class="app-nav-icon">⌕</span><span>Cerca</span></a></nav>
+</script><nav aria-label="Navigazione mobile" class="app-nav" id="appNav"><a href="#top"><span class="app-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7"/><path d="M5 9v11h14V9"/><path d="M9 20v-6h6v6"/></svg></span><span>Home</span></a><a href="#percorso"><span class="app-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5v-16Z"/><path d="M4 5.5v16M8 7h8M8 11h6"/></svg></span><span>Impara</span></a><a href="#strumenti"><span class="app-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a5 5 0 0 0-6.4 6.4L3 18l3 3 5.3-5.3a5 5 0 0 0 6.4-6.4l3.1 3.1-2.1.6-.6 2.1 3.1 3.1Z"/></svg></span><span>Strumenti</span></a><a href="#lessonSearch"><span class="app-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></span><span>Cerca</span></a></nav>
 <script>
 (function(){
   const rows=document.querySelector('#paRows'), add=document.querySelector('#paAdd'), analyze=document.querySelector('#paAnalyze');
