@@ -244,12 +244,11 @@ input:focus,select:focus,textarea:focus{outline:none;box-shadow:0 0 0 4px rgba(2
 
       <div class="pa-card">
         <div class="eyebrow">03 — ASSET ALLOCATION</div>
-        <h3>Come è distribuito?</h3>
+        <h3>Asset allocation reale.</h3>
+        <p>Qui vedi cosa possiedi per categoria, separato dall'esposizione interna degli ETF.</p>
         <div class="pa-donut-wrap">
           <svg class="pa-donut" viewBox="0 0 120 120" aria-label="Distribuzione per categoria">
-            <circle cx="60" cy="60" r="45" stroke="#24231f"></circle>
-            <g id="paDonut"></g>
-            <circle cx="60" cy="60" r="30" stroke="#0d0d0b"></circle>
+            <circle cx="60" cy="60" r="45" stroke="#24231f"></circle><g id="paDonut"></g><circle cx="60" cy="60" r="30" stroke="#0d0d0b"></circle>
           </svg>
           <div class="pa-legend" id="paLegend"><div class="pa-empty">Inserisci le posizioni per visualizzare la distribuzione.</div></div>
         </div>
@@ -264,8 +263,9 @@ input:focus,select:focus,textarea:focus{outline:none;box-shadow:0 0 0 4px rgba(2
       </div>
 
       <div class="pa-card">
-        <div class="eyebrow">05 — ESPOSIZIONE</div>
-        <h3>Settori e geografia.</h3>
+        <div class="eyebrow">05 — ESPOSIZIONE REALE</div>
+        <h3>Look-through di settori e geografia.</h3>
+        <p>Per gli ETF riconosciuti, il peso viene scomposto secondo il profilo sottostante disponibile. Se un profilo non contiene un dato, FINLAB non inventa un'esposizione.</p>
         <div class="pa-grid">
           <div><div class="eyebrow">SETTORI</div><div class="pa-list" id="paSectors"><div class="pa-empty">Nessun dato.</div></div></div>
           <div><div class="eyebrow">GEOGRAFIA</div><div class="pa-list" id="paGeography"><div class="pa-empty">Nessun dato.</div></div></div>
@@ -281,6 +281,22 @@ input:focus,select:focus,textarea:focus{outline:none;box-shadow:0 0 0 4px rgba(2
       </div>
 
       <div class="pa-card">
+        <div class="eyebrow">07 — COSTI</div>
+        <h3>Quanto pesa il TER?</h3>
+        <div class="pa-metrics"><div class="pa-metric"><b id="paTer">Dato n.d.</b><span>TER ponderato</span></div><div class="pa-metric"><b id="paTerAnnual">€0</b><span>Costo annuo stimato</span></div></div>
+        <div class="pa-coverage"><span>Valore con TER disponibile</span><b id="paTerCoverage">0%</b></div>
+        <p>Il TER è ponderato sul valore delle posizioni per cui il dato è disponibile. Il costo annuo è una stima matematica del TER sul valore attuale.</p>
+      </div>
+
+      <div class="pa-card">
+        <div class="eyebrow">08 — SCENARI</div>
+        <h3>E se il valore cambiasse?</h3>
+        <p>Scenari matematici applicati al valore attuale. Non sono previsioni.</p>
+        <div class="pa-scenario"><div><b id="paS10">€0</b><span>-10%</span></div><div><b id="paS20">€0</b><span>-20%</span></div><div><b id="paS30">€0</b><span>-30%</span></div><div><b id="paS50">€0</b><span>-50%</span></div></div>
+        <div class="pa-custom-scenario"><label for="paScenarioInput">Scenario personalizzato</label><div><input id="paScenarioInput" type="number" min="-100" max="100" step="1" value="10"><span>%</span><b id="paScenarioResult">€0</b></div></div>
+      </div>
+
+      <div class="pa-card">
         <div class="eyebrow">09 — ESPOSIZIONE PER RICAVI</div>
         <h3>Da dove arrivano i ricavi?</h3>
         <p>L'esposizione geografica per ricavi richiede dati societari sottostanti, diversi dalla sede legale. FINLAB la mostra solo quando il database dispone di dati dedicati.</p>
@@ -291,37 +307,6 @@ input:focus,select:focus,textarea:focus{outline:none;box-shadow:0 0 0 4px rgba(2
         <div class="eyebrow">10 — LETTURA DEL PORTAFOGLIO</div>
         <h3>Cosa mostra realmente questo portafoglio?</h3>
         <div id="paSummary" class="pa-summary"><div class="pa-empty">Inserisci e analizza il portafoglio per ottenere una sintesi descrittiva.</div></div>
-      </div>
-
-      <div class="pa-card">
-        <div class="eyebrow">06 — SOVRAPPOSIZIONI</div>
-        <h3>Possibili aree comuni.</h3>
-        <p>FINLAB evidenzia quando più posizioni condividono la stessa categoria, settore o area geografica. Per gli ETF, la sovrapposizione usa i profili di esposizione reali disponibili in FINLAB; per gli strumenti senza profilo resta basata sulle classificazioni inserite manualmente.</p>
-        <div class="pa-list" id="paOverlap"><div class="pa-empty">Nessun dato.</div></div>
-      </div>
-
-      <div class="pa-card">
-        <div class="eyebrow">07 — COSTI</div>
-        <h3>Quanto pesa il TER?</h3>
-        <div class="pa-metrics">
-          <div class="pa-metric"><b id="paTer">Dato n.d.</b><span>TER ponderato</span></div>
-          <div class="pa-metric"><b id="paTerAnnual">€0</b><span>Costo annuo stimato</span></div>
-        </div>
-        <div class="pa-coverage"><span>Valore con TER disponibile</span><b id="paTerCoverage">0%</b></div>
-        <p>Il TER è ponderato sul valore delle posizioni per cui il dato è disponibile. Il costo annuo è una stima matematica del TER sul valore attuale.</p>
-      </div>
-
-      <div class="pa-card">
-        <div class="eyebrow">08 — SCENARI</div>
-        <h3>E se il valore cambiasse?</h3>
-        <p>Scenari matematici applicati all'intero portafoglio. Non sono previsioni.</p>
-        <div class="pa-scenario">
-          <div><b id="paS10">€0</b><span>-10%</span></div>
-          <div><b id="paS20">€0</b><span>-20%</span></div>
-          <div><b id="paS30">€0</b><span>-30%</span></div>
-          <div><b id="paS50">€0</b><span>-50%</span></div>
-        </div>
-        <div class="pa-custom-scenario"><label for="paScenarioInput">Scenario personalizzato</label><div><input id="paScenarioInput" type="number" min="-100" max="100" step="1" value="10"><span>%</span><b id="paScenarioResult">€0</b></div></div>
       </div>
 
 
