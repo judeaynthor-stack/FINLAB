@@ -390,6 +390,90 @@ header.nav{position:relative;z-index:1100}
     color:inherit!important;
   }
 }
+</style><style id="finlab-mobile-nav-hard-fix">
+@media(max-width:650px){
+  body{padding-bottom:100px!important}
+  #appNav.app-nav{
+    position:fixed!important;
+    display:grid!important;
+    grid-template-columns:repeat(4,minmax(0,1fr))!important;
+    grid-auto-flow:column!important;
+    left:10px!important;
+    right:10px!important;
+    bottom:10px!important;
+    width:auto!important;
+    height:82px!important;
+    min-height:82px!important;
+    max-height:82px!important;
+    padding:4px!important;
+    margin:0!important;
+    overflow:hidden!important;
+    z-index:99999!important;
+    align-items:stretch!important;
+    justify-items:stretch!important;
+  }
+  #appNav.app-nav>a{
+    position:relative!important;
+    display:flex!important;
+    width:auto!important;
+    min-width:0!important;
+    max-width:none!important;
+    height:72px!important;
+    min-height:72px!important;
+    margin:0!important;
+    padding:4px 1px!important;
+    flex:none!important;
+    flex-direction:column!important;
+    align-items:center!important;
+    justify-content:center!important;
+    gap:3px!important;
+    overflow:hidden!important;
+    box-sizing:border-box!important;
+  }
+  #appNav .app-nav-icon{
+    display:flex!important;
+    width:28px!important;
+    height:28px!important;
+    min-width:28px!important;
+    min-height:28px!important;
+    flex:0 0 28px!important;
+    align-items:center!important;
+    justify-content:center!important;
+    color:var(--gold)!important;
+    font-size:0!important;
+    line-height:1!important;
+  }
+  #appNav .app-nav-icon svg{display:none!important}
+  #appNav>a:nth-child(1) .app-nav-icon:before{content:"⌂"}
+  #appNav>a:nth-child(2) .app-nav-icon:before{content:"▤"}
+  #appNav>a:nth-child(3) .app-nav-icon:before{content:"⚙"}
+  #appNav>a:nth-child(4) .app-nav-icon:before{content:"⌕"}
+  #appNav .app-nav-icon:before{
+    display:block!important;
+    width:28px!important;
+    height:28px!important;
+    text-align:center!important;
+    font-family:Arial,sans-serif!important;
+    font-size:24px!important;
+    font-weight:400!important;
+    line-height:28px!important;
+    color:var(--gold)!important;
+  }
+  #appNav>a>span:last-child{
+    display:block!important;
+    width:100%!important;
+    max-width:100%!important;
+    height:14px!important;
+    overflow:hidden!important;
+    text-align:center!important;
+    text-overflow:ellipsis!important;
+    white-space:nowrap!important;
+    font-size:9px!important;
+    line-height:14px!important;
+    color:#a7a39a!important;
+  }
+  #appNav>a.active>span:last-child{color:var(--white)!important}
+}
 </style></head>
 <body>
 <header class="wrap nav"><a class="brand" href="#top">FIN<span>LAB</span></a><nav class="navlinks"><a href="#inizio">Inizia</a><a href="#percorso">Percorso</a><a href="#strumenti">Simulatore</a><a href="#importante">Metodo</a></nav></header>
@@ -900,24 +984,5 @@ header.nav{position:relative;z-index:1100}
   backdrop?.addEventListener('click',e=>{if(e.target===backdrop)closeCmd();});
   document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();openCmd();}if(e.key==='Escape')closeCmd();});
 
-  const appNav=one('#appNav')||one('.app-nav');
-  if(appNav){
-    const navItems=[
-      ['#top','home','Home'],
-      ['#percorso','book','Impara'],
-      ['#strumenti','tool','Strumenti'],
-      ['#lessonSearch','search','Cerca']
-    ];
-    const anchors=all('a',appNav);
-    anchors.forEach((a,i)=>{
-      const item=navItems[i];
-      if(!item)return;
-      a.href=item[0];
-      const icon=a.querySelector('.app-nav-icon');
-      if(icon) icon.innerHTML=icons[item[1]];
-      const label=a.querySelector('span:not(.app-nav-icon)');
-      if(label) label.textContent=item[2];
-    });
-  }
 })();
 </script></body></html>
