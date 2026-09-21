@@ -562,7 +562,7 @@ input:focus,select:focus,textarea:focus{outline:none;box-shadow:0 0 0 4px rgba(2
       if(ter&&match.ter!=null)ter.value=match.ter;
       row.dataset.etfTicker=match.ticker;row.dataset.etfSource=match.source;delete row.dataset.stockTicker;
       const geo=topExposure(match.geo),sec=topExposure(match.sector);
-      if(note)note.innerHTML='<strong>'+safe(match.ticker)+' · '+safe(match.name)+'</strong>'+(match.ter!=null?' · TER '+match.ter.toLocaleString('it-IT',{minimumFractionDigits:2,maximumFractionDigits:2})+'%':' · TER non disponibile')+'<br><span style="color:#8e8a82">Geografia: '+(geo||'dato non disponibile')+'<br>Settori: '+(sec||'dato non disponibile')+'</span><br><small>'+safe(match.source)+' · dati '+safe(match.asOf)+'. Il profilo reale viene usato nel calcolo del portafoglio.</small>';
+      if(note)note.innerHTML='<strong>'+safe(match.ticker)+' · '+safe(match.name)+'</strong>'+(match.ter!=null?' · TER '+match.ter.toLocaleString('it-IT',{minimumFractionDigits:2,maximumFractionDigits:2})+'%':' · TER non disponibile')+'<br><span style="color:#8e8a82">Geografia: '+(geo||'dato non disponibile')+'<br>Settori: '+(sec||'dato non disponibile')+'</span><br><small><strong style="color:#c7a96b">✓ ETF riconosciuto</strong> · '+safe(match.source)+' · dati '+safe(match.asOf)+'. Il profilo reale viene usato nel calcolo del portafoglio.</small>';
       return;
     }
     if(stock){
@@ -572,7 +572,7 @@ input:focus,select:focus,textarea:focus{outline:none;box-shadow:0 0 0 4px rgba(2
       if(selects[2])selects[2].value='';
       if(ter)ter.value='';
       row.dataset.stockTicker=stock.ticker;delete row.dataset.etfTicker;
-      if(note)note.innerHTML='<strong>'+safe(stock.ticker)+' · '+safe(stock.name)+'</strong> · Azione<br><span style="color:#8e8a82">Geografia: '+safe(stock.geo)+'<br>Settore: '+safe(stock.sector)+'</span><br><small>Classificazione azionaria FINLAB · dati 2026. Il dividendo resta opzionale e può essere inserito manualmente.</small>';
+      if(note)note.innerHTML='<strong>'+safe(stock.ticker)+' · '+safe(stock.name)+'</strong> · Azione<br><span style="color:#8e8a82">Geografia: '+safe(stock.geo)+'<br>Settore: '+safe(stock.sector)+'</span><br><small><strong style="color:#c7a96b">✓ Azione riconosciuta</strong> · Classificazione azionaria FINLAB · dati 2026.</small>';
       return;
     }
     delete row.dataset.etfTicker;delete row.dataset.stockTicker;
