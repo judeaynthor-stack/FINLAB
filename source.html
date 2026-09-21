@@ -690,8 +690,8 @@ header.nav{position:relative;z-index:1100}
 
 <script id="finlab-modern-ui-js">
 (()=> {
-  const $=(s,e=document)=>e.querySelector(s);
-  const $=(s,e=document)=>Array.from(e.querySelectorAll(s));
+  const one=(s,e=document)=>e.querySelector(s);
+  const all=(s,e=document)=>Array.from(e.querySelectorAll(s));
   const icons={
     search:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>',
     home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m3 10 9-7 9 7"/><path d="M5 9v11h14V9"/><path d="M9 20v-6h6v6"/></svg>',
@@ -700,23 +700,23 @@ header.nav{position:relative;z-index:1100}
     chart:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5M4 19h16"/><path d="m7 15 4-5 3 3 5-7"/></svg>'
   };
 
-  const nav=$('header.nav');
+  const nav=one('header.nav');
   if(nav){
     nav.classList.add('modern-nav');
-    const brand=$('.brand',nav);
+    const brand=one('.brand',nav);
     if(brand&&!brand.querySelector('.nav-brand-mark')) brand.insertAdjacentHTML('afterbegin','<span class="nav-brand-mark">'+icons.chart+'</span>');
     const map=['home','book','tool','chart'];
-    $('.navlinks a',nav).forEach((a,i)=>{
+    one('.navlinks a',nav).forEach((a,i)=>{
       if(map[i]&&!a.querySelector('.nav-icon')) a.insertAdjacentHTML('afterbegin','<span class="nav-icon">'+icons[map[i]]+'</span>');
     });
-    if(!$('.nav-tools',nav)){
+    if(!one('.nav-tools',nav)){
       const tools=document.createElement('div');
       tools.className='nav-tools';
       tools.innerHTML='<button class="nav-tool" id="globalSearchBtn" type="button" aria-label="Cerca nel sito">'+icons.search+'</button>';
       nav.appendChild(tools);
     }
-    const sections=$('main section[id]');
-    const links=$('.navlinks a',nav);
+    const sections=one('main section[id]');
+    const links=one('.navlinks a',nav);
     if(window.IntersectionObserver&&sections.length){
       const io=new IntersectionObserver(entries=>{
         entries.forEach(en=>{
@@ -728,16 +728,16 @@ header.nav{position:relative;z-index:1100}
     window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>8),{passive:true});
   }
 
-  let backdrop=$('.command-backdrop');
+  let backdrop=one('.command-backdrop');
   if(!backdrop){
     backdrop=document.createElement('div');
     backdrop.className='command-backdrop';
     backdrop.innerHTML='<div class="command-panel" role="dialog" aria-modal="true" aria-label="Cerca FINLAB"><div class="command-head">'+icons.search+'<input class="command-input" id="commandInput" placeholder="Cerca lezioni, strumenti o sezioni…" autocomplete="off"><span class="command-key">ESC</span></div><div class="command-results" id="commandResults"></div></div>';
     document.body.appendChild(backdrop);
   }
-  const input=$('#commandInput'),results=$('#commandResults');
+  const input=one('#commandInput'),results=one('#commandResults');
   const entries=[
-    ...$('.chapter-card').map(x=>({title:x.querySelector('h3')?.textContent||'Capitolo',sub:x.querySelector('.num')?.textContent||'Percorso di studio',href:x.dataset.chapter?'#'+x.dataset.chapter:'#percorso',icon:'book'})),
+    ...one('.chapter-card').map(x=>({title:x.querySelector('h3')?.textContent||'Capitolo',sub:x.querySelector('.num')?.textContent||'Percorso di studio',href:x.dataset.chapter?'#'+x.dataset.chapter:'#percorso',icon:'book'})),
     {title:'Portfolio Analyzer',sub:'Strumenti · analisi del portafoglio',href:'#strumenti',icon:'chart'},
     {title:'Simulatore',sub:'Strumenti matematici',href:'#strumenti',icon:'tool'},
     {title:'Inizia da qui',sub:'Percorsi di apprendimento',href:'#inizio',icon:'home'}
@@ -750,13 +750,13 @@ header.nav{position:relative;z-index:1100}
   }
   function openCmd(){if(!backdrop)return;backdrop.classList.add('open');render(input?.value||'');setTimeout(()=>input?.focus(),20);}
   function closeCmd(){backdrop?.classList.remove('open');}
-  $('#globalSearchBtn')?.addEventListener('click',openCmd);
+  one('#globalSearchBtn')?.addEventListener('click',openCmd);
   input?.addEventListener('input',()=>render(input.value));
-  results?.addEventListener('click',e=>{const item=e.target.closest('.command-item');if(item){closeCmd();$(item.dataset.href)?.scrollIntoView({behavior:'smooth',block:'start'});}});
+  results?.addEventListener('click',e=>{const item=e.target.closest('.command-item');if(item){closeCmd();one(item.dataset.href)?.scrollIntoView({behavior:'smooth',block:'start'});}});
   backdrop?.addEventListener('click',e=>{if(e.target===backdrop)closeCmd();});
   document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();openCmd();}if(e.key==='Escape')closeCmd();});
 
-  const appNav=$('#appNav')||$('.app-nav');
+  const appNav=one('#appNav')||one('.app-nav');
   if(appNav){
     const navItems=[
       ['#top','home','Home'],
@@ -764,7 +764,7 @@ header.nav{position:relative;z-index:1100}
       ['#strumenti','tool','Strumenti'],
       ['#lessonSearch','search','Cerca']
     ];
-    const anchors=$('a',appNav);
+    const anchors=one('a',appNav);
     anchors.forEach((a,i)=>{
       const item=navItems[i];
       if(!item)return;
