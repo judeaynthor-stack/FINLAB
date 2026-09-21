@@ -1,7 +1,64 @@
 const fs=require('fs');
-const nav='<nav class="navlinks"><a href="/">Home</a><a href="/impara/">Impara</a><div class="nav-dropdown"><button class="nav-dropdown-toggle" type="button" aria-expanded="false">Strumenti <span>⌄</span></button><div class="nav-dropdown-menu"><a href="/strumenti/interesse-composto/">Interesse composto</a><a href="/strumenti/emergency-fund/">Emergency Fund Planner</a><a href="/strumenti/portfolio-analyzer/">Portfolio Analyzer</a><a href="/strumenti/strategy-lab/">Strategy Lab</a></div></div></nav>';
-const css='<style id="finlab-static-nav">.navlinks{display:flex;gap:30px;align-items:center;color:#c5c1b8;font-size:14px}.navlinks>a,.nav-dropdown{display:inline-flex;align-items:center}.navlinks a:hover{color:#fff}.nav-dropdown{position:relative}.nav-dropdown-toggle{border:0;background:none;color:inherit;font:inherit;cursor:pointer;padding:0;display:inline-flex;align-items:center;gap:7px;line-height:1;min-height:28px}.nav-dropdown-menu{display:none;position:absolute;right:0;top:calc(100% + 2px);width:260px;background:#10100e;border:1px solid #3a3832;border-radius:14px;box-shadow:0 20px 50px rgba(0,0,0,.45);padding:7px;z-index:1000}.nav-dropdown.open .nav-dropdown-menu,.nav-dropdown:hover .nav-dropdown-menu,.nav-dropdown:focus-within .nav-dropdown-menu{display:block}.nav-dropdown-menu a,.nav-dropdown-menu span{display:block;padding:12px 13px;color:#aaa69d;font-size:13px;border-bottom:1px solid #24231f;border-radius:9px}.nav-dropdown-menu a:hover{color:#fff;background:#181714}.nav-dropdown-menu span:last-child{border:0;color:#68645d}.nav-dropdown-menu small{float:right;color:#4f4b45;font-size:9px;text-transform:uppercase}</style>';
-const js='<script id="finlab-static-nav-script">(()=>{document.querySelectorAll(".nav-dropdown").forEach(d=>{const b=d.querySelector("button");b?.addEventListener("click",e=>{e.stopPropagation();const open=d.classList.toggle("open");b.setAttribute("aria-expanded",String(open));document.querySelectorAll(".nav-dropdown").forEach(x=>{if(x!==d)x.classList.remove("open")})})});const mobile=document.querySelector(".mobile-nav");if(mobile&&!document.querySelector("#finlab-mobile-tools-panel")){const trigger=document.createElement("button");trigger.className="mobile-tools-trigger";trigger.type="button";trigger.setAttribute("aria-expanded","false");trigger.innerHTML="<span class=\"mobile-icon\">⌘</span><span>Strumenti</span>";const old=[...mobile.children].find(x=>x.textContent?.trim()==="Strumenti");if(old)old.replaceWith(trigger);const panel=document.createElement("div");panel.id="finlab-mobile-tools-panel";panel.className="mobile-tools-panel";panel.innerHTML="<a href=\"/strumenti/interesse-composto/\">Interesse composto</a><a href=\"/strumenti/emergency-fund/\">Emergency Fund Planner</a><a href=\"/strumenti/portfolio-analyzer/\">Portfolio Analyzer</a><a href=\"/strumenti/strategy-lab/\">Strategy Lab</a>";document.body.appendChild(panel);trigger.addEventListener("click",e=>{e.stopPropagation();const open=panel.classList.toggle("open");trigger.setAttribute("aria-expanded",String(open))});panel.addEventListener("click",e=>e.stopPropagation());document.addEventListener("click",()=>{panel.classList.remove("open");trigger.setAttribute("aria-expanded","false")})}document.addEventListener("click",()=>document.querySelectorAll(".nav-dropdown").forEach(d=>d.classList.remove("open")))})();</script>';
-for(const file of ['strumenti/emergency-fund/index.html','strumenti/index.html','strumenti/strategy-lab/index.html']){if(!fs.existsSync(file))continue;let h=fs.readFileSync(file,'utf8');h=h.replace(/<nav\b[^>]*class=["'][^"']*navlinks[^"']*["'][^>]*>[\s\S]*?<\/nav>/i,nav);if(!h.includes('id="finlab-static-nav"'))h=h.replace('</head>',css+'</head>');if(!h.includes('finlab-mobile-tools-panel'))h=h.replace('</head>','<style id="finlab-mobile-tools">.mobile-tools-trigger{display:none}@media(max-width:850px){.mobile-nav{position:fixed;left:8px;right:8px;bottom:8px;z-index:1100;display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:6px;background:rgba(9,9,8,.96);border:1px solid #403c34;border-radius:22px;box-shadow:0 18px 55px rgba(0,0,0,.7)}.mobile-nav>a,.mobile-tools-trigger{min-height:46px;border:0;border-radius:16px;background:transparent;color:#aaa69d;text-decoration:none;font:9px Inter;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:6px;cursor:pointer}.mobile-nav>a:active,.mobile-tools-trigger:active,.mobile-nav>a:focus-visible,.mobile-tools-trigger:focus-visible{background:#171613;color:#fff}.mobile-tools-trigger{display:flex}.mobile-tools-panel{position:fixed;left:12px;right:12px;bottom:78px;z-index:1099;display:none;background:#0c0c0b;border:1px solid #3a3832;border-radius:18px;padding:7px;box-shadow:0 20px 50px rgba(0,0,0,.65)}.mobile-tools-panel.open{display:block}.mobile-tools-panel a{display:block;padding:13px;color:#aaa69d;font-size:12px;border-bottom:1px solid #24231f}.mobile-tools-panel a:last-child{border-bottom:0}.mobile-tools-panel a:active,.mobile-tools-panel a:focus-visible{color:#fff;background:#171613;border-radius:10px}}@media(min-width:851px){.mobile-nav,.mobile-tools-panel{display:none!important}}</style></head>');if(!h.includes('id="finlab-static-nav-script"'))h=h.replace('</body>',js+'</body>');fs.writeFileSync(file,h)}
 
-console.log('FINLAB static patch complete');
+const files=[
+  'strumenti/emergency-fund/index.html',
+  'strumenti/index.html',
+  'strumenti/strategy-lab/index.html'
+];
+
+const desktopNav='<nav class="navlinks"><a href="/">Home</a><a href="/impara/">Impara</a><div class="nav-dropdown"><button class="nav-dropdown-toggle" type="button" aria-expanded="false">Strumenti <span>⌄</span></button><div class="nav-dropdown-menu"><a href="/strumenti/interesse-composto/">Interesse composto</a><a href="/strumenti/emergency-fund/">Emergency Fund Planner</a><a href="/strumenti/portfolio-analyzer/">Portfolio Analyzer</a><a href="/strumenti/strategy-lab/">Strategy Lab</a></div></div></nav>';
+
+const mobileCss='<style id="finlab-static-mobile-nav-fix">
+@media(max-width:850px){
+  .mobile-nav,.finlab-mobile-nav{
+    position:fixed!important;left:8px!important;right:8px!important;bottom:8px!important;
+    z-index:1100!important;display:grid!important;grid-template-columns:repeat(4,1fr)!important;
+    gap:4px!important;padding:6px!important;background:rgba(9,9,8,.96)!important;
+    border:1px solid #403c34!important;border-radius:22px!important;
+    box-shadow:0 18px 55px rgba(0,0,0,.7)!important;
+  }
+  .mobile-nav>a,.mobile-nav>button,.finlab-mobile-nav>a,.finlab-mobile-nav>button{
+    min-height:46px!important;border:0!important;border-radius:16px!important;background:transparent!important;
+    color:#aaa69d!important;text-decoration:none!important;font:9px Inter!important;
+    display:flex!important;flex-direction:column!important;align-items:center!important;
+    justify-content:center!important;gap:3px!important;padding:6px!important;cursor:pointer!important;
+  }
+  .mobile-nav>a span:last-child,.mobile-nav>button span:last-child,
+  .finlab-mobile-nav>a span:last-child,.finlab-mobile-nav>button span:last-child{
+    display:block!important;font:9px Inter!important;line-height:14px!important;color:#aaa69d!important;
+  }
+  .finlab-static-tools-panel{
+    position:fixed!important;left:12px!important;right:12px!important;bottom:82px!important;
+    z-index:1200!important;display:none;background:#0c0c0b!important;border:1px solid #3a3832!important;
+    border-radius:18px!important;padding:7px!important;box-shadow:0 20px 50px rgba(0,0,0,.65)!important;
+  }
+  .finlab-static-tools-panel.open{display:block!important}
+  .finlab-static-tools-panel a{display:block!important;padding:13px!important;color:#aaa69d!important;
+    font-size:12px!important;text-decoration:none!important;border-bottom:1px solid #24231f!important}
+  .finlab-static-tools-panel a:last-child{border-bottom:0!important}
+}
+@media(min-width:851px){.mobile-nav,.finlab-mobile-nav,.finlab-static-tools-panel{display:none!important}}
+</style>';
+
+const js='<script id="finlab-static-mobile-nav-fix-js">
+(()=>{const nav=document.querySelector(".mobile-nav,.finlab-mobile-nav");if(!nav)return;
+let links=[...nav.querySelectorAll("a")],tools=nav.querySelector("button");
+if(!links.some(a=>a.textContent.trim()==="Cerca")){const a=document.createElement("a");a.href="/impara/#lessonSearch";a.innerHTML="<span class=\"mobile-icon\">⌕</span><span>Cerca</span>";nav.appendChild(a)}
+if(!tools){tools=document.createElement("button");tools.type="button";tools.innerHTML="<span class=\"mobile-icon\">⌘</span><span>Strumenti</span>";nav.insertBefore(tools,nav.children[2])}
+tools.className="finlab-static-tools-trigger";tools.setAttribute("aria-expanded","false");
+const p=document.createElement("div");p.className="finlab-static-tools-panel";p.innerHTML='<a href="/strumenti/interesse-composto/">Interesse composto</a><a href="/strumenti/emergency-fund/">Emergency Fund Planner</a><a href="/strumenti/portfolio-analyzer/">Portfolio Analyzer</a><a href="/strumenti/strategy-lab/">Strategy Lab</a>';document.body.appendChild(p);
+tools.addEventListener("click",e=>{e.preventDefault();e.stopPropagation();const o=p.classList.toggle("open");tools.setAttribute("aria-expanded",String(o))});
+p.addEventListener("click",e=>e.stopPropagation());document.addEventListener("click",()=>{p.classList.remove("open");tools.setAttribute("aria-expanded","false")});
+})();
+</script>';
+
+for(const file of files){
+  if(!fs.existsSync(file))continue;
+  let h=fs.readFileSync(file,'utf8');
+  h=h.replace(/<nav\b[^>]*class=["'][^"']*(?:mobile-nav|finlab-mobile-nav)[^"']*["'][^>]*>[\s\S]*?<\/nav>/i,
+    '<nav aria-label="Navigazione mobile" class="mobile-nav finlab-mobile-nav"><a href="/"><span class="mobile-icon">⌂</span><span>Home</span></a><a href="/impara/"><span class="mobile-icon">▤</span><span>Impara</span></a><button class="finlab-static-tools-trigger" type="button" aria-expanded="false"><span class="mobile-icon">⌘</span><span>Strumenti</span></button><a href="/impara/#lessonSearch"><span class="mobile-icon">⌕</span><span>Cerca</span></a></nav>');
+  if(!h.includes('id="finlab-static-mobile-nav-fix"'))h=h.replace('</head>',mobileCss+'</head>');
+  if(!h.includes('id="finlab-static-mobile-nav-fix-js"'))h=h.replace('</body>',js+'</body>');
+  fs.writeFileSync(file,h);
+}
+console.log('FINLAB static mobile navigation normalized');
