@@ -76,6 +76,41 @@ input:focus,select:focus,textarea:focus{outline:none;box-shadow:0 0 0 4px rgba(2
 }
 @media(min-width:651px){.finlab-mobile-tools-panel{display:none!important}}
 </style>
+<style id="finlab-mobile-header-fit">
+@media(max-width:650px){
+  html,body{max-width:100%;overflow-x:hidden!important}
+  .finlab-unified-header{
+    width:100%!important;max-width:100%!important;box-sizing:border-box!important;
+    min-height:64px!important;height:64px!important;padding:0 10px!important;
+    gap:7px!important;overflow:hidden!important;
+  }
+  .finlab-unified-header .brand{
+    flex:0 0 68px!important;width:68px!important;min-width:68px!important;
+    font-size:17px!important;letter-spacing:.04em!important;white-space:nowrap!important;
+    overflow:hidden!important;
+  }
+  .finlab-unified-links{
+    flex:1 1 auto!important;min-width:0!important;width:auto!important;
+    gap:4px!important;overflow:hidden!important;justify-content:flex-start!important;
+  }
+  .finlab-unified-links>a,.finlab-unified-links .nav-dropdown-toggle{
+    flex:0 1 auto!important;min-width:0!important;height:42px!important;
+    padding:0 8px!important;font-size:10px!important;gap:3px!important;
+    border-radius:999px!important;white-space:nowrap!important;
+  }
+  .finlab-unified-links .nav-dropdown-toggle span{display:none!important}
+  .finlab-search-wrap{flex:0 0 40px!important;width:40px!important;margin-left:0!important}
+  .finlab-search-btn{width:40px!important;height:40px!important;font-size:22px!important}
+}
+@media(max-width:380px){
+  .finlab-unified-header{padding:0 7px!important;gap:4px!important}
+  .finlab-unified-header .brand{flex-basis:60px!important;width:60px!important;min-width:60px!important;font-size:15px!important}
+  .finlab-unified-links{gap:2px!important}
+  .finlab-unified-links>a,.finlab-unified-links .nav-dropdown-toggle{padding:0 6px!important;font-size:9px!important}
+  .finlab-search-wrap,.finlab-search-btn{width:36px!important;flex-basis:36px!important}
+  .finlab-search-btn{height:36px!important;font-size:20px!important}
+}
+</style>
 </head>
 <body><header class="wrap nav finlab-unified-header"><a class="brand" href="/">FIN<span>LAB</span></a><nav class="navlinks finlab-unified-links"><a href="/">Home</a><a href="/impara/">Impara</a><div class="nav-dropdown finlab-tools-dropdown"><button class="nav-dropdown-toggle" type="button" aria-expanded="false">Strumenti <span>⌄</span></button><div class="nav-dropdown-menu"><a href="/strumenti/interesse-composto/">Interesse composto</a><a href="/strumenti/emergency-fund/">Emergency Fund Planner</a><a href="/strumenti/portfolio-analyzer/">Portfolio Analyzer</a><a href="/strumenti/strategy-lab/">Strategy Lab</a></div></div></nav><div class="finlab-search-wrap"><a class="finlab-search-btn" href="/impara/#lessonSearch" aria-label="Cerca">⌕</a></div></header>
 <main><section class="hero"><div class="wrap"><div class="eyebrow">STRATEGY LAB</div><h1>Costruisci una strategia. Poi mettila alla prova.</h1><p class="lead">Un laboratorio educativo per capire come allocazione, capitale, contributi e orizzonte temporale modificano il comportamento di un portafoglio ipotetico.</p><div class="notice"><strong>Strumento educativo.</strong> Le simulazioni utilizzano ipotesi illustrative e non rappresentano previsioni, raccomandazioni o consulenza finanziaria.</div></div></section>
