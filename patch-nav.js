@@ -72,7 +72,7 @@ const css=`<style id="finlab-unified-navigation-final">
 }
 <style id="finlab-mobile-spacing-fit">
 @media(max-width:650px){
-  body{padding-top:64px!important}
+  body{padding-top:0!important}
   .hero{padding-top:18px!important}
 }
 </style>
