@@ -76,6 +76,43 @@ const css=`<style id="finlab-unified-navigation-final">
 }
 </style>`;
 
+<style id="finlab-app-design-system">
+/* FINLAB APP DESIGN SYSTEM — shared premium learning UI */
+:root{--fin-glow:rgba(208,180,119,.16);--fin-panel:#10110f;--fin-panel-2:#141512;--fin-border:rgba(255,255,255,.09);--fin-border-gold:rgba(208,180,119,.30)}
+body{background:radial-gradient(900px 500px at 78% -12%,rgba(208,180,119,.09),transparent 62%),radial-gradient(700px 500px at -10% 60%,rgba(120,145,130,.035),transparent 65%),var(--bg,#080908)!important}
+.hero,.section{position:relative}.hero:before,.section:before{content:"";position:absolute;pointer-events:none;inset:0;background:radial-gradient(420px 220px at 90% 10%,rgba(208,180,119,.035),transparent 70%);opacity:.9}
+.hero>* ,.section>*{position:relative;z-index:1}
+.hero h1,.section h2,.card h2,.card h3,.panel h2,.panel h3,.template h3,.metric-value,.scenario-value,.darkbox h3{text-shadow:0 0 28px rgba(208,180,119,.035)}
+.card,.panel,.form,.darkbox,.template,.metric,.scenario,.chart-wrap,.path-guide,.start-card,.topic-detail,.chapter-panel,.thought-card,.reflection-panel,.sim-intro{background:linear-gradient(145deg,rgba(20,21,18,.98),rgba(12,13,11,.98))!important;border:1px solid var(--fin-border)!important;box-shadow:0 16px 50px rgba(0,0,0,.20),inset 0 1px 0 rgba(255,255,255,.025)!important;border-radius:18px!important;position:relative;overflow:hidden}
+.card:before,.panel:before,.form:before,.darkbox:before,.template:before,.metric:before,.path-guide:before,.start-card:before{content:"";position:absolute;left:0;top:0;width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(208,180,119,.35),transparent);opacity:.7}
+.card:hover,.panel:hover,.template:hover,.start-card:hover{border-color:var(--fin-border-gold)!important;box-shadow:0 20px 60px rgba(0,0,0,.28),0 0 35px rgba(208,180,119,.035)!important}
+.badge,.source-link,.path-guide .badge{background:rgba(208,180,119,.045)!important;border-color:rgba(208,180,119,.28)!important;color:#cdb579!important}
+.btn,.calc-btn,.primary,.month-btn,.topic,.lesson-complete,.quiz-check{transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease,background .18s ease!important}
+.btn:hover,.calc-btn:hover,.primary:hover,.month-btn:hover,.topic:hover,.lesson-complete:hover,.quiz-check:hover{transform:translateY(-2px)!important;box-shadow:0 10px 30px rgba(208,180,119,.08)!important}
+input,select,textarea,.field input,.alloc-input,.money-input{background:rgba(6,7,6,.8)!important;border-color:rgba(255,255,255,.10)!important;border-radius:11px!important}
+input:focus,select:focus,textarea:focus,.field input:focus,.alloc-input:focus,.money-input:focus{border-color:rgba(208,180,119,.55)!important;box-shadow:0 0 0 3px rgba(208,180,119,.07),0 0 25px rgba(208,180,119,.035)!important}
+.calc-btn,.primary{background:linear-gradient(135deg,#d9bd7b,#b99859)!important;color:#17140f!important;border-color:#d9bd7b!important}
+.progress,.progress-track,.xp-track{box-shadow:inset 0 1px 3px rgba(0,0,0,.5)!important}
+.progress-bar,.progress-track span{background:linear-gradient(90deg,#9d8050,#d6b873)!important;box-shadow:0 0 12px rgba(208,180,119,.22)!important}
+.chapter-card,.path-card{background:linear-gradient(145deg,#121310,#0d0e0c)!important;border:1px solid rgba(255,255,255,.08)!important;border-radius:18px!important;box-shadow:0 14px 40px rgba(0,0,0,.2)!important}
+.chapter-card:hover,.path-card:hover{border-color:rgba(208,180,119,.34)!important;transform:translateY(-3px)!important;box-shadow:0 20px 55px rgba(0,0,0,.28),0 0 28px rgba(208,180,119,.035)!important}
+.platform-strip{background:rgba(12,13,11,.72)!important;border-top:1px solid rgba(255,255,255,.07)!important;border-bottom:1px solid rgba(255,255,255,.07)!important}
+.platform-strip .strip-item{transition:transform .2s ease,background .2s ease!important;border-radius:14px!important}
+.platform-strip .strip-item:hover{transform:translateY(-2px);background:rgba(208,180,119,.035)}
+.paper,.journal{background:linear-gradient(145deg,#151612,#0d0e0c)!important;color:var(--white,#f5f2eb)!important;border:1px solid rgba(208,180,119,.22)!important;border-radius:22px!important;box-shadow:0 24px 70px rgba(0,0,0,.35)!important;transform:none!important}
+.paper:after,.journal:before{border-color:rgba(208,180,119,.18)!important}
+.paper p,.journal p{color:#aaa69d!important}.paper h3,.journal h2{color:#f2eee6!important}
+.footer{border-color:rgba(255,255,255,.07)!important}
+.result,.metric-value,.scenario-value{color:#f4efe5!important}
+.chart,.bar-chart{background:rgba(0,0,0,.10)!important;border-color:rgba(255,255,255,.08)!important}
+.topic{background:rgba(15,16,14,.9)!important;border-color:rgba(255,255,255,.08)!important;border-radius:12px!important}
+.topic.active,.topic-detail.active{border-color:rgba(208,180,119,.32)!important}
+@media(max-width:650px){
+ .hero{padding-top:48px!important}.section{padding-top:58px!important;padding-bottom:58px!important}
+ .card,.panel,.form,.darkbox,.template,.metric,.scenario,.path-guide,.start-card,.paper,.journal{border-radius:18px!important}
+ .grid,.start-grid,.templates{gap:10px!important}
+}
+</style>
 const js=`<script id="finlab-unified-navigation-final-js">
 (()=>{document.addEventListener("DOMContentLoaded",()=>{const header=document.querySelector(".finlab-unified-header");const dropdown=header?.querySelector(".nav-dropdown");const db=dropdown?.querySelector(".nav-dropdown-toggle");if(db){db.addEventListener("click",e=>{e.preventDefault();e.stopPropagation();const open=dropdown.classList.toggle("open");db.setAttribute("aria-expanded",String(open))})}document.addEventListener("click",e=>{if(dropdown&&!dropdown.contains(e.target)){dropdown.classList.remove("open");db?.setAttribute("aria-expanded","false")}});const nav=document.querySelector(".finlab-mobile-nav");if(!nav)return;let panel=document.querySelector(".finlab-mobile-tools-panel");if(!panel){panel=document.createElement("div");panel.className="finlab-mobile-tools-panel";panel.innerHTML='<a href="/strumenti/interesse-composto/">Interesse composto</a><a href="/strumenti/emergency-fund/">Emergency Fund Planner</a><a href="/strumenti/portfolio-analyzer/">Portfolio Analyzer</a><a href="/strumenti/strategy-lab/">Strategy Lab</a>';document.body.appendChild(panel)}const tb=nav.querySelector(".finlab-mobile-tools");tb?.addEventListener("click",e=>{e.preventDefault();e.stopPropagation();const open=panel.classList.toggle("open");tb.setAttribute("aria-expanded",String(open))});panel.addEventListener("click",e=>e.stopPropagation());document.addEventListener("click",()=>{panel.classList.remove("open");tb?.setAttribute("aria-expanded","false")});document.addEventListener("keydown",e=>{if(e.key==="Escape"){panel.classList.remove("open");tb?.setAttribute("aria-expanded","false")}})})})();
 </script>`;
