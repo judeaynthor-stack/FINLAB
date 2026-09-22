@@ -12,7 +12,7 @@ const files=[
 
 const desktopNav='<nav class="navlinks finlab-unified-links"><a href="/">Home</a><a href="/impara/">Impara</a><div class="nav-dropdown finlab-tools-dropdown"><button class="nav-dropdown-toggle" type="button" aria-expanded="false">Strumenti <span>⌄</span></button><div class="nav-dropdown-menu"><a href="/strumenti/interesse-composto/">Interesse composto</a><a href="/strumenti/emergency-fund/">Emergency Fund Planner</a><a href="/strumenti/portfolio-analyzer/">Portfolio Analyzer</a><a href="/strumenti/strategy-lab/">Strategy Lab</a></div></div></nav>';
 
-const header='<header class="wrap nav finlab-unified-header"><a class="brand" href="/">FIN<span>LAB</span></a>'+desktopNav+'<div class="finlab-search-wrap"><a class="finlab-search-btn" href="/impara/#lessonSearch" aria-label="Cerca">⌕</a></div></header>';
+const header='<header class="wrap nav finlab-unified-header"><a class="brand" href="/">FIN<span>LAB</span></a>'+desktopNav+'</header>';
 
 const mobileNav='<nav aria-label="Navigazione mobile" class="finlab-mobile-nav"><a href="/"><span class="finlab-mobile-icon">⌂</span><span>Home</span></a><a href="/impara/"><span class="finlab-mobile-icon">▤</span><span>Impara</span></a><button class="finlab-mobile-tools" type="button" aria-expanded="false"><span class="finlab-mobile-icon">⚙</span><span>Strumenti</span></button><a href="/impara/#lessonSearch"><span class="finlab-mobile-icon">⌕</span><span>Cerca</span></a></nav>';
 
