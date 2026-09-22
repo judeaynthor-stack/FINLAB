@@ -76,6 +76,18 @@ const css=`<style id="finlab-tools-header-final-fix">
 @media(max-width:650px){
   .finlab-beta-badge{font-size:8px!important;padding:4px 7px!important;margin-left:7px!important}
 }
+
+/* Hard reset for any legacy tool-page dropdown markup. */
+.finlab-unified-header .nav-dropdown{position:relative!important;display:inline-flex!important;align-items:center!important}
+.finlab-unified-header .nav-dropdown-menu{display:none!important;position:absolute!important;right:0!important;top:calc(100% + 8px)!important;width:270px!important;height:auto!important;min-height:0!important;max-height:250px!important;overflow:auto!important;padding:7px!important;margin:0!important;background:#0d0d0c!important;border:1px solid #39362f!important;border-radius:16px!important;box-shadow:0 20px 50px rgba(0,0,0,.55)!important;z-index:1300!important;box-sizing:border-box!important}
+.finlab-unified-header .nav-dropdown.open>.nav-dropdown-menu{display:block!important}
+.finlab-unified-header .nav-dropdown-menu a{display:flex!important;align-items:center!important;height:44px!important;min-height:44px!important;max-height:44px!important;margin:0!important;padding:0 13px!important;background:transparent!important;border:0!important;border-radius:10px!important;color:#aaa69d!important;text-decoration:none!important;font:500 13px/1.2 Inter,system-ui,sans-serif!important;white-space:nowrap!important;box-sizing:border-box!important}
+.finlab-unified-header .nav-dropdown-menu a:hover{background:#171613!important;color:#fff!important}
+@media(max-width:650px){
+ .finlab-unified-header .nav-dropdown-menu{display:none!important}
+ .finlab-unified-header .nav-dropdown.open>.nav-dropdown-menu{display:block!important;position:fixed!important;left:12px!important;right:12px!important;bottom:104px!important;top:auto!important;width:auto!important;max-height:none!important}
+ .finlab-unified-header .finlab-unified-links{overflow:visible!important}
+}
 </style>`;
 
 for(const file of files){
