@@ -87,6 +87,10 @@ for(const file of files){
   h=h.replace(/<style\b[^>]*id=["']finlab-unified-navigation-final["'][^>]*>[\s\S]*?<\/style>/gi,'');
   h=h.replace(/<script\b[^>]*id=["']finlab-unified-navigation-final-js["'][^>]*>[\s\S]*?<\/script>/gi,'');
   h=h.replace(/<script\b[^>]*id=["']finlab-tools-nav-script["'][^>]*>[\s\S]*?<\/script>/gi,'');
+  // build.js injects its own navigation handler; remove it before installing the unified handler
+  // to prevent two click listeners from toggling the desktop dropdown twice.
+  h=h.replace(/<script\b[^>]*id=["']finlab-builder-nav-script["'][^>]*>[\s\S]*?<\/script>/gi,'');
+  h=h.replace(/<style\b[^>]*id=["']finlab-builder-nav["'][^>]*>[\s\S]*?<\/style>/gi,'');
   h=h.replace(/<nav\b[^>]*(?:id=["']appNav["']|class=["'][^"']*(?:mobile-nav|finlab-mobile-nav|finlab-unified-mobile|app-nav)[^"']*["'])[^>]*>[\s\S]*?<\/nav>/gi,'');
   h=h.replace(/<nav\b[^>]*class=["']mobile["'][^>]*>[\s\S]*?<\/nav>/gi,'');
   h=h.replace(/<header\b[\s\S]*?<\/header>/i,header);
