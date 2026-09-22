@@ -744,12 +744,6 @@ main section{scroll-margin-top:92px}
     all('.navlinks a',nav).forEach((a,i)=>{
       if(map[i]&&!a.querySelector('.nav-icon')) a.insertAdjacentHTML('afterbegin','<span class="nav-icon">'+icons[map[i]]+'</span>');
     });
-    if(!one('.nav-tools',nav)){
-      const tools=document.createElement('div');
-      tools.className='nav-tools';
-      tools.innerHTML='<button class="nav-tool" id="globalSearchBtn" type="button" aria-label="Cerca nel sito">'+icons.search+'</button>';
-      nav.appendChild(tools);
-    }
     const sections=all('main section[id]');
     const links=all('.navlinks a',nav);
     if(window.IntersectionObserver&&sections.length){
