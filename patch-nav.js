@@ -51,6 +51,25 @@ const css=`<style id="finlab-unified-navigation-final">
  .finlab-mobile-tools-panel a:last-child{border-bottom:0!important}
 }
 @media(min-width:651px){.finlab-mobile-tools-panel{display:none!important}}
+
+@media(max-width:650px){
+ html,body{max-width:100%;overflow-x:hidden!important}
+ .finlab-unified-header{width:100%!important;max-width:100%!important;box-sizing:border-box!important;height:64px!important;min-height:64px!important;padding:0 10px!important;gap:7px!important;overflow:hidden!important}
+ .finlab-unified-header .brand{flex:0 0 68px!important;width:68px!important;min-width:68px!important;font-size:17px!important;letter-spacing:.04em!important;white-space:nowrap!important;overflow:hidden!important}
+ .finlab-unified-links{flex:1 1 auto!important;min-width:0!important;width:auto!important;gap:4px!important;overflow:hidden!important}
+ .finlab-unified-links>a,.finlab-unified-links .nav-dropdown-toggle{flex:0 1 auto!important;min-width:0!important;height:42px!important;padding:0 8px!important;font-size:10px!important;gap:3px!important;white-space:nowrap!important}
+ .finlab-unified-links .nav-dropdown-toggle span{display:none!important}
+ .finlab-search-wrap{flex:0 0 40px!important;width:40px!important;margin-left:0!important}
+ .finlab-search-btn{width:40px!important;height:40px!important;font-size:22px!important}
+}
+@media(max-width:380px){
+ .finlab-unified-header{padding:0 7px!important;gap:4px!important}
+ .finlab-unified-header .brand{flex-basis:60px!important;width:60px!important;min-width:60px!important;font-size:15px!important}
+ .finlab-unified-links{gap:2px!important}
+ .finlab-unified-links>a,.finlab-unified-links .nav-dropdown-toggle{padding:0 6px!important;font-size:9px!important}
+ .finlab-search-wrap,.finlab-search-btn{width:36px!important;flex-basis:36px!important}
+ .finlab-search-btn{height:36px!important;font-size:20px!important}
+}
 </style>`;
 
 const js=`<script id="finlab-unified-navigation-final-js">
