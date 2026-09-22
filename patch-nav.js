@@ -14,7 +14,7 @@ const desktopNav='<nav class="navlinks finlab-unified-links"><a href="/">Home</a
 
 const header='<header class="wrap nav finlab-unified-header"><a class="brand" href="/">FIN<span>LAB</span></a>'+desktopNav+'</header>';
 
-const mobileNav='<nav aria-label="Navigazione mobile" class="finlab-mobile-nav"><a href="/"><span class="finlab-mobile-icon">⌂</span><span>Home</span></a><a href="/impara/"><span class="finlab-mobile-icon">▤</span><span>Impara</span></a><button class="finlab-mobile-tools" type="button" aria-expanded="false"><span class="finlab-mobile-icon">⚙</span><span>Strumenti</span></button><a href="/impara/#lessonSearch"><span class="finlab-mobile-icon">⌕</span><span>Cerca</span></a></nav>';
+const mobileNav='<nav aria-label="Navigazione mobile" class="finlab-mobile-nav"><a href="/"><span class="finlab-mobile-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7"/><path d="M5 9v11h14V9"/><path d="M9 20v-6h6v6"/></svg></span><span>Home</span></a><a href="/impara/"><span class="finlab-mobile-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14v16H5z"/><path d="M8 8h8M8 12h8M8 16h6"/></svg></span><span>Impara</span></a><button class="finlab-mobile-tools" type="button" aria-expanded="false"><span class="finlab-mobile-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="4"/></svg></span><span>Strumenti</span></button><a href="/impara/#lessonSearch"><span class="finlab-mobile-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></span><span>Cerca</span></a></nav>';
 
 const css=`<style id="finlab-unified-navigation-final">
 .finlab-unified-header{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:18px!important;position:relative!important;z-index:1200!important}
@@ -32,7 +32,7 @@ const css=`<style id="finlab-unified-navigation-final">
 .finlab-search-btn:hover{border-color:#403c34!important;color:#fff!important}
 .finlab-mobile-nav{display:none!important}
 @media(max-width:650px){
- body{padding-bottom:112px!important}
+ body{padding-bottom:165px!important}
  .finlab-unified-header{margin-top:0!important;padding-top:0!important;min-height:64px!important}
  .finlab-unified-header .brand{font-size:21px!important;letter-spacing:.08em!important}
  .finlab-unified-links{gap:8px!important;justify-content:flex-start!important;overflow:visible!important}
@@ -40,10 +40,10 @@ const css=`<style id="finlab-unified-navigation-final">
  .finlab-unified-links .nav-dropdown-menu{display:none!important}
  .finlab-search-wrap{margin-left:auto!important}
  .finlab-search-btn{width:44px!important;height:44px!important;font-size:24px!important}
- .finlab-mobile-nav{position:fixed!important;left:10px!important;right:10px!important;bottom:10px!important;height:82px!important;min-height:82px!important;display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:0!important;align-items:stretch!important;background:rgba(10,10,9,.97)!important;border:1px solid #403c34!important;border-radius:25px!important;box-shadow:0 18px 55px rgba(0,0,0,.7)!important;z-index:99999!important;overflow:hidden!important;padding:4px!important}
+ .finlab-mobile-nav{position:fixed!important;left:10px!important;right:10px!important;bottom:12px!important;height:82px!important;min-height:82px!important;display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:0!important;align-items:stretch!important;background:rgba(10,10,9,.97)!important;border:1px solid #403c34!important;border-radius:25px!important;box-shadow:0 18px 55px rgba(0,0,0,.7)!important;z-index:99999!important;overflow:hidden!important;padding:4px!important}
  .finlab-mobile-nav>a,.finlab-mobile-tools{min-width:0!important;width:100%!important;height:72px!important;border:0!important;background:transparent!important;color:#a7a39a!important;text-decoration:none!important;font:9px Inter,system-ui,sans-serif!important;letter-spacing:.06em!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:3px!important;cursor:pointer!important}
  .finlab-mobile-nav>a:active,.finlab-mobile-tools:active{background:#171613!important;border-radius:16px!important}
- .finlab-mobile-icon{display:flex!important;width:28px!important;height:28px!important;align-items:center!important;justify-content:center!important;font-family:Arial,sans-serif!important;font-size:23px!important;line-height:28px!important;color:#c7a96b!important}
+ .finlab-mobile-icon{display:flex!important;width:28px!important;height:28px!important;align-items:center!important;justify-content:center!important;color:#c7a96b!important}.finlab-mobile-icon svg{width:22px!important;height:22px!important;fill:none!important;stroke:currentColor!important;stroke-width:1.7!important;stroke-linecap:round!important;stroke-linejoin:round!important}
  .finlab-mobile-nav>a>span:last-child,.finlab-mobile-tools>span:last-child{display:block!important;width:100%!important;height:14px!important;margin:0!important;overflow:visible!important;text-align:center!important;white-space:nowrap!important;color:#a7a39a!important;font-size:9px!important;line-height:14px!important}
  .finlab-mobile-tools-panel{position:fixed!important;left:12px!important;right:12px!important;bottom:102px!important;z-index:100000!important;display:none!important;background:#0c0c0b!important;border:1px solid #3a3832!important;border-radius:18px!important;padding:7px!important;box-shadow:0 20px 50px rgba(0,0,0,.65)!important}
  .finlab-mobile-tools-panel.open{display:block!important}
@@ -55,11 +55,11 @@ const css=`<style id="finlab-unified-navigation-final">
 @media(max-width:650px){
  html,body{max-width:100%;overflow-x:hidden!important}
  .finlab-unified-header{width:100%!important;max-width:100%!important;box-sizing:border-box!important;height:64px!important;min-height:64px!important;padding:0 10px!important;gap:7px!important;overflow:hidden!important}
- .finlab-unified-header .brand{flex:0 0 68px!important;width:68px!important;min-width:68px!important;font-size:17px!important;letter-spacing:.04em!important;white-space:nowrap!important;overflow:hidden!important}
+ .finlab-unified-header .brand{flex:0 0 auto!important;width:auto!important;min-width:88px!important;font-size:17px!important;letter-spacing:.04em!important;white-space:nowrap!important;overflow:visible!important}
  .finlab-unified-links{flex:1 1 auto!important;min-width:0!important;width:auto!important;gap:4px!important;overflow:hidden!important}
  .finlab-unified-links>a,.finlab-unified-links .nav-dropdown-toggle{flex:0 1 auto!important;min-width:0!important;height:42px!important;padding:0 8px!important;font-size:10px!important;gap:3px!important;white-space:nowrap!important}
  .finlab-unified-links .nav-dropdown-toggle span{display:none!important}
- .finlab-search-wrap{flex:0 0 40px!important;width:40px!important;margin-left:0!important}
+ .finlab-search-wrap{display:none!important}
  .finlab-search-btn{width:40px!important;height:40px!important;font-size:22px!important}
 }
 @media(max-width:380px){
@@ -73,6 +73,13 @@ const css=`<style id="finlab-unified-navigation-final">
 @media(max-width:650px){
   body{padding-top:0!important}
   .hero{padding-top:18px!important}
+  .finlab-unified-header .nav-dropdown-menu{display:none!important}
+  .finlab-unified-header .nav-dropdown.open .nav-dropdown-menu{display:block!important}
+}
+@media(max-width:650px){
+  .finlab-unified-header .finlab-unified-links>a,.finlab-unified-header .finlab-unified-links .nav-dropdown-toggle{height:42px!important;padding:0 8px!important;font-size:10px!important}
+  .finlab-unified-header{height:64px!important;min-height:64px!important}
+  .finlab-mobile-nav{bottom:12px!important}
 }
 </style>`;
 
