@@ -25,7 +25,7 @@ const css=`<style id="finlab-unified-navigation-final">
 .finlab-unified-links .nav-dropdown{position:relative!important;display:inline-flex!important}
 .finlab-unified-links .nav-dropdown-menu{display:none!important;position:absolute!important;right:0!important;top:calc(100% + 8px)!important;width:270px!important;height:auto!important;min-height:0!important;max-height:250px!important;overflow:auto!important;background:#0d0d0c!important;border:1px solid #39362f!important;border-radius:16px!important;padding:7px!important;box-shadow:0 20px 50px rgba(0,0,0,.55)!important;z-index:1300!important;box-sizing:border-box!important}
 .finlab-unified-links .nav-dropdown.open .nav-dropdown-menu{display:block!important}
-.finlab-unified-links .nav-dropdown-menu a{display:flex!important;align-items:center!important;height:44px!important;min-height:44px!important;max-height:44px!important;box-sizing:border-box!important;margin:0!important;padding:0 13px!important;color:#aaa69d!important;text-decoration:none!important;border-radius:10px!important;font:500 13px/1.2 Inter,system-ui,sans-serif!important;letter-spacing:0!important;white-space:nowrap!important}
+.finlab-unified-links .nav-dropdown-menu a{display:flex!important;align-items:center!important;height:44px!important;min-height:44px!important;max-height:44px!important;box-sizing:border-box!important;margin:0!important;padding:0 13px!important;color:#aaa69d!important;text-decoration:none!important;border-radius:10px!important;font:500 13px/1.2 Inter,system-ui,sans-serif!important;letter-spacing:0!important;white-space:nowrap!important}.finlab-unified-links .nav-dropdown-menu a::before,.finlab-unified-links .nav-dropdown-menu a::after{content:none!important;display:none!important}.finlab-unified-links .nav-dropdown-menu img,.finlab-unified-links .nav-dropdown-menu svg,.finlab-unified-links .nav-dropdown-menu i{display:none!important;width:0!important;height:0!important}.finlab-unified-links .nav-dropdown-menu *{box-sizing:border-box!important;max-width:100%!important}
 .finlab-unified-links .nav-dropdown-menu a:hover{background:#171613!important;color:#fff!important}
 .finlab-search-wrap{flex:0 0 auto!important}
 .finlab-search-btn{width:56px!important;height:56px!important;border:1px solid #292824!important;border-radius:50%!important;display:flex!important;align-items:center!important;justify-content:center!important;color:#d0ccc3!important;text-decoration:none!important;font-size:30px!important;line-height:1!important}
@@ -87,10 +87,9 @@ for(const file of files){
   h=h.replace(/<style\b[^>]*id=["']finlab-unified-navigation-final["'][^>]*>[\s\S]*?<\/style>/gi,'');
   h=h.replace(/<script\b[^>]*id=["']finlab-unified-navigation-final-js["'][^>]*>[\s\S]*?<\/script>/gi,'');
   h=h.replace(/<script\b[^>]*id=["']finlab-tools-nav-script["'][^>]*>[\s\S]*?<\/script>/gi,'');
-  // build.js injects its own navigation handler; remove it before installing the unified handler
-  // to prevent two click listeners from toggling the desktop dropdown twice.
-  h=h.replace(/<script\b[^>]*id=["']finlab-builder-nav-script["'][^>]*>[\s\S]*?<\/script>/gi,'');
-  h=h.replace(/<style\b[^>]*id=["']finlab-builder-nav["'][^>]*>[\s\S]*?<\/style>/gi,'');
+  // Remove every legacy navigation implementation before installing the single canonical one.
+  h=h.replace(/<script\b[^>]*id=["'](?:finlab-builder-nav-script|finlab-unified-nav-js|finlab-mobile-tools-script|finlab-mobile-nav-script|finlab-unified-navigation-final-js|finlab-tools-nav-script)["'][^>]*>[\s\S]*?<\/script>/gi,'');
+  h=h.replace(/<style\b[^>]*id=["'](?:finlab-builder-nav|finlab-unified-nav-css|finlab-mobile-tools-style|finlab-mobile-nav-fix|finlab-unified-navigation-final|finlab-mobile-header-fit|finlab-mobile-brand-fit|finlab-mobile-spacing-fit|finlab-tools-header-alignment-fix|finlab-tools-header-final-fix)["'][^>]*>[\s\S]*?<\/style>/gi,'');
   h=h.replace(/<nav\b[^>]*(?:id=["']appNav["']|class=["'][^"']*(?:mobile-nav|finlab-mobile-nav|finlab-unified-mobile|app-nav)[^"']*["'])[^>]*>[\s\S]*?<\/nav>/gi,'');
   h=h.replace(/<nav\b[^>]*class=["']mobile["'][^>]*>[\s\S]*?<\/nav>/gi,'');
   h=h.replace(/<header\b[\s\S]*?<\/header>/i,header);
