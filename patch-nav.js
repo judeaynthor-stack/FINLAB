@@ -77,40 +77,181 @@ const css=`<style id="finlab-unified-navigation-final">
 </style>`;
 
 const designCss=`<style id="finlab-app-design-system">
-/* FINLAB APP DESIGN SYSTEM — shared premium learning UI */
-:root{--fin-glow:rgba(208,180,119,.16);--fin-panel:#10110f;--fin-panel-2:#141512;--fin-border:rgba(255,255,255,.09);--fin-border-gold:rgba(208,180,119,.30)}
-body{background:radial-gradient(900px 500px at 78% -12%,rgba(208,180,119,.09),transparent 62%),radial-gradient(700px 500px at -10% 60%,rgba(120,145,130,.035),transparent 65%),var(--bg,#080908)!important}
-.hero,.section{position:relative}.hero:before,.section:before{content:"";position:absolute;pointer-events:none;inset:0;background:radial-gradient(420px 220px at 90% 10%,rgba(208,180,119,.035),transparent 70%);opacity:.9}
-.hero>* ,.section>*{position:relative;z-index:1}
-.hero h1,.section h2,.card h2,.card h3,.panel h2,.panel h3,.template h3,.metric-value,.scenario-value,.darkbox h3{text-shadow:0 0 28px rgba(208,180,119,.035)}
-.card,.panel,.form,.darkbox,.template,.metric,.scenario,.chart-wrap,.path-guide,.start-card,.topic-detail,.chapter-panel,.thought-card,.reflection-panel,.sim-intro{background:linear-gradient(145deg,rgba(20,21,18,.98),rgba(12,13,11,.98))!important;border:1px solid var(--fin-border)!important;box-shadow:0 16px 50px rgba(0,0,0,.20),inset 0 1px 0 rgba(255,255,255,.025)!important;border-radius:18px!important;position:relative;overflow:hidden}
-.card:before,.panel:before,.form:before,.darkbox:before,.template:before,.metric:before,.path-guide:before,.start-card:before{content:"";position:absolute;left:0;top:0;width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(208,180,119,.35),transparent);opacity:.7}
-.card:hover,.panel:hover,.template:hover,.start-card:hover{border-color:var(--fin-border-gold)!important;box-shadow:0 20px 60px rgba(0,0,0,.28),0 0 35px rgba(208,180,119,.035)!important}
-.badge,.source-link,.path-guide .badge{background:rgba(208,180,119,.045)!important;border-color:rgba(208,180,119,.28)!important;color:#cdb579!important}
-.btn,.calc-btn,.primary,.month-btn,.topic,.lesson-complete,.quiz-check{transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease,background .18s ease!important}
-.btn:hover,.calc-btn:hover,.primary:hover,.month-btn:hover,.topic:hover,.lesson-complete:hover,.quiz-check:hover{transform:translateY(-2px)!important;box-shadow:0 10px 30px rgba(208,180,119,.08)!important}
-input,select,textarea,.field input,.alloc-input,.money-input{background:rgba(6,7,6,.8)!important;border-color:rgba(255,255,255,.10)!important;border-radius:11px!important}
-input:focus,select:focus,textarea:focus,.field input:focus,.alloc-input:focus,.money-input:focus{border-color:rgba(208,180,119,.55)!important;box-shadow:0 0 0 3px rgba(208,180,119,.07),0 0 25px rgba(208,180,119,.035)!important}
-.calc-btn,.primary{background:linear-gradient(135deg,#d9bd7b,#b99859)!important;color:#17140f!important;border-color:#d9bd7b!important}
-.progress,.progress-track,.xp-track{box-shadow:inset 0 1px 3px rgba(0,0,0,.5)!important}
-.progress-bar,.progress-track span{background:linear-gradient(90deg,#9d8050,#d6b873)!important;box-shadow:0 0 12px rgba(208,180,119,.22)!important}
-.chapter-card,.path-card{background:linear-gradient(145deg,#121310,#0d0e0c)!important;border:1px solid rgba(255,255,255,.08)!important;border-radius:18px!important;box-shadow:0 14px 40px rgba(0,0,0,.2)!important}
-.chapter-card:hover,.path-card:hover{border-color:rgba(208,180,119,.34)!important;transform:translateY(-3px)!important;box-shadow:0 20px 55px rgba(0,0,0,.28),0 0 28px rgba(208,180,119,.035)!important}
-.platform-strip{background:rgba(12,13,11,.72)!important;border-top:1px solid rgba(255,255,255,.07)!important;border-bottom:1px solid rgba(255,255,255,.07)!important}
-.platform-strip .strip-item{transition:transform .2s ease,background .2s ease!important;border-radius:14px!important}
-.platform-strip .strip-item:hover{transform:translateY(-2px);background:rgba(208,180,119,.035)}
-.paper,.journal{background:linear-gradient(145deg,#151612,#0d0e0c)!important;color:var(--white,#f5f2eb)!important;border:1px solid rgba(208,180,119,.22)!important;border-radius:22px!important;box-shadow:0 24px 70px rgba(0,0,0,.35)!important;transform:none!important}
-.paper:after,.journal:before{border-color:rgba(208,180,119,.18)!important}
-.paper p,.journal p{color:#aaa69d!important}.paper h3,.journal h2{color:#f2eee6!important}
-.footer{border-color:rgba(255,255,255,.07)!important}
+/* FINLAB APP DESIGN SYSTEM v2 — unmistakable premium app treatment */
+:root{
+  --fin-gold:#d0b477;
+  --fin-gold-bright:#e3ca8b;
+  --fin-bg:#080908;
+  --fin-panel:#10110f;
+  --fin-panel-2:#151613;
+  --fin-border:rgba(255,255,255,.09);
+  --fin-gold-border:rgba(208,180,119,.34);
+  --fin-text:#f3efe7;
+  --fin-muted:#9d9a92;
+}
+html{background:var(--fin-bg)!important}
+body{
+  background:
+    radial-gradient(900px 520px at 80% -8%,rgba(208,180,119,.12),transparent 60%),
+    radial-gradient(700px 500px at -12% 45%,rgba(120,145,130,.045),transparent 65%),
+    var(--fin-bg)!important;
+  color:var(--fin-text)!important;
+}
+main{position:relative}
+main:before{
+  content:"";position:absolute;z-index:0;pointer-events:none;inset:0;
+  background:linear-gradient(180deg,rgba(208,180,119,.018),transparent 24%,rgba(0,0,0,.08));
+}
+main>*{position:relative;z-index:1}
+.finlab-unified-header{
+  background:rgba(8,9,8,.72)!important;
+  border:1px solid rgba(255,255,255,.07)!important;
+  border-radius:20px!important;
+  padding:7px 10px 7px 18px!important;
+  box-shadow:0 12px 40px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.035)!important;
+  backdrop-filter:blur(18px)!important;
+  -webkit-backdrop-filter:blur(18px)!important;
+}
+.finlab-unified-header .brand{
+  color:#f2eee6!important;
+  font-weight:800!important;
+  letter-spacing:.07em!important;
+}
+.finlab-unified-header .brand span{color:var(--fin-gold)!important}
+.finlab-unified-links>a,.finlab-unified-links .nav-dropdown-toggle{
+  height:44px!important;
+  border-color:rgba(255,255,255,.07)!important;
+  border-radius:12px!important;
+  color:#aaa79f!important;
+  background:rgba(255,255,255,.015)!important;
+  padding:0 16px!important;
+  font-size:12px!important;
+  transition:all .2s ease!important;
+}
+.finlab-unified-links>a:hover,.finlab-unified-links .nav-dropdown-toggle:hover{
+  color:#fff!important;
+  border-color:var(--fin-gold-border)!important;
+  background:rgba(208,180,119,.055)!important;
+  box-shadow:0 0 22px rgba(208,180,119,.05)!important;
+}
+.hero{
+  padding-top:clamp(70px,9vw,120px)!important;
+  padding-bottom:clamp(70px,9vw,110px)!important;
+}
+.hero:before{
+  content:"";position:absolute;pointer-events:none;
+  width:700px;height:500px;right:-180px;top:-120px;
+  background:radial-gradient(circle,rgba(208,180,119,.12),transparent 68%);
+  filter:blur(8px);
+}
+.hero h1{
+  color:#f5f1e9!important;
+  letter-spacing:-.035em!important;
+  text-shadow:0 0 50px rgba(208,180,119,.09)!important;
+}
+.hero .eyebrow,.hero .kicker,.hero .label{
+  color:var(--fin-gold)!important;
+  letter-spacing:.14em!important;
+}
+.hero p{color:#aaa79f!important}
+.section{
+  padding-top:clamp(64px,8vw,100px)!important;
+  padding-bottom:clamp(64px,8vw,100px)!important;
+}
+.section>h2{
+  color:#f0ece4!important;
+  letter-spacing:-.025em!important;
+}
+.card,.panel,.form,.darkbox,.template,.metric,.scenario,.chart-wrap,.path-guide,.start-card,.topic-detail,.chapter-panel,.thought-card,.reflection-panel,.sim-intro{
+  background:linear-gradient(145deg,rgba(22,23,20,.98),rgba(11,12,10,.98))!important;
+  border:1px solid var(--fin-border)!important;
+  border-radius:20px!important;
+  box-shadow:0 20px 65px rgba(0,0,0,.26),inset 0 1px 0 rgba(255,255,255,.035)!important;
+  overflow:hidden!important;
+}
+.card:before,.panel:before,.form:before,.darkbox:before,.template:before,.metric:before,.scenario:before,.path-guide:before,.start-card:before{
+  content:"";position:absolute;left:0;right:0;top:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(208,180,119,.42),transparent)!important;
+}
+.card:hover,.panel:hover,.template:hover,.start-card:hover,.chapter-card:hover,.path-card:hover{
+  border-color:var(--fin-gold-border)!important;
+  box-shadow:0 24px 70px rgba(0,0,0,.32),0 0 35px rgba(208,180,119,.045)!important;
+}
+.chapter-card,.path-card{
+  background:linear-gradient(145deg,#151613,#0c0d0b)!important;
+  border:1px solid rgba(255,255,255,.085)!important;
+  border-radius:20px!important;
+  box-shadow:0 18px 55px rgba(0,0,0,.24)!important;
+}
+.badge,.source-link,.path-guide .badge{
+  background:rgba(208,180,119,.065)!important;
+  border-color:rgba(208,180,119,.32)!important;
+  color:var(--fin-gold-bright)!important;
+}
+.btn,.calc-btn,.primary,.month-btn,.topic,.lesson-complete,.quiz-check{
+  border-radius:12px!important;
+  transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease,background .18s ease!important;
+}
+.btn:hover,.calc-btn:hover,.primary:hover,.month-btn:hover,.topic:hover,.lesson-complete:hover,.quiz-check:hover{
+  transform:translateY(-2px)!important;
+  box-shadow:0 12px 32px rgba(208,180,119,.09)!important;
+}
+.calc-btn,.primary{
+  background:linear-gradient(135deg,var(--fin-gold-bright),#b99859)!important;
+  color:#17140f!important;
+  border-color:var(--fin-gold-bright)!important;
+  box-shadow:0 8px 24px rgba(208,180,119,.12)!important;
+}
+input,select,textarea,.field input,.alloc-input,.money-input{
+  background:rgba(5,6,5,.88)!important;
+  border-color:rgba(255,255,255,.11)!important;
+  color:#eee9df!important;
+  border-radius:12px!important;
+}
+input:focus,select:focus,textarea:focus,.field input:focus,.alloc-input:focus,.money-input:focus{
+  border-color:rgba(208,180,119,.58)!important;
+  box-shadow:0 0 0 3px rgba(208,180,119,.07),0 0 28px rgba(208,180,119,.045)!important;
+}
+.progress,.progress-track,.xp-track{
+  background:rgba(0,0,0,.42)!important;
+  border:1px solid rgba(255,255,255,.06)!important;
+  box-shadow:inset 0 1px 4px rgba(0,0,0,.55)!important;
+}
+.progress-bar,.progress-track span{
+  background:linear-gradient(90deg,#967746,var(--fin-gold-bright))!important;
+  box-shadow:0 0 15px rgba(208,180,119,.28)!important;
+}
+.platform-strip{
+  background:rgba(10,11,9,.82)!important;
+  border-top:1px solid rgba(255,255,255,.07)!important;
+  border-bottom:1px solid rgba(255,255,255,.07)!important;
+}
+.paper,.journal{
+  background:linear-gradient(145deg,#171814,#0d0e0c)!important;
+  color:#f3efe7!important;
+  border:1px solid rgba(208,180,119,.24)!important;
+  border-radius:22px!important;
+  box-shadow:0 28px 80px rgba(0,0,0,.38)!important;
+  transform:none!important;
+}
+.paper p,.journal p{color:#aaa79f!important}
+.paper h3,.journal h2{color:#f2eee6!important}
+.topic{
+  background:rgba(16,17,15,.92)!important;
+  border-color:rgba(255,255,255,.08)!important;
+}
+.topic.active,.topic-detail.active{border-color:rgba(208,180,119,.38)!important}
 .result,.metric-value,.scenario-value{color:#f4efe5!important}
-.chart,.bar-chart{background:rgba(0,0,0,.10)!important;border-color:rgba(255,255,255,.08)!important}
-.topic{background:rgba(15,16,14,.9)!important;border-color:rgba(255,255,255,.08)!important;border-radius:12px!important}
-.topic.active,.topic-detail.active{border-color:rgba(208,180,119,.32)!important}
+.footer{border-color:rgba(255,255,255,.07)!important}
 @media(max-width:650px){
- .hero{padding-top:48px!important}.section{padding-top:58px!important;padding-bottom:58px!important}
- .card,.panel,.form,.darkbox,.template,.metric,.scenario,.path-guide,.start-card,.paper,.journal{border-radius:18px!important}
- .grid,.start-grid,.templates{gap:10px!important}
+  .finlab-unified-header{
+    border-radius:16px!important;
+    padding:5px 7px!important;
+    box-shadow:0 10px 30px rgba(0,0,0,.25)!important;
+  }
+  .hero{padding-top:54px!important;padding-bottom:62px!important}
+  .section{padding-top:54px!important;padding-bottom:54px!important}
+  .card,.panel,.form,.darkbox,.template,.metric,.scenario,.path-guide,.start-card,.paper,.journal{border-radius:17px!important}
 }
 </style>`;
 const js=`<script id="finlab-unified-navigation-final-js">
