@@ -280,6 +280,30 @@ main section{scroll-margin-top:92px}
   #appNav>a.active>span:last-child{color:var(--white)!important}
 }
 </style>
+<style id="finlab-mobile-brand-fit">
+@media(max-width:650px){
+  .finlab-unified-header .nav-brand-mark,
+  header.nav .nav-brand-mark{display:none!important}
+  .finlab-unified-header .brand,
+  header.nav .brand{
+    flex:0 0 64px!important;width:64px!important;min-width:64px!important;
+    font-size:16px!important;letter-spacing:.02em!important;
+    white-space:nowrap!important;overflow:visible!important;
+  }
+  .finlab-unified-header .finlab-unified-links,
+  .finlab-unified-header .navlinks{gap:3px!important;min-width:0!important}
+  .finlab-unified-header .finlab-unified-links>a,
+  .finlab-unified-header .finlab-unified-links .nav-dropdown-toggle{
+    padding-left:7px!important;padding-right:7px!important;font-size:10px!important;
+  }
+}
+@media(max-width:380px){
+  .finlab-unified-header .brand,header.nav .brand{flex-basis:60px!important;width:60px!important;min-width:60px!important;font-size:15px!important}
+  .finlab-unified-header .finlab-unified-links,.finlab-unified-header .navlinks{gap:2px!important}
+  .finlab-unified-header .finlab-unified-links>a,
+  .finlab-unified-header .finlab-unified-links .nav-dropdown-toggle{padding-left:5px!important;padding-right:5px!important;font-size:9px!important}
+}
+</style>
 </head>
 <body>
 <nav aria-label="Navigazione mobile" class="app-nav" id="appNav"><a href="#top"><span class="app-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7"/><path d="M5 9v11h14V9"/><path d="M9 20v-6h6v6"/></svg></span><span>Home</span></a><a href="#percorso"><span class="app-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5v-16Z"/><path d="M4 5.5v16M8 7h8M8 11h6"/></svg></span><span>Impara</span></a><a href="#strumenti"><span class="app-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a5 5 0 0 0-6.4 6.4L3 18l3 3 5.3-5.3a5 5 0 0 0 6.4-6.4l3.1 3.1-2.1.6-.6 2.1 3.1 3.1Z"/></svg></span><span>Strumenti</span></a><a href="#lessonSearch"><span class="app-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></span><span>Cerca</span></a></nav>
