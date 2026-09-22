@@ -76,7 +76,7 @@ const css=`<style id="finlab-unified-navigation-final">
 }
 </style>`;
 
-<style id="finlab-app-design-system">
+const designCss=`<style id="finlab-app-design-system">
 /* FINLAB APP DESIGN SYSTEM — shared premium learning UI */
 :root{--fin-glow:rgba(208,180,119,.16);--fin-panel:#10110f;--fin-panel-2:#141512;--fin-border:rgba(255,255,255,.09);--fin-border-gold:rgba(208,180,119,.30)}
 body{background:radial-gradient(900px 500px at 78% -12%,rgba(208,180,119,.09),transparent 62%),radial-gradient(700px 500px at -10% 60%,rgba(120,145,130,.035),transparent 65%),var(--bg,#080908)!important}
@@ -112,7 +112,7 @@ input:focus,select:focus,textarea:focus,.field input:focus,.alloc-input:focus,.m
  .card,.panel,.form,.darkbox,.template,.metric,.scenario,.path-guide,.start-card,.paper,.journal{border-radius:18px!important}
  .grid,.start-grid,.templates{gap:10px!important}
 }
-</style>
+</style>`;
 const js=`<script id="finlab-unified-navigation-final-js">
 (()=>{document.addEventListener("DOMContentLoaded",()=>{const header=document.querySelector(".finlab-unified-header");const dropdown=header?.querySelector(".nav-dropdown");const db=dropdown?.querySelector(".nav-dropdown-toggle");if(db){db.addEventListener("click",e=>{e.preventDefault();e.stopPropagation();const open=dropdown.classList.toggle("open");db.setAttribute("aria-expanded",String(open))})}document.addEventListener("click",e=>{if(dropdown&&!dropdown.contains(e.target)){dropdown.classList.remove("open");db?.setAttribute("aria-expanded","false")}});const nav=document.querySelector(".finlab-mobile-nav");if(!nav)return;let panel=document.querySelector(".finlab-mobile-tools-panel");if(!panel){panel=document.createElement("div");panel.className="finlab-mobile-tools-panel";panel.innerHTML='<a href="/strumenti/interesse-composto/">Interesse composto</a><a href="/strumenti/emergency-fund/">Emergency Fund Planner</a><a href="/strumenti/portfolio-analyzer/">Portfolio Analyzer</a><a href="/strumenti/strategy-lab/">Strategy Lab</a>';document.body.appendChild(panel)}const tb=nav.querySelector(".finlab-mobile-tools");tb?.addEventListener("click",e=>{e.preventDefault();e.stopPropagation();const open=panel.classList.toggle("open");tb.setAttribute("aria-expanded",String(open))});panel.addEventListener("click",e=>e.stopPropagation());document.addEventListener("click",()=>{panel.classList.remove("open");tb?.setAttribute("aria-expanded","false")});document.addEventListener("keydown",e=>{if(e.key==="Escape"){panel.classList.remove("open");tb?.setAttribute("aria-expanded","false")}})})})();
 </script>`;
@@ -132,7 +132,7 @@ for(const file of files){
   h=h.replace(/<header\b[\s\S]*?<\/header>/i,header);
   if(!/<header\b/i.test(h)) throw new Error('No header in '+file);
   h=h.replace(/<\/body>/i,mobileNav+'\n'+js+'\n</body>');
-  h=h.replace(/<\/head>/i,css+'\n</head>');
+  h=h.replace(/<\/head>/i,css+'\n'+designCss+'\n</head>');
   fs.writeFileSync(file,h);
 }
 console.log('FINLAB navigation normalized on every page');
