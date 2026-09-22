@@ -70,6 +70,12 @@ const css=`<style id="finlab-unified-navigation-final">
  .finlab-search-wrap,.finlab-search-btn{width:36px!important;flex-basis:36px!important}
  .finlab-search-btn{height:36px!important;font-size:20px!important}
 }
+<style id="finlab-mobile-spacing-fit">
+@media(max-width:650px){
+  body{padding-top:64px!important}
+  .hero{padding-top:18px!important}
+}
+</style>
 </style>`;
 
 const js=`<script id="finlab-unified-navigation-final-js">
