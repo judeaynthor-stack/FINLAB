@@ -13,7 +13,18 @@ const affiliateBooks={
   chapter1:{title:'La psicologia dei soldi',author:'Morgan Housel',url:'https://link.amazon/B01TY8a5b'},
   chapter2:{title:'A spasso per Wall Street',author:'Burton G. Malkiel',url:'https://link.amazon/B04l9nyoa'},
   chapter3:{title:"Il piccolo libro dell'investimento",author:'John C. Bogle',url:'https://link.amazon/B0fCsGSDB'},
-  chapter4:{title:'One Up On Wall Street',author:'Peter Lynch',url:'https://link.amazon/B08ZQsG2t'}
+  chapter4:{title:'One Up On Wall Street',author:'Peter Lynch',url:'https://link.amazon/B08ZQsG2t'},
+  chapter5:{title:'The Bond Book',author:'Annette Thau',url:'https://link.amazon/B0gBrhOvd'},
+  chapter6:{title:'The Intelligent Asset Allocator',author:'William J. Bernstein',url:'https://link.amazon/B0fscUa4i'},
+  chapter7:{title:'Pensieri lenti e veloci',author:'Daniel Kahneman',url:'https://link.amazon/B08SG2TDp'},
+  chapter8:{title:'The Bitcoin Standard',author:'Saifedean Ammous',url:'https://link.amazon/B0eUQ9Oo8'},
+  chapter9:{title:'The Little Book of Common Sense Investing',author:'John C. Bogle',url:'https://link.amazon/B0dI052Cc'},
+  chapter10:{title:'The Four Pillars of Investing',author:'William J. Bernstein',url:'https://link.amazon/B01AdWZ8I'},
+  chapter12:{title:"L'investitore intelligente",author:'Benjamin Graham',url:'https://link.amazon/B03Xum5Mg'},
+  chapter13:{title:'Valuation',author:'McKinsey & Company',url:'https://link.amazon/B02WSXFvt'},
+  chapter16:{title:'The Most Important Thing',author:'Howard Marks',url:'https://link.amazon/B0aYgbg8i'},
+  chapter17:{title:'Currency Trading for Dummies',author:'Kathleen Brooks & Brian Dolan',url:'https://link.amazon/B04MvsHNv'},
+  chapter19:{title:'The Little Book of Behavioral Investing',author:'James Montier',url:'https://link.amazon/B06xpL9vU'}
 };
 
 const affiliateCss=`<style id="finlab-affiliate-books">
