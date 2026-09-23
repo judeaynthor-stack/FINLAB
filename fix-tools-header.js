@@ -24,8 +24,8 @@ const css=`<style id="finlab-tools-header-final-fix">
   box-sizing:border-box!important;
 }
 .finlab-unified-header .finlab-unified-links{
-  flex:1 1 auto!important;
-  justify-content:flex-end!important;
+  flex:0 0 auto!important;
+  justify-content:flex-start!important;
   margin-left:0!important;
   margin-right:0!important;
   transform:none!important;
@@ -55,11 +55,11 @@ const css=`<style id="finlab-tools-header-final-fix">
     white-space:nowrap!important;
   }
   .finlab-unified-header .finlab-unified-links{
-    flex:1 1 auto!important;
+    flex:0 1 auto!important;
     min-width:0!important;
-    justify-content:flex-end!important;
+    justify-content:flex-start!important;
     gap:5px!important;
-    margin-left:auto!important;
+    margin-left:0!important;
     margin-right:0!important;
     transform:none!important;
     overflow:visible!important;
@@ -147,6 +147,8 @@ const css=`<style id="finlab-tools-header-final-fix">
 }
 </style>`;
 
+const canonicalHeader='<header class="finlab-unified-header"><a class="brand" href="/">FIN<span>LAB</span></a><nav class="navlinks finlab-unified-links"><a href="/">Home</a><a href="/impara/">Impara</a><div class="nav-dropdown finlab-tools-dropdown"><button class="nav-dropdown-toggle" type="button" aria-expanded="false">Strumenti <span>⌄</span></button><div class="nav-dropdown-menu"><a href="/strumenti/interesse-composto/"><span class="tool-menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h8M8 15h3M14 15h2"/></svg></span><span>Interesse composto</span></a><a href="/strumenti/emergency-fund/"><span class="tool-menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 19 6v5c0 5-3.2 8.2-7 10-3.8-1.8-7-5-7-10V6l7-3Z"/><path d="m9 12 2 2 4-4"/></svg></span><span>Emergency Fund Planner</span></a><a href="/strumenti/portfolio-analyzer/"><span class="tool-menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 12V4a8 8 0 0 1 7 12l-7-4Z"/></svg></span><span>Portfolio Analyzer</span></a><a href="/strumenti/strategy-lab/"><span class="tool-menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 3h6M10 3v5l-4 8a3 3 0 0 0 2.7 5h6.6A3 3 0 0 0 18 16l-4-8V3"/><path d="M8 15h8"/></svg></span><span>Strategy Lab</span></a></div></div></nav></header>';
+
 for(const file of files){
   if(!fs.existsSync(file)) continue;
   let h=fs.readFileSync(file,'utf8');
@@ -154,6 +156,7 @@ for(const file of files){
   h=h.replace(/<div\b[^>]*class=["'][^"']*(?:mobile-tools-panel|finlab-mobile-tools-panel)[^"']*["'][^>]*>[\s\S]*?<\/div>/gi,'');
 
   h=h.replace(/<style\b[^>]*id=["']finlab-tools-header-final-fix["'][^>]*>[\s\S]*?<\/style>/gi,'');
+  h=h.replace(/<header\b[\s\S]*?<\/header>/i,canonicalHeader);
   h=h.replace(/<style\b[^>]*id=["']finlab-tools-header-alignment-fix["'][^>]*>[\s\S]*?<\/style>/gi,'');
 
   h=h.replace(/<\/head>/i,css+'\n</head>');
