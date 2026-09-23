@@ -25,8 +25,8 @@ const css=`<style id="finlab-tools-header-final-fix">
 }
 .finlab-unified-header .finlab-unified-links{
   flex:1 1 auto!important;
-  justify-content:center!important;
-  margin-left:clamp(24px,4vw,72px)!important;
+  justify-content:flex-end!important;
+  margin-left:0!important;
   margin-right:0!important;
   transform:none!important;
 }
