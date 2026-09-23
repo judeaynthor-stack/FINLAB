@@ -594,7 +594,7 @@ main section{scroll-margin-top:92px}
   const total=topics.length||126;
   const key='jli-studied-topics-v1';
   let studied=new Set(JSON.parse(localStorage.getItem(key)||'[]'));
-  function save(){localStorage.setItem(key,JSON.stringify([...studied]));try{const last=JSON.parse(localStorage.getItem('jli-last-topic-v1')||'null');if(last?.topic){last.completed=studied.has(last.topic);localStorage.setItem('jli-last-topic-v1',JSON.stringify(last))}}catch(_){}updateProgress()}
+  function save(){localStorage.setItem(key,JSON.stringify([...studied]));try{const last=JSON.parse(localStorage.getItem('jli-last-topic-v1')||'null');if(last?.topic){last.completed=studied.has(last.topic);localStorage.setItem('jli-last-topic-v1',JSON.stringify(last))}}catch(_){}updateProgress();updateLearningMap()}
   function chapterTopics(ch){const panel=document.querySelector('#'+ch);return panel?[...panel.querySelectorAll('.topic')]:[]}
   function updateProgress(){
     let done=topics.length?0:studied.size;
