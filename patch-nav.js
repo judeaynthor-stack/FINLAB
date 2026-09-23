@@ -17,7 +17,7 @@ const header='<header class="wrap nav finlab-unified-header"><a class="brand" hr
 const mobileNav='<nav aria-label="Navigazione mobile" class="finlab-mobile-nav"><a href="/"><span class="finlab-mobile-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7"/><path d="M5 9v11h14V9"/><path d="M9 20v-6h6v6"/></svg></span><span>Home</span></a><a href="/impara/"><span class="finlab-mobile-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14v16H5z"/><path d="M8 8h8M8 12h8M8 16h6"/></svg></span><span>Impara</span></a><button class="finlab-mobile-tools" type="button" aria-expanded="false"><span class="finlab-mobile-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="4"/></svg></span><span>Strumenti</span></button><a href="/impara/#lessonSearch"><span class="finlab-mobile-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></span><span>Cerca</span></a></nav>';
 
 const css=`<style id="finlab-unified-navigation-final">
-.finlab-unified-header{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:18px!important;position:relative!important;z-index:1200!important}
+.finlab-unified-header{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:18px!important;position:relative!important;z-index:1200!important;width:min(1180px,calc(100% - 32px))!important;max-width:1180px!important;margin-left:auto!important;margin-right:auto!important;box-sizing:border-box!important}
 .finlab-unified-header .brand{flex:0 0 auto!important;text-decoration:none!important}
 .finlab-unified-links{display:flex!important;align-items:center!important;justify-content:flex-end!important;gap:12px!important;flex:1!important}
 .finlab-unified-links>a,.finlab-unified-links .nav-dropdown-toggle{display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:7px!important;height:56px!important;padding:0 25px!important;border:1px solid #292824!important;border-radius:999px!important;background:transparent!important;color:#aaa69d!important;text-decoration:none!important;font:inherit!important;cursor:pointer!important;white-space:nowrap!important}
@@ -27,6 +27,13 @@ const css=`<style id="finlab-unified-navigation-final">
 .finlab-unified-links .nav-dropdown.open .nav-dropdown-menu{display:block!important}
 .finlab-unified-links .nav-dropdown-menu a{display:flex!important;align-items:center!important;gap:10px!important;height:44px!important;min-height:44px!important;max-height:44px!important;box-sizing:border-box!important;margin:0!important;padding:0 11px!important;color:#aaa69d!important;text-decoration:none!important;border-radius:10px!important;font:500 13px/1.2 Inter,system-ui,sans-serif!important;letter-spacing:0!important;white-space:nowrap!important}.finlab-unified-links .nav-dropdown-menu a::before,.finlab-unified-links .nav-dropdown-menu a::after{content:none!important;display:none!important}.finlab-unified-links .nav-dropdown-menu .tool-menu-icon{display:flex!important;align-items:center!important;justify-content:center!important;flex:0 0 20px!important;width:20px!important;height:20px!important;color:#d0b477!important}.finlab-unified-links .nav-dropdown-menu .tool-menu-icon svg{display:block!important;width:18px!important;height:18px!important;fill:none!important;stroke:currentColor!important;stroke-width:1.6!important;stroke-linecap:round!important;stroke-linejoin:round!important}.finlab-unified-links .nav-dropdown-menu *{box-sizing:border-box!important;max-width:100%!important}
 .finlab-unified-links .nav-dropdown-menu a:hover{background:#171613!important;color:#fff!important}
+@media(min-width:651px){
+ .finlab-unified-header{width:min(1180px,calc(100% - 32px))!important;max-width:1180px!important;margin-left:auto!important;margin-right:auto!important;box-sizing:border-box!important}
+ .finlab-unified-links .nav-dropdown-menu{left:auto!important;right:0!important}
+}
+.finlab-unified-links .nav-dropdown-menu a>.tool-menu-icon:before,.finlab-unified-links .nav-dropdown-menu a>.tool-menu-icon:after{content:none!important;display:none!important}
+.finlab-unified-links .nav-dropdown-menu .tool-menu-icon{position:relative!important;display:flex!important;visibility:visible!important;opacity:1!important;flex:0 0 20px!important}
+
 .finlab-search-wrap{flex:0 0 auto!important}
 .finlab-search-btn{width:56px!important;height:56px!important;border:1px solid #292824!important;border-radius:50%!important;display:flex!important;align-items:center!important;justify-content:center!important;color:#d0ccc3!important;text-decoration:none!important;font-size:30px!important;line-height:1!important}
 .finlab-search-btn:hover{border-color:#403c34!important;color:#fff!important}
@@ -54,7 +61,7 @@ const css=`<style id="finlab-unified-navigation-final">
 
 @media(max-width:650px){
  html,body{max-width:100%;overflow-x:hidden!important}
- .finlab-unified-header{width:100%!important;max-width:100%!important;box-sizing:border-box!important;height:64px!important;min-height:64px!important;padding:0 10px!important;gap:7px!important;overflow:hidden!important}
+ .finlab-unified-header{width:100%!important;max-width:100%!important;box-sizing:border-box!important;height:64px!important;min-height:64px!important;padding:0 10px!important;gap:7px!important;overflow:hidden!important;margin-left:0!important;margin-right:0!important}
  .finlab-unified-header .brand{flex:0 0 auto!important;width:auto!important;min-width:88px!important;font-size:17px!important;letter-spacing:.04em!important;white-space:nowrap!important;overflow:visible!important}
  .finlab-unified-links{flex:1 1 auto!important;min-width:0!important;width:auto!important;gap:4px!important;overflow:hidden!important}
  .finlab-unified-links>a,.finlab-unified-links .nav-dropdown-toggle{flex:0 1 auto!important;min-width:0!important;height:42px!important;padding:0 8px!important;font-size:10px!important;gap:3px!important;white-space:nowrap!important}
