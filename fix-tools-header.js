@@ -113,7 +113,7 @@ for(const file of files){
   if(!fs.existsSync(file)) continue;
   let h=fs.readFileSync(file,'utf8');
   // Remove legacy mobile tools panels left by older page versions.
-  h=h.replace(/<div\\b[^>]*class=["'][^"']*(?:mobile-tools-panel|finlab-mobile-tools-panel)[^"']*["'][^>]*>[\\s\\S]*?<\\/div>/gi,'');
+  h=h.replace(/<div\b[^>]*class=["'][^"']*(?:mobile-tools-panel|finlab-mobile-tools-panel)[^"']*["'][^>]*>[\s\S]*?<\/div>/gi,'');
 
   h=h.replace(/<style\b[^>]*id=["']finlab-tools-header-final-fix["'][^>]*>[\s\S]*?<\/style>/gi,'');
   h=h.replace(/<style\b[^>]*id=["']finlab-tools-header-alignment-fix["'][^>]*>[\s\S]*?<\/style>/gi,'');
