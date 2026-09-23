@@ -102,6 +102,44 @@ const css=`<style id="finlab-tools-header-final-fix">
 .finlab-unified-header .nav-dropdown.open>.nav-dropdown-menu{display:block!important}
 .finlab-unified-header .nav-dropdown-menu a{display:flex!important;align-items:center!important;height:44px!important;min-height:44px!important;max-height:44px!important;margin:0!important;padding:0 13px!important;background:transparent!important;border:0!important;border-radius:10px!important;color:#aaa69d!important;text-decoration:none!important;font:500 13px/1.2 Inter,system-ui,sans-serif!important;white-space:nowrap!important;box-sizing:border-box!important}
 .finlab-unified-header .nav-dropdown-menu a:hover{background:#171613!important;color:#fff!important}
+.finlab-unified-header .nav-dropdown-menu a .tool-menu-icon{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  flex:0 0 20px!important;
+  width:20px!important;
+  min-width:20px!important;
+  height:20px!important;
+  min-height:20px!important;
+  margin:0!important;
+  padding:0!important;
+  color:#d0b477!important;
+  opacity:1!important;
+  visibility:visible!important;
+  overflow:visible!important;
+}
+.finlab-unified-header .nav-dropdown-menu a .tool-menu-icon svg{
+  display:block!important;
+  width:18px!important;
+  min-width:18px!important;
+  height:18px!important;
+  min-height:18px!important;
+  margin:0!important;
+  padding:0!important;
+  fill:none!important;
+  stroke:currentColor!important;
+  stroke-width:1.7!important;
+  stroke-linecap:round!important;
+  stroke-linejoin:round!important;
+  opacity:1!important;
+  visibility:visible!important;
+  overflow:visible!important;
+}
+.finlab-unified-header .nav-dropdown-menu a .tool-menu-icon::before,
+.finlab-unified-header .nav-dropdown-menu a .tool-menu-icon::after{
+  content:none!important;
+  display:none!important;
+}
 @media(max-width:650px){
  .finlab-unified-header .nav-dropdown-menu{display:none!important}
  .finlab-unified-header .nav-dropdown.open>.nav-dropdown-menu{display:block!important;position:fixed!important;left:12px!important;right:12px!important;bottom:104px!important;top:auto!important;width:auto!important;max-height:none!important}
