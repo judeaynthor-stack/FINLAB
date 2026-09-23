@@ -18,7 +18,7 @@ const mobileNav='<nav aria-label="Navigazione mobile" class="finlab-mobile-nav">
 
 const css=`<style id="finlab-unified-navigation-final">
 .finlab-unified-header{display:flex!important;align-items:center!important;justify-content:center!important;gap:28px!important;position:relative!important;z-index:1200!important;width:min(1180px,calc(100% - 32px))!important;max-width:1180px!important;height:76px!important;min-height:76px!important;margin:0 auto!important;padding:7px 10px!important;box-sizing:border-box!important}
-.finlab-unified-header .brand{flex:0 0 auto!important;text-decoration:none!important}
+.finlab-unified-header .brand{flex:0 0 auto!important;text-decoration:none!important;transform:translateX(10px) scale(1.045)!important;transform-origin:center left!important}
 .finlab-unified-links{display:flex!important;align-items:center!important;justify-content:flex-start!important;gap:10px!important;flex:0 0 auto!important}
 .finlab-unified-links>a,.finlab-unified-links .nav-dropdown-toggle{display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:7px!important;height:56px!important;padding:0 25px!important;border:1px solid #292824!important;border-radius:999px!important;background:transparent!important;color:#aaa69d!important;text-decoration:none!important;font:inherit!important;cursor:pointer!important;white-space:nowrap!important}
 .finlab-unified-links>a:hover,.finlab-unified-links .nav-dropdown-toggle:hover{color:#fff!important;border-color:#403c34!important}
