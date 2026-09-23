@@ -29,16 +29,16 @@ const affiliateCss=`<style id="finlab-affiliate-books">
 </style>`;
 
 function chapterDivs(html){
-  const out=[],re=/<\/?div\\b[^>]*>/gi; let m,depth=0,starts=[];
+  const out=[],re=/<\/?div\b[^>]*>/gi; let m,depth=0,starts=[];
   while(m=re.exec(html)){
     const token=m[0];
     if(!token.startsWith('</')){
-      if(/class=["'][^"']*\\bchapter-panel\\b/i.test(token)) starts.push({start:m.index,depth});
+      if(/class=["'][^"']*\\bchapter-panel\b/i.test(token)) starts.push({start:m.index,depth});
       depth++;
     }else{
       depth--;
       const last=starts[starts.length-1];
-      if(last&&depth===last.depth){out.push({start:last.start,end:re.lastIndex,id:(html.slice(last.start,m.index).match(/id=["'](chapter\\d+)["']/i)||[])[1]||''});starts.pop()}
+      if(last&&depth===last.depth){out.push({start:last.start,end:re.lastIndex,id:(html.slice(last.start,m.index).match(/id=["'](chapter\d+)["']/i)||[])[1]||''});starts.pop()}
     }
   }
   return out;
