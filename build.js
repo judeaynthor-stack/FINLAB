@@ -28,15 +28,15 @@ const affiliateBooks={
 };
 
 const affiliateCss=`<style id="finlab-affiliate-books">
-.affiliate-book{margin-top:34px;padding:24px 26px;border:1px solid rgba(208,180,119,.20);border-radius:20px;background:linear-gradient(145deg,rgba(208,180,119,.055),rgba(255,255,255,.018));box-shadow:0 16px 42px rgba(0,0,0,.20)}
-.affiliate-book .affiliate-eyebrow{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#d0b477;font-weight:700;margin-bottom:8px}
-.affiliate-book h4{margin:0 0 7px;font:normal 25px Georgia,serif;color:#f0ede5}
-.affiliate-book .affiliate-author{margin:0 0 10px;color:#aaa69d;font-size:12px}
-.affiliate-book .affiliate-copy{margin:0 0 17px;color:#918d84;font-size:12px;line-height:1.6}
-.affiliate-book .affiliate-link{display:inline-flex;align-items:center;gap:7px;padding:10px 14px;border:1px solid rgba(208,180,119,.35);border-radius:10px;color:#d0b477;text-decoration:none;font-size:11px;font-weight:700;letter-spacing:.02em;background:rgba(208,180,119,.045)}
+.affiliate-book{margin-top:22px;padding:16px 18px;border:1px solid rgba(208,180,119,.20);border-radius:20px;background:linear-gradient(145deg,rgba(208,180,119,.055),rgba(255,255,255,.018));box-shadow:0 16px 42px rgba(0,0,0,.20)}
+.affiliate-book .affiliate-eyebrow{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#d0b477;font-weight:700;margin-bottom:8px}
+.affiliate-book h4{margin:0 0 4px;font:normal 20px Georgia,serif;color:#f0ede5}
+.affiliate-book .affiliate-author{margin:0 0 6px;color:#aaa69d;font-size:12px}
+.affiliate-book .affiliate-copy{margin:0 0 10px;color:#918d84;font-size:12px;line-height:1.6}
+.affiliate-book .affiliate-link{display:inline-flex;align-items:center;gap:7px;padding:8px 12px;border:1px solid rgba(208,180,119,.35);border-radius:10px;color:#d0b477;text-decoration:none;font-size:11px;font-weight:700;letter-spacing:.02em;background:rgba(208,180,119,.045)}
 .affiliate-book .affiliate-link:hover{border-color:#d0b477;background:rgba(208,180,119,.09);color:#f0ede5}
-.affiliate-book .affiliate-disclosure{margin:12px 0 0;color:#66625b;font-size:9px;line-height:1.5}
-@media(max-width:650px){.affiliate-book{padding:20px;margin-top:26px}.affiliate-book h4{font-size:22px}.affiliate-book .affiliate-link{width:100%;justify-content:center}}
+.affiliate-book .affiliate-disclosure{margin:8px 0 0;color:#66625b;font-size:9px;line-height:1.5}
+@media(max-width:650px){.affiliate-book{padding:15px;margin-top:20px}.affiliate-book h4{font-size:19px}.affiliate-book .affiliate-link{width:100%;justify-content:center}}
 </style>`;
 
 function chapterDivs(html){
