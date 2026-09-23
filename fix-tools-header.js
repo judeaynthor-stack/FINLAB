@@ -9,9 +9,19 @@ const files=[
 const css=`<style id="finlab-tools-header-final-fix">
 /* Final alignment for the shared tool header. */
 .finlab-unified-header{
-  width:min(1180px,calc(100% - 24px))!important;
-  margin-left:auto!important;
-  margin-right:auto!important;
+  width:min(1180px,calc(100% - 32px))!important;
+  max-width:1180px!important;
+  height:76px!important;
+  min-height:76px!important;
+  margin:0 auto!important;
+  padding:7px 10px 7px 18px!important;
+  position:relative!important;
+  top:0!important;
+  left:auto!important;
+  right:auto!important;
+  transform:none!important;
+  clear:both!important;
+  box-sizing:border-box!important;
 }
 .finlab-unified-header .finlab-unified-links{
   flex:1 1 auto!important;
@@ -23,10 +33,19 @@ const css=`<style id="finlab-tools-header-final-fix">
 @media(max-width:650px){
   .finlab-unified-header{
     width:100%!important;
-    padding-left:14px!important;
-    padding-right:14px!important;
-    gap:8px!important;
+    max-width:100%!important;
+    height:64px!important;
+    min-height:64px!important;
+    margin:0!important;
+    padding:0 10px!important;
+    position:relative!important;
+    top:0!important;
+    left:auto!important;
+    right:auto!important;
+    transform:none!important;
+    gap:7px!important;
     overflow:hidden!important;
+    box-sizing:border-box!important;
   }
   .finlab-unified-header .brand{
     flex:0 0 auto!important;
@@ -93,6 +112,8 @@ const css=`<style id="finlab-tools-header-final-fix">
 for(const file of files){
   if(!fs.existsSync(file)) continue;
   let h=fs.readFileSync(file,'utf8');
+  // Remove legacy mobile tools panels left by older page versions.
+  h=h.replace(/<div\\b[^>]*class=["'][^"']*(?:mobile-tools-panel|finlab-mobile-tools-panel)[^"']*["'][^>]*>[\\s\\S]*?<\\/div>/gi,'');
 
   h=h.replace(/<style\b[^>]*id=["']finlab-tools-header-final-fix["'][^>]*>[\s\S]*?<\/style>/gi,'');
   h=h.replace(/<style\b[^>]*id=["']finlab-tools-header-alignment-fix["'][^>]*>[\s\S]*?<\/style>/gi,'');
