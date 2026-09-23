@@ -284,6 +284,8 @@ for(const file of files){
   h=h.replace(/<style\b[^>]*id=["'](?:finlab-builder-nav|finlab-unified-nav-css|finlab-mobile-tools-style|finlab-mobile-nav-fix|finlab-unified-navigation-final|finlab-mobile-header-fit|finlab-mobile-brand-fit|finlab-mobile-spacing-fit|finlab-tools-header-alignment-fix|finlab-tools-header-final-fix)["'][^>]*>[\s\S]*?<\/style>/gi,'');
   h=h.replace(/<nav\b[^>]*(?:id=["']appNav["']|class=["'][^"']*(?:mobile-nav|finlab-mobile-nav|finlab-unified-mobile|app-nav)[^"']*["'])[^>]*>[\s\S]*?<\/nav>/gi,'');
   h=h.replace(/<nav\b[^>]*class=["']mobile["'][^>]*>[\s\S]*?<\/nav>/gi,'');
+  // Remove legacy tool panels left by older standalone pages. The canonical navigation script recreates one panel when needed.
+  h=h.replace(/<div\b[^>]*class=["'][^"']*(?:mobile-tools-panel|finlab-mobile-tools-panel)[^"']*["'][^>]*>[\s\S]*?<\/div>/gi,'');
   h=h.replace(/<header\b[\s\S]*?<\/header>/i,header);
   if(!/<header\b/i.test(h)) throw new Error('No header in '+file);
   h=h.replace(/<\/body>/i,mobileNav+'\n'+js+'\n</body>');
