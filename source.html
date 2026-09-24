@@ -334,7 +334,57 @@ main section{scroll-margin-top:92px}
 .dashboard-continue.is-resume{border-color:rgba(208,180,119,.38)!important;background:rgba(208,180,119,.045)!important}
 .quiz-feedback{margin-top:10px;padding:10px 12px;border-left:2px solid rgba(208,180,119,.35);background:rgba(208,180,119,.035);color:#aaa69d;font-size:12px;line-height:1.55}
 .quiz-feedback strong{color:#e8e2d7}.quiz-feedback .quiz-correct-answer{display:block;margin-top:5px;color:#c9c4b9}.quiz-feedback .quiz-retry{display:block;margin-top:5px;color:#8e8a82}
-</style></style></head>
+</style></style><style id="finlab-study-view-modes">
+.view-switcher{display:flex;align-items:center;gap:7px;margin-top:22px;margin-bottom:8px}
+.view-switcher-label{font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:#77736b;margin-right:3px}
+.view-switcher button{appearance:none;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.025);color:#918d84;border-radius:999px;padding:7px 11px;font-size:10px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:.2s}
+.view-switcher button:hover{border-color:rgba(208,180,119,.35);color:#f7f5ef}
+.view-switcher button.active{background:rgba(208,180,119,.10);border-color:rgba(208,180,119,.45);color:#d0b477}
+.view-switcher .beta{display:inline-flex;align-items:center;margin-left:1px;padding:2px 6px;border:1px solid rgba(208,180,119,.45);border-radius:999px;font-size:8px;letter-spacing:.12em;color:#d0b477}
+#percorso.editorial-mode .study-tools{background:transparent;border:0;padding:0;margin-top:30px}
+#percorso.editorial-mode .grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:30px}
+#percorso.editorial-mode .chapter-card{min-height:185px;padding:22px 22px 20px;border-radius:20px!important;background:linear-gradient(145deg,rgba(255,255,255,.025),rgba(255,255,255,.008))!important;box-shadow:none!important}
+#percorso.editorial-mode .chapter-card:hover{transform:translateY(-2px);border-color:rgba(208,180,119,.38)!important}
+#percorso.editorial-mode .chapter-card h3{font-size:25px;margin:28px 0 10px}
+#percorso.editorial-mode .chapter-card p{font-size:12px;line-height:1.5}
+#percorso.editorial-mode .chapter-card .open-label{margin-top:18px}
+#percorso.editorial-mode .advanced-path{margin-top:42px}
+#percorso.editorial-mode .advanced-path .grid{margin-top:18px}
+#percorso.editorial-mode .chapter-item{min-width:0}
+#percorso.editorial-mode .editorial-detail{display:block;margin-top:18px}
+.editorial-detail{display:none}
+.editorial-detail .chapter-panel{display:none!important;margin:0!important;padding:0!important;border:0!important;background:transparent!important}
+.editorial-detail .chapter-panel.active{display:block!important}
+.editorial-detail .chapter-panel-tools{justify-content:flex-start;margin-bottom:14px}
+.editorial-detail .chapter-panel-progress{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#77736b}
+.editorial-detail .chapter-panel{position:relative;overflow:hidden;border-radius:28px!important;background:linear-gradient(135deg,rgba(255,255,255,.045),rgba(255,255,255,.012))!important;border:1px solid rgba(208,180,119,.20)!important;padding:34px!important;box-shadow:0 24px 70px rgba(0,0,0,.28)!important}
+.editorial-detail .chapter-panel:before{content:"";position:absolute;width:360px;height:360px;border:1px solid rgba(208,180,119,.16);border-radius:50%;right:-150px;top:-180px;pointer-events:none}
+.editorial-detail .chapter-panel>.eyebrow{position:relative}
+.editorial-detail .chapter-panel>h3{position:relative;font:normal clamp(40px,5vw,66px)/.98 Georgia,serif!important;letter-spacing:-.04em!important;margin:16px 0 16px!important;max-width:760px}
+.editorial-detail .chapter-panel>.lead{position:relative;max-width:700px;font-size:16px;line-height:1.7}
+.editorial-detail .topic-list{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:30px}
+.editorial-detail .topic{min-height:58px;border-radius:15px!important;padding:15px 17px;background:rgba(0,0,0,.14)!important;border-color:rgba(255,255,255,.08)!important}
+.editorial-detail .topic:hover{border-color:rgba(208,180,119,.38)!important;transform:none}
+.editorial-detail .topic-detail{grid-column:1/-1;border-radius:18px!important;background:rgba(0,0,0,.20)!important}
+.editorial-detail .affiliate-book{position:relative;margin-top:24px}
+#percorso.editorial-mode .chapter-panel{display:none!important}
+#percorso.editorial-mode .chapter-item.is-selected .chapter-card{border-color:rgba(208,180,119,.50)!important;box-shadow:0 0 0 1px rgba(208,180,119,.08),0 18px 45px rgba(0,0,0,.25)!important}
+#percorso.editorial-mode .editorial-empty{display:flex;min-height:260px;align-items:center;justify-content:center;border:1px dashed rgba(255,255,255,.10);border-radius:28px;color:#77736b;font-size:13px}
+#percorso.classic-mode .editorial-detail{display:none!important}
+@media(max-width:850px){
+  #percorso.editorial-mode .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .editorial-detail .chapter-panel{padding:25px!important}
+  .editorial-detail .topic-list{grid-template-columns:1fr}
+}
+@media(max-width:650px){
+  .view-switcher{margin-top:18px;flex-wrap:wrap}
+  #percorso.editorial-mode .grid{grid-template-columns:1fr}
+  #percorso.editorial-mode .chapter-card{min-height:160px}
+  .editorial-detail .chapter-panel{padding:20px!important;border-radius:22px!important}
+  .editorial-detail .chapter-panel>h3{font-size:40px!important}
+  .editorial-detail .topic-list{grid-template-columns:1fr}
+}
+</style></head>
 <body>
 <nav aria-label="Navigazione mobile" class="app-nav" id="appNav"><a href="#top"><span class="app-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7"/><path d="M5 9v11h14V9"/><path d="M9 20v-6h6v6"/></svg></span><span>Home</span></a><a href="#percorso"><span class="app-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5v-16Z"/><path d="M4 5.5v16M8 7h8M8 11h6"/></svg></span><span>Impara</span></a><a href="#strumenti"><span class="app-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a5 5 0 0 0-6.4 6.4L3 18l3 3 5.3-5.3a5 5 0 0 0 6.4-6.4l3.1 3.1-2.1.6-.6 2.1 3.1 3.1Z"/></svg></span><span>Strumenti</span></a><a href="#lessonSearch"><span class="app-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></span><span>Cerca</span></a></nav>
 <header class="wrap nav"><a class="brand" href="#top">FIN<span>LAB</span></a><nav class="navlinks"><a href="#inizio">Inizia</a><a href="#percorso">Percorso</a><a href="#strumenti">Simulatore</a><a href="#importante">Metodo</a></nav></header>
@@ -345,7 +395,7 @@ main section{scroll-margin-top:92px}
 <div class="dashboard-continue"><div class="continue-icon" id="continueIcon">01</div><div class="continue-copy"><span id="continueLabel">CONTINUA IL PERCORSO</span><b id="nextLesson">Capitolo 01 · Risparmio</b><small id="nextLessonMeta">La prossima lezione è pronta per te.</small></div><a href="/impara/#chapter1" class="dashboard-play" id="dashboardPlay" aria-label="Continua il percorso">→</a></div>
 <div class="dashboard-stats"><div><b id="overallProgressText">0 / 126</b><span>lezioni</span></div><div><b>19</b><span>capitoli</span></div><div><b>126</b><span>quiz</span></div><div><b id="dashboardCompleted">0</b><span>completate</span></div></div>
 <div class="dashboard-progress"><div class="progress-track"><span id="overallProgressBar"></span></div></div></div></section><section class="platform-strip reveal"><div class="wrap platform-strip-grid"><div class="strip-item"><span class="strip-num">01</span><b>IMPARA</b><span>Concetti fondamentali</span></div><div class="strip-item"><span class="strip-num">02</span><b>COMPRENDI</b><span>Strumenti e mercati</span></div><div class="strip-item"><span class="strip-num">03</span><b>SIMULA</b><span>Numeri e scenari</span></div><div class="strip-item"><span class="strip-num">04</span><b>APPROFONDISCI</b><span>Fonti istituzionali</span></div></div></section>
-<section class="section" id="inizio"><div class="wrap"><div class="eyebrow">INIZIA DA QUI</div><h2>Scegli il tuo punto di partenza.</h2><p class="lead">Non devi conoscere già la finanza. Scegli un percorso, apri le lezioni e costruisci le basi un concetto alla volta.</p><div class="path-guide reveal"><div class="path-guide-head"><div><div class="eyebrow">PERCORSO CONSIGLIATO</div><h3>Quattro modi per iniziare.</h3></div><span class="badge">scegli un percorso</span></div><div class="path-grid"><a class="path-card" href="#chapter1"><span class="path-num">01 · FONDAMENTA</span><strong>Parto da zero</strong><span>Risparmio, inflazione, rischio, rendimento, tempo e interesse composto.</span></a><a class="path-card" href="#chapter3"><span class="path-num">02 · STRUMENTI</span><strong>Voglio capire gli strumenti</strong><span>ETF, azioni, obbligazioni e crypto: struttura, caratteristiche, costi e rischi.</span></a><a class="path-card" href="#chapter6"><span class="path-num">03 · PORTAFOGLIO</span><strong>Voglio capire il portafoglio</strong><span>Diversificazione, asset allocation, PAC, costi, correlazione e ribilanciamento.</span></a><a class="path-card" href="#chapter7"><span class="path-num">04 · COMPORTAMENTO</span><strong>Voglio capire le decisioni</strong><span>FOMO, bias, perdite, euforia e comportamento durante la volatilità.</span></a></div></div></div></section><section class="section" id="percorso"><div class="wrap"><div class="eyebrow">01 — PERCORSO DI STUDIO</div><h2>Dalle basi all’analisi.</h2><p class="lead">Diciannove capitoli progressivi per capire come funzionano denaro, mercati, strumenti, portafogli e comportamento. Ogni lezione contiene una spiegazione semplice, un esempio, perché è importante e fonti per approfondire.</p><div class="study-tools reveal"><div class="study-search"><label for="lessonSearch">CERCA NEL PERCORSO</label><input id="lessonSearch" placeholder="Cerca una lezione… es. inflazione, ETF, rischio" type="search"/><span>Puoi cercare per argomento o capitolo.</span></div><div class="study-status"><b id="searchCount">19 capitoli</b><span> · </span><span id="studyProgressSmall">0% completato</span></div></div><div class="grid"><article class="card chapter-card" data-chapter="chapter1" role="button" tabindex="0"><div class="num">CAPITOLO 01</div><h3>Prima di iniziare</h3><p>Risparmio, inflazione, interesse composto, rischio, rendimento, tempo e diversificazione.</p><span class="open-label">Apri capitolo →</span><span class="chapter-status" data-status-for="chapter1">0%</span></article>
+<section class="section" id="inizio"><div class="wrap"><div class="eyebrow">INIZIA DA QUI</div><h2>Scegli il tuo punto di partenza.</h2><p class="lead">Non devi conoscere già la finanza. Scegli un percorso, apri le lezioni e costruisci le basi un concetto alla volta.</p><div class="path-guide reveal"><div class="path-guide-head"><div><div class="eyebrow">PERCORSO CONSIGLIATO</div><h3>Quattro modi per iniziare.</h3></div><span class="badge">scegli un percorso</span></div><div class="path-grid"><a class="path-card" href="#chapter1"><span class="path-num">01 · FONDAMENTA</span><strong>Parto da zero</strong><span>Risparmio, inflazione, rischio, rendimento, tempo e interesse composto.</span></a><a class="path-card" href="#chapter3"><span class="path-num">02 · STRUMENTI</span><strong>Voglio capire gli strumenti</strong><span>ETF, azioni, obbligazioni e crypto: struttura, caratteristiche, costi e rischi.</span></a><a class="path-card" href="#chapter6"><span class="path-num">03 · PORTAFOGLIO</span><strong>Voglio capire il portafoglio</strong><span>Diversificazione, asset allocation, PAC, costi, correlazione e ribilanciamento.</span></a><a class="path-card" href="#chapter7"><span class="path-num">04 · COMPORTAMENTO</span><strong>Voglio capire le decisioni</strong><span>FOMO, bias, perdite, euforia e comportamento durante la volatilità.</span></a></div></div></div></section><section class="section" id="percorso"><div class="wrap"><div class="eyebrow">01 — PERCORSO DI STUDIO</div><h2>Dalle basi all’analisi.</h2><p class="lead">Diciannove capitoli progressivi per capire come funzionano denaro, mercati, strumenti, portafogli e comportamento. Ogni lezione contiene una spiegazione semplice, un esempio, perché è importante e fonti per approfondire.</p><div class="view-switcher" role="group" aria-label="Stile del percorso"><span class="view-switcher-label">Vista</span><button type="button" data-view="classic" class="active">Classica</button><button type="button" data-view="editorial">Editoriale <span class="beta">BETA</span></button></div><div class="study-tools reveal"><div class="study-search"><label for="lessonSearch">CERCA NEL PERCORSO</label><input id="lessonSearch" placeholder="Cerca una lezione… es. inflazione, ETF, rischio" type="search"/><span>Puoi cercare per argomento o capitolo.</span></div><div class="study-status"><b id="searchCount">19 capitoli</b><span> · </span><span id="studyProgressSmall">0% completato</span></div></div><div class="grid"><article class="card chapter-card" data-chapter="chapter1" role="button" tabindex="0"><div class="num">CAPITOLO 01</div><h3>Prima di iniziare</h3><p>Risparmio, inflazione, interesse composto, rischio, rendimento, tempo e diversificazione.</p><span class="open-label">Apri capitolo →</span><span class="chapter-status" data-status-for="chapter1">0%</span></article>
 <article class="card chapter-card" data-chapter="chapter2" role="button" tabindex="0"><div class="num">CAPITOLO 02</div><h3>Come funzionano i mercati</h3><p>Borsa, domanda e offerta, indici, capitalizzazione e volatilità.</p><span class="open-label">Apri capitolo →</span><span class="chapter-status" data-status-for="chapter2">0%</span></article>
 <article class="card chapter-card" data-chapter="chapter3" role="button" tabindex="0"><div class="num">CAPITOLO 03</div><h3>ETF</h3><p>Struttura, replica, costi, accumulazione, distribuzione e UCITS.</p><span class="open-label">Apri capitolo →</span><span class="chapter-status" data-status-for="chapter3">0%</span></article>
 <article class="card chapter-card" data-chapter="chapter4" role="button" tabindex="0"><div class="num">CAPITOLO 04</div><h3>Azioni</h3><p>Partecipazione, utili, dividendi, P/E, EPS e stili di crescita.</p><span class="open-label">Apri capitolo →</span><span class="chapter-status" data-status-for="chapter4">0%</span></article>
@@ -873,6 +923,85 @@ main section{scroll-margin-top:92px}
   backdrop?.addEventListener('click',e=>{if(e.target===backdrop)closeCmd();});
   document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();openCmd();}if(e.key==='Escape')closeCmd();});
 
+})();
+</script><script id="finlab-study-view-modes-js">
+(()=> {
+  const section=document.querySelector('#percorso');
+  if(!section)return;
+  const switcher=section.querySelector('.view-switcher');
+  const cards=[...section.querySelectorAll('.chapter-card')];
+  if(!switcher||!cards.length)return;
+  const classicBtn=switcher.querySelector('[data-view="classic"]');
+  const editorialBtn=switcher.querySelector('[data-view="editorial"]');
+  const detail=document.createElement('div');
+  detail.className='editorial-detail';
+  detail.innerHTML='<div class="editorial-empty">Seleziona un capitolo per iniziare.</div>';
+  const advanced=section.querySelector('.advanced-path');
+  if(advanced)advanced.insertAdjacentElement('afterend',detail);else section.appendChild(detail);
+  const panels=new Map();
+  cards.forEach(card=>{
+    const id=card.dataset.chapter;
+    const panel=section.querySelector('#'+id);
+    if(panel){
+      panels.set(id,panel);
+      panel._finlabClassicParent=card.parentElement;
+    }
+  });
+  let selected='';
+  function moveToEditorial(id){
+    const panel=panels.get(id);
+    if(!panel)return;
+    selected=id;
+    detail.innerHTML='';
+    detail.appendChild(panel);
+    panel.classList.add('active');
+    cards.forEach(c=>c.parentElement.classList.toggle('is-selected',c.dataset.chapter===id));
+  }
+  function restoreClassic(){
+    panels.forEach((panel,id)=>{
+      const parent=panel._finlabClassicParent;
+      if(parent)parent.appendChild(panel);
+      panel.classList.remove('active');
+    });
+    cards.forEach(c=>c.parentElement.classList.remove('is-selected'));
+    selected='';
+  }
+  function setMode(mode,save=true){
+    const editorial=mode==='editorial';
+    section.classList.toggle('editorial-mode',editorial);
+    section.classList.toggle('classic-mode',!editorial);
+    classicBtn?.classList.toggle('active',!editorial);
+    editorialBtn?.classList.toggle('active',editorial);
+    if(editorial){
+      if(selected)moveToEditorial(selected);
+    }else{
+      restoreClassic();
+    }
+    if(save){try{localStorage.setItem('finlab-study-view',mode)}catch(_){}}
+  }
+  cards.forEach(card=>{
+    card.addEventListener('click',e=>{
+      if(!section.classList.contains('editorial-mode'))return;
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      moveToEditorial(card.dataset.chapter);
+      detail.scrollIntoView({behavior:'smooth',block:'nearest'});
+    },true);
+    card.addEventListener('keydown',e=>{
+      if(!section.classList.contains('editorial-mode'))return;
+      if(e.key==='Enter'||e.key===' '){
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        moveToEditorial(card.dataset.chapter);
+        detail.scrollIntoView({behavior:'smooth',block:'nearest'});
+      }
+    },true);
+  });
+  classicBtn?.addEventListener('click',()=>setMode('classic'));
+  editorialBtn?.addEventListener('click',()=>setMode('editorial'));
+  let saved='classic';
+  try{saved=localStorage.getItem('finlab-study-view')||'classic'}catch(_){}
+  setMode(saved,false);
 })();
 </script></body>
 </html>
