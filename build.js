@@ -88,7 +88,61 @@ const css=affiliateCss+editorialCss+'<style id=\"finlab-builder-nav\">.nav{backg
 const editorialJs="<script id=\"finlab-editorial-layout-js\">\n(()=> {\n  const section=document.querySelector('#percorso');\n  if(!section)return;\n  const switcher=section.querySelector('.view-switcher');\n  const classicBtn=switcher?.querySelector('[data-view=\"classic\"]');\n  const editorialBtn=switcher?.querySelector('[data-view=\"editorial\"]');\n  const cards=[...section.querySelectorAll('.chapter-card')];\n  if(!switcher||!cards.length)return;\n  if(classicBtn)classicBtn.textContent='Percorso di studio';\n  if(editorialBtn)editorialBtn.innerHTML='Editoriale <span class=\"beta\">BETA</span>';\n  const shell=document.createElement('div');\n  shell.className='editorial-shell';\n  shell.innerHTML='<aside class=\"editorial-sidebar\"><div class=\"editorial-sidebar-head\"><span>PERCORSO DI STUDIO</span><strong>19 capitoli</strong></div><div class=\"editorial-chapter-list\"></div><div class=\"editorial-sidebar-foot\"><b id=\"editorialProgress\">0 / 126</b> lezioni completate</div></aside><div class=\"editorial-main\"><div class=\"editorial-main-empty\">Seleziona un capitolo per iniziare.</div></div>';\n  const anchor=section.querySelector('.study-tools')||section.querySelector('.view-switcher');\n  anchor?.insertAdjacentElement('afterend',shell);\n  const list=shell.querySelector('.editorial-chapter-list');\n  const main=shell.querySelector('.editorial-main');\n  const progress=shell.querySelector('#editorialProgress');\n  const panelMap=new Map();\n  cards.forEach((card,i)=>{\n    const id=card.dataset.chapter;\n    const panel=section.querySelector('#'+id);\n    if(panel)panelMap.set(id,panel);\n    const btn=document.createElement('button');\n    btn.type='button';btn.className='editorial-chapter';btn.dataset.chapter=id;\n    btn.innerHTML='<span class=\"editorial-chapter-no\">'+String(i+1).padStart(2,'0')+'</span><span>'+((card.querySelector('h3')?.textContent||'Capitolo').trim())+'</span>';\n    btn.addEventListener('click',()=>select(id,true));\n    list.appendChild(btn);\n  });\n  function updateProgress(){\n    const source=document.querySelector('#overallProgressText');\n    if(source&&progress)progress.textContent=source.textContent;\n  }\n  function select(id,scroll){\n    const panel=panelMap.get(id);if(!panel)return;\n    list.querySelectorAll('.editorial-chapter').forEach(x=>x.classList.toggle('active',x.dataset.chapter===id));\n    main.innerHTML='';main.appendChild(panel);panel.classList.add('active');\n    updateProgress();\n    if(scroll)main.scrollIntoView({behavior:'smooth',block:'start'});\n  }\n  function clear(){\n    main.innerHTML='<div class=\"editorial-main-empty\">Seleziona un capitolo per iniziare.</div>';\n    list.querySelectorAll('.editorial-chapter').forEach(x=>x.classList.remove('active'));\n  }\n  function sync(){\n    const editorial=section.classList.contains('editorial-mode');\n    if(!editorial){clear();return;}\n    const active=list.querySelector('.editorial-chapter.active');\n    if(!active)select(cards[0].dataset.chapter,false);\n    updateProgress();\n  }\n  const observer=new MutationObserver(sync);\n  observer.observe(section,{attributes:true,attributeFilter:['class']});\n  classicBtn?.addEventListener('click',()=>setTimeout(sync,0));\n  editorialBtn?.addEventListener('click',()=>setTimeout(sync,0));\n  setTimeout(sync,0);\n  setInterval(updateProgress,800);\n})();\n</script>";
 const js='<script id=\"finlab-builder-nav-script\">(()=>{document.querySelectorAll(\".nav-dropdown\").forEach(d=>{const b=d.querySelector(\"button\");b.onclick=e=>{e.stopPropagation();document.querySelectorAll(\".nav-dropdown\").forEach(x=>{if(x!==d)x.classList.remove(\"open\")});d.classList.toggle(\"open\");b.setAttribute(\"aria-expanded\",d.classList.contains(\"open\"))}});const n=document.querySelector(\"#appNav\");if(!n)return;const b=document.querySelector(\".app-tools-trigger\"),p=document.createElement(\"div\");p.className=\"mobile-tools-panel\";p.innerHTML=`<a href="/strumenti/interesse-composto/">Interesse composto</a><a href="/strumenti/emergency-fund/">Emergency Fund Planner</a><a href="/strumenti/portfolio-analyzer/">Portfolio Analyzer</a><a href="/strumenti/strategy-lab/">Strategy Lab</a>`;document.body.appendChild(p);b?.addEventListener(\"click\",e=>{e.preventDefault();e.stopPropagation();p.classList.toggle(\"open\")});p.addEventListener(\"click\",e=>e.stopPropagation());document.addEventListener(\"click\",()=>{document.querySelectorAll(\".nav-dropdown\").forEach(d=>d.classList.remove(\"open\"));p.classList.remove(\"open\")})})();</script>';
 function nav(h){return h.replace(/<nav\b([^>]*class=[\"'][^\"']*navlinks[^\"']*[\"'][^>]*)>[\s\S]*?<\/nav>/i,(_,a)=>`<nav${a}><a href=\"/\">Home</a><a href=\"/impara/\">Impara</a>${tools}</nav>`)}
-function shell(title,content,links){let h=nav(header);if(!h.includes('href=\"/\"'))h=h.replace(/<a class=\"brand\" href=\"#top\">/i,'<a class=\"brand\" href=\"/\">');const m=mobile.replace(/<nav\b([^>]*id=[\"']appNav[\"'][^>]*)>[\s\S]*?<\/nav>/i,(_,a)=>`<nav${a}>${links.map(x=>x[0]==='#tools'?`<button class=\"app-tools-trigger\" type=\"button\"><span class=\"app-nav-icon\">⌘</span><span>Strumenti</span></button>`:`<a href=\"${x[0]}\"><span class=\"app-nav-icon\">${x[1]}</span><span>${x[2]}</span></a>`).join('')}</nav>`);return `<!DOCTYPE html><html lang=\"it\">${head.replace(/<title>[\s\S]*?<\/title>/i,`<title>${title}</title>`)}${css}<body>${h}<main>${content}</main>${footer}${scripts}${m}${js}${editorialJs}</body></html>`}
+function shell(title,content,links){let h=nav(header);if(!h.includes('href=\"/\"'))h=h.replace(/<a class=\"brand\" href=\"#top\">/i,'<a class=\"brand\" href=\"/\">');const m=mobile.replace(/<nav\b([^>]*id=[\"']appNav[\"'][^>]*)>[\s\S]*?<\/nav>/i,(_,a)=>`<nav${a}>${links.map(x=>x[0]==='#tools'?`<button class=\"app-tools-trigger\" type=\"button\"><span class=\"app-nav-icon\">⌘</span><span>Strumenti</span></button>`:`<a href=\"${x[0]}\"><span class=\"app-nav-icon\">${x[1]}</span><span>${x[2]}</span></a>`).join('')}</nav>`);return `<!DOCTYPE html><html lang=\"it\">${head.replace(/<title>[\s\S]*?<\/title>/i,`<title>${title}</title>`)}${css}<body>${h}<main>${content}</main>${footer}${scripts}${m}${js}${editorialJs}<script id="finlab-editorial-fix">
+(()=> {
+  const boot=()=>{
+    const section=document.querySelector('#percorso');
+    if(!section)return;
+    const shell=section.querySelector('.editorial-shell');
+    if(!shell)return;
+    const list=shell.querySelector('.editorial-chapter-list');
+    const main=shell.querySelector('.editorial-main');
+    if(!list||!main)return;
+    const cards=[...section.querySelectorAll('.chapter-card[data-chapter]')];
+    const panels=[...section.querySelectorAll('.chapter-panel[id^="chapter"]')];
+    if(!cards.length||!panels.length)return;
+    const byId=new Map(panels.map(p=>[p.id,p]));
+    list.innerHTML='';
+    cards.forEach((card,index)=>{
+      const id=card.dataset.chapter;
+      const panel=byId.get(id);
+      if(!panel)return;
+      const b=document.createElement('button');
+      b.type='button';
+      b.className='editorial-chapter';
+      b.dataset.chapter=id;
+      b.innerHTML='<span class="editorial-chapter-no">'+String(index+1).padStart(2,'0')+'</span><span>'+((card.querySelector('h3')?.textContent||'').trim())+'</span>';
+      b.addEventListener('click',()=>show(id,true));
+      list.appendChild(b);
+    });
+    const empty=main.querySelector('.editorial-main-empty');
+    if(empty)empty.remove();
+    function show(id,scroll){
+      const panel=byId.get(id)||panels[0];
+      if(!panel)return;
+      list.querySelectorAll('.editorial-chapter').forEach(b=>b.classList.toggle('active',b.dataset.chapter===panel.id));
+      main.innerHTML='';
+      main.appendChild(panel);
+      panel.style.display='block';
+      panel.classList.add('active');
+      if(scroll)main.scrollIntoView({behavior:'smooth',block:'start'});
+    }
+    const sync=()=>{
+      if(section.classList.contains('editorial-mode')){
+        const active=list.querySelector('.editorial-chapter.active');
+        show(active?.dataset.chapter||cards[0].dataset.chapter,false);
+      }
+    };
+    section.addEventListener('click',e=>{
+      const b=e.target.closest('.view-switcher button[data-view="editorial"]');
+      if(b)setTimeout(sync,30);
+    });
+    new MutationObserver(sync).observe(section,{attributes:true,attributeFilter:['class']});
+    if(section.classList.contains('editorial-mode'))sync();
+  };
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
+})();
+</script></body></html>`}
 fs.mkdirSync('impara',{recursive:true});fs.mkdirSync(path.join('strumenti','interesse-composto'),{recursive:true});fs.mkdirSync(path.join('strumenti','portfolio-analyzer'),{recursive:true});
 fs.writeFileSync('index.html',shell('FINLAB — Educazione finanziaria',`${hero}${platform}${get('importante')}`,[['/','⌂','Home'],['/impara/','▦','Impara'],['#tools','⌘','Strumenti'],['/impara/#lessonSearch','⌕','Cerca']]));
 
