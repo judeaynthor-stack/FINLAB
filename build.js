@@ -83,7 +83,7 @@ const hero=(sec.find(x=>!x.id&&/class=[\"'][^\"']*\bhero\b/i.test(x.html))?.html
 .replace(/Apri il simulatore/gi,'Apri gli strumenti');
 const platform=sec.find(x=>!x.id&&/class=[\"'][^\"']*\bplatform-strip\b/i.test(x.html))?.html||'';
 const tools='<div class=\"nav-dropdown\"><button class=\"nav-dropdown-toggle\" type=\"button\" aria-expanded=\"false\">Strumenti <span>⌄</span></button><div class=\"nav-dropdown-menu\"><a href=\"/strumenti/interesse-composto/\">Interesse composto</a><a href=\"/strumenti/emergency-fund/\">Emergency Fund Planner</a><a href="/strumenti/portfolio-analyzer/">Portfolio Analyzer</a><a href=\"/strumenti/strategy-lab/\">Strategy Lab</a></div></div>';
-const editorialCss="<style id=\"finlab-editorial-layout\">\n#percorso .view-switcher{display:flex;align-items:center;gap:8px;margin:30px 0 24px;padding:6px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.018);border-radius:999px;width:max-content}\n#percorso .view-switcher-label{padding:0 8px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#77736b}\n#percorso .view-switcher button{border:1px solid transparent;background:transparent;color:#99958d;padding:9px 14px;border-radius:999px;cursor:pointer;font:600 11px Inter,sans-serif}\n#percorso .view-switcher button.active{background:rgba(208,180,119,.12);border-color:rgba(208,180,119,.30);color:#f7f5ef}\n#percorso .view-switcher .beta{margin-left:6px;padding:3px 6px;border:1px solid rgba(208,180,119,.35);border-radius:999px;color:#d0b477;font-size:8px;letter-spacing:.1em}\n.editorial-shell{display:none;grid-template-columns:270px minmax(0,1fr);gap:14px;align-items:start;margin-top:18px}\n#percorso.editorial-mode .study-tools,#percorso.editorial-mode .advanced-path,#percorso.editorial-mode .grid,#percorso.editorial-mode .editorial-detail{display:none!important}\n#percorso.editorial-mode .editorial-shell{display:grid}\n.editorial-sidebar{position:sticky;top:88px;max-height:calc(100vh - 110px);display:flex;flex-direction:column;background:linear-gradient(145deg,#11120f,#0c0d0b);border:1px solid rgba(255,255,255,.08);border-radius:24px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.25)}\n.editorial-sidebar-head{padding:18px 17px;border-bottom:1px solid rgba(255,255,255,.07);display:flex;justify-content:space-between;align-items:end;gap:10px}\n.editorial-sidebar-head span{font-size:9px;letter-spacing:.15em;color:#d0b477;font-weight:800}\n.editorial-sidebar-head strong{font-size:10px;color:#77736b;font-weight:600}\n.editorial-chapter-list{overflow:auto;padding:8px;scrollbar-width:thin}\n.editorial-chapter{width:100%;display:grid;grid-template-columns:30px 1fr;gap:9px;text-align:left;border:1px solid transparent;background:transparent;color:#a9a69e;border-radius:14px;padding:10px 9px;cursor:pointer;font:500 12px/1.3 Inter,sans-serif;transition:.2s}\n.editorial-chapter:hover{background:rgba(255,255,255,.035);color:#f7f5ef}\n.editorial-chapter.active{background:rgba(208,180,119,.10);border-color:rgba(208,180,119,.22);color:#f7f5ef}\n.editorial-chapter-no{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);font-size:9px;color:#858179}\n.editorial-chapter.active .editorial-chapter-no{background:#d0b477;color:#171614;border-color:#d0b477;font-weight:800}\n.editorial-sidebar-foot{padding:13px 15px;border-top:1px solid rgba(255,255,255,.07);color:#77736b;font-size:10px}\n.editorial-sidebar-foot b{color:#c9c4b9}\n.editorial-main{min-width:0}\n.editorial-main-empty{min-height:560px;border:1px dashed rgba(255,255,255,.10);border-radius:28px;display:grid;place-items:center;color:#77736b;font-size:13px}\n.editorial-main .chapter-panel{display:block!important;margin:0!important;padding:36px!important;border-radius:28px!important;background:linear-gradient(145deg,#151611,#0d0e0c)!important;border:1px solid rgba(208,180,119,.22)!important;box-shadow:0 28px 80px rgba(0,0,0,.34)!important;position:relative;overflow:hidden}\n.editorial-main .chapter-panel:before{content:\"\";position:absolute;width:430px;height:430px;border:1px solid rgba(208,180,119,.14);border-radius:50%;right:-210px;top:-240px;pointer-events:none}\n.editorial-main .chapter-panel>*{position:relative}\n.editorial-main .chapter-panel-tools{justify-content:flex-start;margin-bottom:18px}\n.editorial-main .chapter-panel-progress{font-size:9px;text-transform:uppercase;letter-spacing:.13em;color:#77736b}\n.editorial-main .chapter-panel>.eyebrow{font-size:9px}\n.editorial-main .chapter-panel>h3{font:normal clamp(40px,5vw,64px)/.98 Georgia,serif!important;letter-spacing:-.045em!important;margin:15px 0 13px!important;max-width:760px}\n.editorial-main .chapter-panel>.lead{font-size:15px;line-height:1.7;max-width:720px}\n.editorial-main .topic-list{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:30px}\n.editorial-main .topic{min-height:60px;border-radius:16px!important;padding:15px 17px!important;background:rgba(0,0,0,.17)!important;border-color:rgba(255,255,255,.08)!important;box-shadow:none!important}\n.editorial-main .topic:hover{transform:none!important;border-color:rgba(208,180,119,.38)!important}\n.editorial-main .topic-detail{grid-column:1/-1;border-radius:18px!important;background:rgba(0,0,0,.22)!important}\n.editorial-main .affiliate-book{position:relative}\n@media(max-width:850px){#percorso .view-switcher [data-view="editorial"]{display:none!important}.editorial-shell{display:none!important}.editorial-main .chapter-panel{padding:27px!important}.editorial-main .topic-list{grid-template-columns:1fr}#percorso.editorial-mode .study-tools,#percorso.editorial-mode .advanced-path,#percorso.editorial-mode .grid{display:block!important}}\n@media(max-width:650px){#percorso .view-switcher{width:100%;overflow:auto;justify-content:flex-start}.editorial-shell{display:none!important}.editorial-sidebar,.editorial-main{display:none!important}.editorial-main .chapter-panel{padding:21px!important;border-radius:22px!important}.editorial-main .chapter-panel>h3{font-size:40px!important}.editorial-main .topic-list{grid-template-columns:1fr}}\n</style>";
+const editorialCss="<style id=\"finlab-editorial-layout\">\n#percorso .view-switcher{display:flex;align-items:center;gap:8px;margin:30px 0 24px;padding:6px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.018);border-radius:999px;width:max-content}\n#percorso .view-switcher-label{padding:0 8px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#77736b}\n#percorso .view-switcher button{border:1px solid transparent;background:transparent;color:#99958d;padding:9px 14px;border-radius:999px;cursor:pointer;font:600 11px Inter,sans-serif}\n#percorso .view-switcher button.active{background:rgba(208,180,119,.12);border-color:rgba(208,180,119,.30);color:#f7f5ef}\n#percorso .view-switcher .beta{margin-left:6px;padding:3px 6px;border:1px solid rgba(208,180,119,.35);border-radius:999px;color:#d0b477;font-size:8px;letter-spacing:.1em}\n.editorial-shell{display:none;grid-template-columns:270px minmax(0,1fr);gap:14px;align-items:start;margin-top:18px}\n#percorso.editorial-mode .study-tools,#percorso.editorial-mode .advanced-path,#percorso.editorial-mode .grid,#percorso.editorial-mode .editorial-detail{display:none!important}\n#percorso.editorial-mode .editorial-shell{display:grid}\n.editorial-sidebar{position:sticky;top:88px;max-height:calc(100vh - 110px);display:flex;flex-direction:column;background:linear-gradient(145deg,#11120f,#0c0d0b);border:1px solid rgba(255,255,255,.08);border-radius:24px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.25)}\n.editorial-sidebar-head{padding:18px 17px;border-bottom:1px solid rgba(255,255,255,.07);display:flex;justify-content:space-between;align-items:end;gap:10px}\n.editorial-sidebar-head span{font-size:9px;letter-spacing:.15em;color:#d0b477;font-weight:800}\n.editorial-sidebar-head strong{font-size:10px;color:#77736b;font-weight:600}\n.editorial-chapter-list{overflow:auto;padding:8px;scrollbar-width:thin}\n.editorial-chapter{width:100%;display:grid;grid-template-columns:30px 1fr;gap:9px;text-align:left;border:1px solid transparent;background:transparent;color:#a9a69e;border-radius:14px;padding:10px 9px;cursor:pointer;font:500 12px/1.3 Inter,sans-serif;transition:.2s}\n.editorial-chapter:hover{background:rgba(255,255,255,.035);color:#f7f5ef}\n.editorial-chapter.active{background:rgba(208,180,119,.10);border-color:rgba(208,180,119,.22);color:#f7f5ef}\n.editorial-chapter-no{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);font-size:9px;color:#858179}\n.editorial-chapter.active .editorial-chapter-no{background:#d0b477;color:#171614;border-color:#d0b477;font-weight:800}\n.editorial-sidebar-foot{padding:13px 15px;border-top:1px solid rgba(255,255,255,.07);color:#77736b;font-size:10px}\n.editorial-sidebar-foot b{color:#c9c4b9}\n.editorial-main{min-width:0}\n.editorial-main-empty{min-height:560px;border:1px dashed rgba(255,255,255,.10);border-radius:28px;display:grid;place-items:center;color:#77736b;font-size:13px}\n.editorial-main .chapter-panel{display:block!important;margin:0!important;padding:36px!important;border-radius:28px!important;background:linear-gradient(145deg,#151611,#0d0e0c)!important;border:1px solid rgba(208,180,119,.22)!important;box-shadow:0 28px 80px rgba(0,0,0,.34)!important;position:relative;overflow:hidden}\n.editorial-main .chapter-panel:before{content:\"\";position:absolute;width:430px;height:430px;border:1px solid rgba(208,180,119,.14);border-radius:50%;right:-210px;top:-240px;pointer-events:none}\n.editorial-main .chapter-panel>*{position:relative}\n.editorial-main .chapter-panel-tools{justify-content:flex-start;margin-bottom:18px}\n.editorial-main .chapter-panel-progress{font-size:9px;text-transform:uppercase;letter-spacing:.13em;color:#77736b}\n.editorial-main .chapter-panel>.eyebrow{font-size:9px}\n.editorial-main .chapter-panel>h3{font:normal clamp(40px,5vw,64px)/.98 Georgia,serif!important;letter-spacing:-.045em!important;margin:15px 0 13px!important;max-width:760px}\n.editorial-main .chapter-panel>.lead{font-size:15px;line-height:1.7;max-width:720px}\n.editorial-main .topic-list{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:30px}\n.editorial-main .topic{min-height:60px;border-radius:16px!important;padding:15px 17px!important;background:rgba(0,0,0,.17)!important;border-color:rgba(255,255,255,.08)!important;box-shadow:none!important}\n.editorial-main .topic:hover{transform:none!important;border-color:rgba(208,180,119,.38)!important}\n.editorial-main .topic-detail{grid-column:1/-1;border-radius:18px!important;background:rgba(0,0,0,.22)!important}\n.editorial-main .affiliate-book{position:relative}\n@media(max-width:850px){.editorial-shell{grid-template-columns:210px minmax(0,1fr)}.editorial-main .chapter-panel{padding:27px!important}.editorial-main .topic-list{grid-template-columns:1fr}}\n@media(max-width:650px){#percorso .view-switcher{width:100%;overflow:auto;justify-content:flex-start}.editorial-shell{grid-template-columns:1fr;gap:10px}.editorial-sidebar{position:relative;top:0;max-height:none}.editorial-chapter-list{display:flex;overflow-x:auto;gap:6px;padding:8px}.editorial-chapter{min-width:170px;grid-template-columns:28px 1fr}.editorial-sidebar-foot{display:none}.editorial-main .chapter-panel{padding:21px!important;border-radius:22px!important}.editorial-main .chapter-panel>h3{font-size:40px!important}.editorial-main .topic-list{grid-template-columns:1fr}}\n</style>";
 const css=affiliateCss+editorialCss+'<style id=\"finlab-builder-nav\">.nav{background:rgba(6,6,5,.96);border-bottom:1px solid #3a3730;box-shadow:0 8px 30px rgba(0,0,0,.3);position:relative;z-index:20}.navlinks{gap:30px;align-items:center}.navlinks>a,.nav-dropdown{display:inline-flex;align-items:center}.nav-dropdown-toggle{display:inline-flex;align-items:center;gap:7px;line-height:1;min-height:28px}.nav-dropdown{position:relative;display:inline-flex}.nav-dropdown-menu{display:none;position:absolute;right:0;top:calc(100% + 2px);width:260px;background:#10100e;border:1px solid #3a3832;border-radius:14px;box-shadow:0 20px 50px rgba(0,0,0,.45);padding:7px;z-index:1000}.nav-dropdown.open .nav-dropdown-menu,.nav-dropdown:hover .nav-dropdown-menu{display:block}.nav-dropdown-menu a,.nav-dropdown-menu span{display:block;padding:12px 13px;color:#aaa69d;font-size:13px;border-bottom:1px solid #24231f;border-radius:9px}.nav-dropdown-menu a:hover{color:#fff;background:#181714}.nav-dropdown-menu span:last-child{border:0;color:#68645d}.nav-dropdown-menu small{float:right;color:#4f4b45;font-size:9px;text-transform:uppercase}.mobile-tools-panel{display:none}#inizio .badge{margin-bottom:14px}#inizio h2{margin-top:0;margin-bottom:22px}#inizio .start-grid{margin-top:28px}@media(max-width:1050px){.navlinks{gap:28px}}@media(max-width:650px){.nav{background:rgba(5,5,4,.98);box-shadow:0 10px 28px rgba(0,0,0,.3)}.navlinks{gap:22px;align-items:center}.nav-dropdown:hover .nav-dropdown-menu{display:none}#appNav{grid-template-columns:repeat(4,1fr)!important;left:8px!important;right:8px!important;bottom:8px!important;background:#090908f7!important;border:1px solid #403c34!important;border-radius:22px!important;box-shadow:0 18px 55px rgba(0,0,0,.7)!important;padding:6px!important}.mobile-tools-panel{position:fixed;left:12px;right:12px;bottom:84px;z-index:1100;background:#0c0c0b;border:1px solid #3a3832;box-shadow:0 20px 50px rgba(0,0,0,.65);padding:7px;border-radius:18px}.mobile-tools-panel.open{display:block}.mobile-tools-panel a,.mobile-tools-panel span{display:block;padding:13px;color:#aaa69d;font-size:12px;border-bottom:1px solid #24231f}.mobile-tools-panel span{color:#68645d}.mobile-tools-panel small{float:right;color:#4f4b45;font-size:9px;text-transform:uppercase}.app-tools-trigger{border:0!important;background:transparent!important;color:#aaa69d!important;font:9px Inter!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:3px!important;padding:4px 1px!important;cursor:pointer;width:25%!important;min-width:25%!important;max-width:25%!important;height:72px!important;min-height:72px!important;border-radius:16px!important;box-sizing:border-box!important;position:absolute!important;left:50%!important;top:4px!important;bottom:4px!important}.app-tools-trigger:active{background:#151512!important}.app-tools-trigger .app-nav-icon{display:flex!important;width:28px!important;height:28px!important;min-width:28px!important;min-height:28px!important;flex:0 0 28px!important;align-items:center!important;justify-content:center!important;color:var(--gold)!important;font-size:24px!important;line-height:28px!important}.app-tools-trigger>span:last-child{display:block!important;width:100%!important;height:14px!important;margin:0!important;overflow:visible!important;text-align:center!important;white-space:nowrap!important;font-size:9px!important;line-height:14px!important;color:#a7a39a!important}.mobile-nav-icon,.app-nav-icon{font-size:15px;line-height:1}}</style>';
 const editorialJs="<script id=\"finlab-editorial-controller\">
 (()=> {
@@ -100,104 +100,92 @@ const editorialJs="<script id=\"finlab-editorial-controller\">
       shell=document.createElement('div');
       shell.className='editorial-shell';
       shell.innerHTML='<aside class=\"editorial-sidebar\"><div class=\"editorial-sidebar-head\"><span>PERCORSO DI STUDIO</span><strong>19 capitoli</strong></div><div class=\"editorial-chapter-list\"></div><div class=\"editorial-sidebar-foot\"><b id=\"editorialProgress\">0 / 126</b> lezioni completate</div></aside><div class=\"editorial-main\"></div>';
-      const anchor=section.querySelector('.study-tools')||switcher;
-      anchor.insertAdjacentElement('afterend',shell);
+      (section.querySelector('.study-tools')||switcher).insertAdjacentElement('afterend',shell);
     }
 
     const list=shell.querySelector('.editorial-chapter-list');
     const main=shell.querySelector('.editorial-main');
     const cards=[...section.querySelectorAll('.chapter-card[data-chapter]')];
     const panels=[...section.querySelectorAll('.chapter-panel[id^=\"chapter\"]')];
-    const panelMap=new Map(panels.map(p=>[p.id,p]));
+    const map=new Map(panels.map(p=>[p.id,p]));
     if(!list||!main||!cards.length||!panels.length)return;
 
-    // Keep a stable reference to every panel's original classic container.
-    panels.forEach(panel=>{
-      if(!panel.dataset.editorialParent){
-        panel.dataset.editorialParent='1';
-        panel._finlabOriginalParent=panel.parentElement;
-        panel._finlabOriginalNext=panel.nextSibling;
-      }
+    panels.forEach(p=>{
+      if(!p._finlabOriginalParent)p._finlabOriginalParent=p.parentElement;
     });
 
     list.innerHTML='';
     cards.forEach((card,index)=>{
       const id=card.dataset.chapter;
-      if(!panelMap.has(id))return;
-      const btn=document.createElement('button');
-      btn.type='button';
-      btn.className='editorial-chapter';
-      btn.dataset.chapter=id;
-      btn.innerHTML='<span class=\"editorial-chapter-no\">'+String(index+1).padStart(2,'0')+'</span><span>'+((card.querySelector('h3')?.textContent||'Capitolo').trim())+'</span>';
-      btn.addEventListener('click',(event)=>{
-        event.preventDefault();
-        event.stopPropagation();
-        show(id,true);
-      });
-      list.appendChild(btn);
+      if(!map.has(id))return;
+      const button=document.createElement('button');
+      button.type='button';
+      button.className='editorial-chapter';
+      button.dataset.chapter=id;
+      button.innerHTML='<span class=\"editorial-chapter-no\">'+String(index+1).padStart(2,'0')+'</span><span>'+((card.querySelector('h3')?.textContent||'Capitolo').trim())+'</span>';
+      list.appendChild(button);
     });
 
-    function progress(){
-      const source=document.querySelector('#overallProgressText');
-      const target=shell.querySelector('#editorialProgress');
-      if(source&&target)target.textContent=source.textContent;
-    }
+    const updateProgress=()=>{
+      const src=document.querySelector('#overallProgressText');
+      const dst=shell.querySelector('#editorialProgress');
+      if(src&&dst)dst.textContent=src.textContent;
+    };
 
-    function show(id,scroll){
+    const show=(id,scroll)=>{
       if(window.innerWidth<=850)return;
-      const panel=panelMap.get(id);
+      const panel=map.get(id);
       if(!panel)return;
-      list.querySelectorAll('.editorial-chapter').forEach(btn=>btn.classList.toggle('active',btn.dataset.chapter===id));
-      while(main.firstChild)main.removeChild(main.firstChild);
-      main.appendChild(panel);
+      list.querySelectorAll('.editorial-chapter').forEach(b=>b.classList.toggle('active',b.dataset.chapter===id));
+      main.replaceChildren(panel);
       panel.classList.add('active');
       panel.style.setProperty('display','block','important');
-      progress();
+      updateProgress();
       if(scroll)main.scrollIntoView({behavior:'smooth',block:'start'});
-    }
+    };
 
-    function restore(){
+    const restore=()=>{
       panels.forEach(panel=>{
         const parent=panel._finlabOriginalParent;
-        const next=panel._finlabOriginalNext;
-        if(parent){
-          if(next&&next.parentNode===parent)parent.insertBefore(panel,next);
-          else parent.appendChild(panel);
-        }
+        if(parent)parent.appendChild(panel);
         panel.classList.remove('active');
         panel.style.removeProperty('display');
       });
-      while(main.firstChild)main.removeChild(main.firstChild);
-      list.querySelectorAll('.editorial-chapter').forEach(btn=>btn.classList.remove('active'));
-    }
+      main.replaceChildren();
+      list.querySelectorAll('.editorial-chapter').forEach(b=>b.classList.remove('active'));
+    };
 
-    function setMode(mode){
-      const desktop=window.innerWidth>850;
-      const editorial=mode==='editorial'&&desktop;
-      section.classList.toggle('editorial-mode',editorial);
-      section.classList.toggle('classic-mode',!editorial);
-      classicBtn.classList.toggle('active',!editorial);
-      editorialBtn.classList.toggle('active',editorial);
-      if(editorial){
-        const active=list.querySelector('.editorial-chapter.active');
-        show(active?.dataset.chapter||cards[0].dataset.chapter,false);
-      }else{
-        restore();
-      }
-      progress();
-      try{localStorage.setItem('finlab-study-view',editorial?'editorial':'classic')}catch(_){}
-    }
+    const setMode=(editorial)=>{
+      const enabled=editorial && window.innerWidth>850;
+      section.classList.toggle('editorial-mode',enabled);
+      section.classList.toggle('classic-mode',!enabled);
+      classicBtn.classList.toggle('active',!enabled);
+      editorialBtn.classList.toggle('active',enabled);
+      if(enabled)show(list.querySelector('.editorial-chapter.active')?.dataset.chapter||cards[0].dataset.chapter,false);
+      else restore();
+      updateProgress();
+      try{localStorage.setItem('finlab-study-view',enabled?'editorial':'classic')}catch(_){}
+    };
 
-    classicBtn.addEventListener('click',()=>setMode('classic'));
-    editorialBtn.addEventListener('click',()=>setMode('editorial'));
-    window.addEventListener('resize',()=>{
-      if(window.innerWidth<=850 && section.classList.contains('editorial-mode'))setMode('classic');
+    list.addEventListener('click',event=>{
+      const button=event.target.closest('.editorial-chapter');
+      if(!button)return;
+      event.preventDefault();
+      event.stopPropagation();
+      show(button.dataset.chapter,true);
     });
 
-    try{
-      const saved=localStorage.getItem('finlab-study-view');
-      setMode(saved==='editorial'?'editorial':'classic');
-    }catch(_){setMode('classic');}
+    classicBtn.addEventListener('click',()=>setMode(false));
+    editorialBtn.addEventListener('click',()=>setMode(true));
+    window.addEventListener('resize',()=>{
+      if(window.innerWidth<=850 && section.classList.contains('editorial-mode'))setMode(false);
+    });
+
+    let saved='classic';
+    try{saved=localStorage.getItem('finlab-study-view')||'classic'}catch(_){}
+    setMode(saved==='editorial');
+
+    if(window.innerWidth<=850)editorialBtn.style.display='none';
   };
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
