@@ -1003,5 +1003,41 @@ main section{scroll-margin-top:92px}
   try{saved=localStorage.getItem('finlab-study-view')||'classic'}catch(_){}
   setMode(saved,false);
 })();
-</script></body>
+</script><style id="finlab-quiz-compact">
+.quiz-option{position:relative;align-items:flex-start}
+.quiz-option .quiz-answer-text{display:block}
+.quiz-option .quiz-answer-more{display:inline-flex;align-items:center;margin:7px 0 0 0;padding:0;border:0;background:none;color:#d0b477;font:inherit;font-size:12px;font-weight:700;cursor:pointer;text-decoration:none}
+.quiz-option .quiz-answer-more:hover{text-decoration:underline}
+.quiz-option.quiz-answer-expanded .quiz-answer-more{color:#aaa69d}
+</style>
+<script id="finlab-quiz-compact-js">
+(()=>{const init=()=>{
+ document.querySelectorAll('.quiz-option span:not(.quiz-answer-more)').forEach(span=>{
+   if(span.dataset.compactReady==='1')return;
+   const full=(span.textContent||'').trim();
+   if(full.length<150)return;
+   const cut=full.match(/^.{80,155}?[.!?](?:\s|$)/);
+   const short=(cut?cut[0]:full.slice(0,125).replace(/\s+\S*$/,'' )+'…').trim();
+   if(short.length>=full.length-15)return;
+   span.dataset.compactReady='1';
+   span.classList.add('quiz-answer-text');
+   span.dataset.fullText=full;
+   span.textContent=short;
+   const more=document.createElement('button');
+   more.type='button';
+   more.className='quiz-answer-more';
+   more.textContent='Leggi tutto';
+   more.setAttribute('aria-expanded','false');
+   more.addEventListener('click',e=>{
+     e.preventDefault();e.stopPropagation();
+     const expanded=span.parentElement.classList.toggle('quiz-answer-expanded');
+     span.textContent=expanded?span.dataset.fullText:short;
+     more.textContent=expanded?'Riduci':'Leggi tutto';
+     more.setAttribute('aria-expanded',String(expanded));
+   });
+   span.parentElement.appendChild(more);
+ });
+};
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
+})();</script></body>
 </html>
