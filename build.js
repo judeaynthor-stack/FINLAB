@@ -6,7 +6,7 @@ const head=(source.match(/<head>[\s\S]*?<\/head>/i)||['<head></head>'])[0];
 const body=(source.match(/<body[^>]*>([\s\S]*?)<\/body>/i)||['',''])[1];
 const header=tag(body,'header'),footer=tag(body,'footer');
 const mobile=tag(body,'nav',x=>/\bid=[\"']appNav[\"']/i.test(x));
-const scripts=[...body.matchAll(/<script\b[^>]*>[\s\S]*?<\/script>/gi)].map(x=>x[0]).filter(x=>!/editorial-detail|finlab-study-view/.test(x)).join('\n');
+const scripts=[...body.matchAll(/<script\b[^>]*>[\s\S]*?<\/script>/gi)].map(x=>x[0]).filter(x=>!/editorial-detail|finlab-study-view|finlab-quiz-compact-js/.test(x)).join('\n');
 const sec=sections(body),get=id=>sec.find(x=>x.id===id)?.html||'';
 
 const affiliateBooks={
@@ -127,8 +127,45 @@ const init=()=>{
 });
 };if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();</script>`;
+const quizCompactJs=`<style id="finlab-quiz-compact">
+.quiz-option{position:relative;align-items:flex-start}
+.quiz-option .quiz-answer-text{display:block}
+.quiz-option .quiz-answer-more{display:inline-flex;align-items:center;margin:7px 0 0 0;padding:0;border:0;background:none;color:#d0b477;font:inherit;font-size:12px;font-weight:700;cursor:pointer;text-decoration:none}
+.quiz-option .quiz-answer-more:hover{text-decoration:underline}
+.quiz-option.quiz-answer-expanded .quiz-answer-more{color:#aaa69d}
+</style>
+<script id="finlab-quiz-compact-js">
+(()=>{const init=()=>{
+ document.querySelectorAll('.quiz-option span:not(.quiz-answer-more)').forEach(span=>{
+   if(span.dataset.compactReady==='1')return;
+   const full=(span.textContent||'').trim();
+   if(full.length<150)return;
+   const cut=full.match(/^.{80,155}?[.!?](?:\\s|$)/);
+   const short=(cut?cut[0]:full.slice(0,125).replace(/\\s+\\S*$/,'')+'…').trim();
+   if(short.length>=full.length-15)return;
+   span.dataset.compactReady='1';
+   span.classList.add('quiz-answer-text');
+   span.dataset.fullText=full;
+   span.textContent=short;
+   const more=document.createElement('button');
+   more.type='button';
+   more.className='quiz-answer-more';
+   more.textContent='Leggi tutto';
+   more.setAttribute('aria-expanded','false');
+   more.addEventListener('click',e=>{
+     e.preventDefault();e.stopPropagation();
+     const expanded=span.parentElement.classList.toggle('quiz-answer-expanded');
+     span.textContent=expanded?span.dataset.fullText:short;
+     more.textContent=expanded?'Riduci':'Leggi tutto';
+     more.setAttribute('aria-expanded',String(expanded));
+   });
+   span.parentElement.appendChild(more);
+ });
+};
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
+})();</script>`;
 function nav(h){return h.replace(/<nav\b([^>]*class=[\"'][^\"']*navlinks[^\"']*[\"'][^>]*)>[\s\S]*?<\/nav>/i,(_,a)=>`<nav${a}><a href=\"/\">Home</a><a href=\"/impara/\">Impara</a>${tools}</nav>`)}
-function shell(title,content,links){let h=nav(header);if(!h.includes('href=\"/\"'))h=h.replace(/<a class=\"brand\" href=\"#top\">/i,'<a class=\"brand\" href=\"/\">');const m=mobile.replace(/<nav\b([^>]*id=[\"']appNav[\"'][^>]*)>[\s\S]*?<\/nav>/i,(_,a)=>`<nav${a}>${links.map(x=>x[0]==='#tools'?`<button class=\"app-tools-trigger\" type=\"button\"><span class=\"app-nav-icon\">⌘</span><span>Strumenti</span></button>`:`<a href=\"${x[0]}\"><span class=\"app-nav-icon\">${x[1]}</span><span>${x[2]}</span></a>`).join('')}</nav>`);return `<!DOCTYPE html><html lang=\"it\">${head.replace(/<title>[\s\S]*?<\/title>/i,`<title>${title}</title>`)}${css}<body>${h}<main>${content}</main>${footer}${scripts}${m}${js}${editorialJs}${learningUpgradeCss}${learningUpgradeJs}</body></html>`}
+function shell(title,content,links){let h=nav(header);if(!h.includes('href=\"/\"'))h=h.replace(/<a class=\"brand\" href=\"#top\">/i,'<a class=\"brand\" href=\"/\">');const m=mobile.replace(/<nav\b([^>]*id=[\"']appNav[\"'][^>]*)>[\s\S]*?<\/nav>/i,(_,a)=>`<nav${a}>${links.map(x=>x[0]==='#tools'?`<button class=\"app-tools-trigger\" type=\"button\"><span class=\"app-nav-icon\">⌘</span><span>Strumenti</span></button>`:`<a href=\"${x[0]}\"><span class=\"app-nav-icon\">${x[1]}</span><span>${x[2]}</span></a>`).join('')}</nav>`);return `<!DOCTYPE html><html lang=\"it\">${head.replace(/<title>[\s\S]*?<\/title>/i,`<title>${title}</title>`)}${css}<body>${h}<main>${content}</main>${footer}${scripts}${m}${js}${editorialJs}${learningUpgradeCss}${learningUpgradeJs}${quizCompactJs}</body></html>`}
 fs.mkdirSync('impara',{recursive:true});fs.mkdirSync(path.join('strumenti','interesse-composto'),{recursive:true});fs.mkdirSync(path.join('strumenti','portfolio-analyzer'),{recursive:true});
 fs.writeFileSync('index.html',shell('FINLAB — Educazione finanziaria',`${hero}${platform}${get('importante')}`,[['/','⌂','Home'],['/impara/','▦','Impara'],['#tools','⌘','Strumenti'],['/impara/#lessonSearch','⌕','Cerca']]));
 
