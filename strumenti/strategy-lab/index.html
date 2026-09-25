@@ -545,37 +545,14 @@ function selectAllocation(i,value,el){
  document.querySelector('#allocationSelected .selected-kicker').textContent='Asset selezionato';
 }
 a.forEach(x=>x.addEventListener('input',updateAllocationChart));updateAllocationChart();const presets={global:[85,5,5,5,0,0,0],balanced:[50,0,10,5,30,5,0],growth:[50,20,5,5,0,5,15],dividend:[65,10,5,5,0,5,10],defensive:[45,0,10,5,35,5,0]};document.querySelectorAll('[data-template]').forEach(x=>x.addEventListener('click',()=>{presets[x.dataset.template].forEach((v,i)=>a[i].value=v);updateAllocationChart();document.getElementById('builder').scrollIntoView({behavior:'smooth'});}));document.getElementById('goBuilder')?.addEventListener('click',()=>document.getElementById('builder').scrollIntoView({behavior:'smooth'}));document.querySelectorAll('.asset-info button').forEach(x=>x.addEventListener('click',()=>{const q=x.parentElement,o=q.classList.toggle('open');x.setAttribute('aria-expanded',o);x.querySelector('.asset-plus').textContent=o?'−':'+'}));const euro=n=>new Intl.NumberFormat('it-IT',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(n),fv=(i,m,y,r)=>{let v=i;for(let n=0;n<y*12;n++)v=v*(1+r/12)+m;return v};document.getElementById('run').addEventListener('click',()=>{if(total()!==100){alert("L'allocazione deve essere esattamente 100%.");return}const i=Math.max(0,Number(initial.value)||0),m=Math.max(0,Number(monthly.value)||0),y=Math.max(1,Math.min(50,Math.round(Number(years.value)||1))),r=Math.max(-.2,Math.min(.3,(Number(returnRate.value)||0)/100));let v=i,pts=[v],step=Math.max(1,Math.floor(y*12/24));for(let n=1;n<=y*12;n++){v=v*(1+r/12)+m;if(n%step===0||n===y*12)pts.push(v)}const contributed=i+m*y*12;contributedEl.textContent=euro(contributed);finalValue.textContent=euro(v);gain.textContent=euro(v-contributed);rateShown.textContent=(r*100).toFixed(1)+'%';scenario3.textContent=euro(fv(i,m,y,.03));scenario6.textContent=euro(fv(i,m,y,.06));scenario9.textContent=euro(fv(i,m,y,.09));shock20.textContent=euro(v*.8);shock30.textContent=euro(v*.7);shock50.textContent=euro(v*.5);chartCaption.textContent='Capitale iniziale '+euro(i)+' · PAC '+euro(m)+'/mese · '+y+' anni · ipotesi '+(r*100).toFixed(1)+'% annuo';const c=document.getElementById('chart');c.innerHTML='';const max=Math.max(...pts);pts.forEach((p,n)=>{const bar=document.createElement('div');bar.className='bar';bar.style.height=Math.max(3,p/max*100)+'%';const s=document.createElement('span');s.textContent=n===0?'0':Math.round(n*(y/Math.max(1,pts.length-1)))+'a';bar.appendChild(s);c.appendChild(bar)});document.getElementById('results').classList.add('visible');document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'})});const {initial,monthly,years,returnRate,contributed:contributedEl,finalValue,gain,rateShown,scenario3,scenario6,scenario9,shock20,shock30,shock50,chartCaption}=Object.fromEntries(['initial','monthly','years','returnRate','contributed','finalValue','gain','rateShown','scenario3','scenario6','scenario9','shock20','shock30','shock50','chartCaption'].map(id=>[id,document.getElementById(id)]));})();</script>
-<script id="strategy-lab-357-js">
-(()=>{const euro357=n=>new Intl.NumberFormat('it-IT',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(n);
-const presetNames357={global:'Global',balanced:'Balanced',growth:'Growth',dividend:'Dividend',defensive:'Defensive'};
-const assetLabels357=['Azionario globale','S&P 500','Mercati emergenti','Small Cap','Obbligazioni','Oro','Crypto · Bitcoin'];
-const presets357={global:[85,5,5,5,0,0,0],balanced:[50,0,10,5,30,5,0],growth:[50,20,5,5,0,5,15],dividend:[65,10,5,5,0,5,10],defensive:[45,0,10,5,35,5,0]};
-let target357='B';
-let compareA357=null;
-let compareB357=null;
-function readPlan357(){const i=Math.max(0,Number(document.getElementById('initial')?.value)||0),m=Math.max(0,Number(document.getElementById('monthly')?.value)||0),y=Math.max(1,Math.min(50,Math.round(Number(document.getElementById('years')?.value)||1))),r=Math.max(-.2,Math.min(.3,(Number(document.getElementById('returnRate')?.value)||0)/100));return{i,m,y,r}}
-function fv357(i,m,y,r){let v=i;for(let n=0;n<y*12;n++)v=v*(1+r/12)+m;return v}
-function currentAlloc357(){return [...document.querySelectorAll('.alloc')].map(x=>Number(x.value)||0)}
-function allocText357(values){return values.map((v,i)=>v?assetLabels357[i]+' '+v+'%':null).filter(Boolean).join(' · ')||'Nessuna allocazione'}
-function renderCompare357(){const p=readPlan357();const a=compareA357||currentAlloc357();const b=compareB357;const av=fv357(p.i,p.m,p.y,p.r),bv=b?fv357(p.i,p.m,p.y,p.r):null;
-document.getElementById('compareAName').textContent='La tua strategia';
-document.getElementById('compareAAlloc').textContent=allocText357(a);
-document.getElementById('compareBName').textContent=b?'Modello '+presetNames357[b.key]:'Seleziona un modello';
-document.getElementById('compareBAlloc').textContent=b?allocText357(b.values):'—';
-document.getElementById('compareAFinal').textContent=euro357(av);
-document.getElementById('compareBFinal').textContent=b?euro357(bv):'—';
-document.getElementById('compareAContrib').textContent=euro357(p.i+p.m*p.y*12);
-document.getElementById('compareBContrib').textContent=b?euro357(p.i+p.m*p.y*12):'—';
-document.getElementById('compareDifference').textContent='—';
-document.getElementById('compareExplanation').textContent=b?'Con la stessa ipotesi di rendimento, capitale, PAC e orizzonte, il modello matematico produce lo stesso valore finale. Il confronto riguarda quindi la composizione delle due strategie, non una classifica.':'Seleziona un modello per la strategia attiva.';
-document.querySelectorAll('.compare-target').forEach(x=>x.classList.toggle('active',x.dataset.target===target357));
-
-}
-document.querySelectorAll('.compare-target').forEach(b=>b.addEventListener('click',()=>{target357=b.dataset.target;document.getElementById('compareHint').textContent=target357==='A'?'Hai selezionato la Strategia A. Scegli un modello per applicarlo alla Strategia A.':'Hai selezionato la Strategia B. Scegli un modello per applicarlo alla Strategia B.';renderCompare357()}));
-
-['initial','monthly','years','returnRate'].forEach(id=>document.getElementById(id)?.addEventListener('input',renderCompare357));
-document.querySelectorAll('.alloc').forEach(x=>x.addEventListener('input',()=>{if(!compareA357)compareA357=currentAlloc357();renderCompare357()}));
-renderCompare357();
+<script id="strategy-lab-compare-js">
+(()=>{const euro=n=>new Intl.NumberFormat('it-IT',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(n);
+const read=()=>{const i=Math.max(0,Number(document.getElementById('initial')?.value)||0),m=Math.max(0,Number(document.getElementById('monthly')?.value)||0),y=Math.max(1,Math.min(50,Math.round(Number(document.getElementById('years')?.value)||1)));return{i,m,y}};
+const alloc=()=>[...document.querySelectorAll('.alloc')].map(x=>Number(x.value)||0).map((v,i)=>v?['Azionario globale','S&P 500','Mercati emergenti','Small Cap','Obbligazioni','Oro','Crypto · Bitcoin'][i]+' '+v+'%':null).filter(Boolean).join(' · ')||'Nessuna allocazione';
+const render=()=>{const p=read();document.getElementById('compareAName').textContent='La tua strategia';document.getElementById('compareAAlloc').textContent=alloc();document.getElementById('compareAFinal').textContent='—';document.getElementById('compareAContrib').textContent=euro(p.i+p.m*p.y*12);document.getElementById('compareBName').textContent='Modelli documentati';document.getElementById('compareBAlloc').textContent='Apri la sezione 05 per vedere le allocazioni e le fonti';document.getElementById('compareBFinal').textContent='—';document.getElementById('compareBContrib').textContent='—';document.getElementById('compareDifference').textContent='—';document.getElementById('compareExplanation').textContent='I modelli reali non vengono convertiti automaticamente nei 7 asset del calcolatore: alcune fonti usano REIT, TIPS, Treasury brevi/lunghi, corporate bond e commodity distinti.'};
+['initial','monthly','years','returnRate'].forEach(id=>document.getElementById(id)?.addEventListener('input',render));
+document.querySelectorAll('.alloc').forEach(x=>x.addEventListener('input',render));
+render();
 })();
 </script><script id="strategy-lab-collapse-js">
 (()=>{document.querySelectorAll('.strategy-collapsible').forEach(section=>{
