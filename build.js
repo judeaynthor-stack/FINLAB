@@ -170,7 +170,16 @@ fs.mkdirSync('impara',{recursive:true});fs.mkdirSync(path.join('strumenti','inte
 fs.writeFileSync('index.html',shell('FINLAB — Educazione finanziaria',`${hero}${platform}${get('importante')}`,[['/','⌂','Home'],['/impara/','▦','Impara'],['#tools','⌘','Strumenti'],['/impara/#lessonSearch','⌕','Cerca']]));
 
 fs.writeFileSync('impara/index.html',shell('FINLAB — Impara',`${get('inizio')}${get('percorso')}`,[['/','⌂','Home'],['/impara/','▦','Impara'],['#tools','⌘','Strumenti'],['/impara/#lessonSearch','⌕','Cerca']]));
-const interest=get('strumenti').replace(/id=[\"']strumenti[\"']/i,'id=\"interesse-composto\"').replace('Impara anche attraverso i numeri.','Interesse composto.');
+const interest=get('strumenti').replace(/id=[\"']strumenti[\"']/i,'id="interesse-composto"').replace('Impara anche attraverso i numeri.','Interesse composto.')+`
+<style id="finlab-compound-motion">
+.chart.finlab-compound-ready .bar{height:3px!important;transition:height .72s cubic-bezier(.22,.8,.2,1)!important}
+@media(prefers-reduced-motion:reduce){.chart.finlab-compound-ready .bar{transition:none!important}}
+</style>
+<script id="finlab-compound-motion-js">
+(()=>{const run=()=>{const c=document.getElementById('chart');if(!c)return;const bars=[...c.querySelectorAll('.bar')];const labels=[...document.querySelectorAll('#yearsLabel span')];if(!bars.length)return;c.classList.add('finlab-compound-ready');bars.forEach((bar,i)=>{const h=bar.dataset.finalHeight||bar.style.height;bar.dataset.finalHeight=h;bar.style.height='3px';bar.style.transitionDelay=Math.min(i*.24,4.2)+'s'});if(window.matchMedia?.('(prefers-reduced-motion: reduce)').matches){bars.forEach(b=>{b.style.height=b.dataset.finalHeight;b.style.transitionDelay='0s'});return}requestAnimationFrame(()=>requestAnimationFrame(()=>bars.forEach(b=>b.style.height=b.dataset.finalHeight)));labels.forEach((x,i)=>{x.style.opacity='0';x.style.transition='opacity .35s ease '+Math.min(i*.24,4.2)+'s';requestAnimationFrame(()=>requestAnimationFrame(()=>x.style.opacity='1'))});};
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run,{once:true});else run();
+})();
+</script>`;
 fs.writeFileSync(path.join('strumenti','interesse-composto','index.html'),shell('FINLAB — Interesse composto',interest,[['/','⌂','Home'],['/impara/','▦','Impara'],['#tools','⌘','Strumenti'],['/impara/#lessonSearch','⌕','Cerca']]));
 const portfolio=get('portfolio').replace(/id=[\"']portfolio[\"']/i,'id=\"portfolio-analyzer\"').replace('Leggi il tuo portafoglio.','Portfolio Analyzer.');
 fs.writeFileSync(path.join('strumenti','portfolio-analyzer','index.html'),shell('FINLAB — Portfolio Analyzer',portfolio,[['/','⌂','Home'],['/impara/','▦','Impara'],['#tools','⌘','Strumenti'],['/impara/#lessonSearch','⌕','Cerca']]));
