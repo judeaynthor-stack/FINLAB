@@ -8,6 +8,7 @@
 .real-models{grid-template-columns:repeat(3,1fr)!important}
 .real-model{min-height:205px;display:flex;flex-direction:column}
 .real-model small{display:block;color:#66625b;font-size:9px;line-height:1.45;margin-top:auto;padding-top:12px}
+.compare-model-link{display:inline-block;margin-top:10px;color:var(--gold);font:800 9px Inter;letter-spacing:.1em;text-decoration:none}.compare-model-link:hover{color:var(--white)}
 .real-model>a{display:inline-block;margin-top:9px;color:var(--gold);font:800 9px Inter;letter-spacing:.08em;text-transform:uppercase}
 .real-model>a:hover{color:var(--white)}
 @media(max-width:900px){.real-models{grid-template-columns:repeat(2,1fr)!important}}
@@ -467,14 +468,9 @@ input:focus,select:focus,textarea:focus,.field input:focus,.alloc-input:focus,.m
 <button type="button" class="compare-target active" data-target="B">Strategia B · Modello di confronto</button>
 </div>
 <p class="helper" id="compareHint">Hai selezionato la Strategia B. Ora scegli un modello da applicare alla strategia attiva.</p>
-<div class="section-kicker compare-model-kicker">MODELLO</div>
-<div class="compare-buttons">
-<button type="button" class="compare-preset" data-compare="global">Global</button>
-<button type="button" class="compare-preset" data-compare="balanced">Balanced</button>
-<button type="button" class="compare-preset" data-compare="growth">Growth</button>
-<button type="button" class="compare-preset" data-compare="dividend">Dividend</button>
-<button type="button" class="compare-preset" data-compare="defensive">Defensive</button>
-</div></div>
+<div class="section-kicker compare-model-kicker">MODELLI DOCUMENTATI</div>
+<p class="helper">I modelli reali sono raccolti nella sezione 05. Per ora il confronto mantiene separata la composizione della tua strategia dalle allocazioni documentate che richiedono asset class più specifiche.</p>
+<a href="#models" class="compare-model-link">VEDI I MODELLI REALI →</a></div>
 </div>
 <div class="compare-grid">
 <div class="card compare-card"><div class="compare-label">STRATEGIA A</div><h3 id="compareAName">La tua strategia</h3><div class="compare-alloc" id="compareAAlloc">—</div><div class="compare-metric"><span>Valore finale</span><strong id="compareAFinal">—</strong></div><div class="compare-metric"><span>Capitale versato</span><strong id="compareAContrib">—</strong></div></div>
@@ -573,10 +569,10 @@ document.getElementById('compareBContrib').textContent=b?euro357(p.i+p.m*p.y*12)
 document.getElementById('compareDifference').textContent='—';
 document.getElementById('compareExplanation').textContent=b?'Con la stessa ipotesi di rendimento, capitale, PAC e orizzonte, il modello matematico produce lo stesso valore finale. Il confronto riguarda quindi la composizione delle due strategie, non una classifica.':'Seleziona un modello per la strategia attiva.';
 document.querySelectorAll('.compare-target').forEach(x=>x.classList.toggle('active',x.dataset.target===target357));
-document.querySelectorAll('.compare-preset').forEach(x=>x.classList.toggle('active',b&&b.key===x.dataset.compare&&target357==='B'));
+
 }
 document.querySelectorAll('.compare-target').forEach(b=>b.addEventListener('click',()=>{target357=b.dataset.target;document.getElementById('compareHint').textContent=target357==='A'?'Hai selezionato la Strategia A. Scegli un modello per applicarlo alla Strategia A.':'Hai selezionato la Strategia B. Scegli un modello per applicarlo alla Strategia B.';renderCompare357()}));
-document.querySelectorAll('.compare-preset').forEach(b=>b.addEventListener('click',()=>{const key=b.dataset.compare;const values=[...presets357[key]];if(target357==='A'){compareA357=values;document.querySelectorAll('.alloc').forEach((input,i)=>{input.value=values[i]??0;input.dispatchEvent(new Event('input',{bubbles:true}))});window.updateAllocationChart?.()}else{compareB357={key,values}};renderCompare357()}));
+
 ['initial','monthly','years','returnRate'].forEach(id=>document.getElementById(id)?.addEventListener('input',renderCompare357));
 document.querySelectorAll('.alloc').forEach(x=>x.addEventListener('input',()=>{if(!compareA357)compareA357=currentAlloc357();renderCompare357()}));
 renderCompare357();
