@@ -436,7 +436,35 @@ input:focus,select:focus,textarea:focus,.field input:focus,.alloc-input:focus,.m
   .card,.panel,.form,.darkbox,.template,.metric,.scenario,.path-guide,.start-card,.paper,.journal{border-radius:17px!important}
 }
 </style>
-</head>
+<style id="finlab-motion-pack">
+/* FINLAB Motion Pack — restrained, educational, performance-safe */
+@keyframes finlabModelSpin{0%{transform:rotate(0deg) scale(1)}45%{transform:rotate(9deg) scale(1.025)}100%{transform:rotate(0deg) scale(1)}}
+@keyframes finlabFinalGlow{0%{box-shadow:0 0 0 rgba(208,180,119,0);transform:scale(1)}45%{box-shadow:0 0 28px rgba(208,180,119,.18);transform:scale(1.025)}100%{box-shadow:0 0 0 rgba(208,180,119,0);transform:scale(1)}}
+@keyframes finlabReveal{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+@keyframes finlabLine{from{transform:scaleX(0);transform-origin:left}to{transform:scaleX(1);transform-origin:left}}
+@keyframes finlabCardIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.allocation-visual{grid-template-columns:240px 1fr!important}
+.allocation-chart{width:220px!important;height:220px!important}
+.allocation-chart.model-pulse{animation:finlabModelSpin 900ms cubic-bezier(.22,.8,.2,1)}
+.allocation-slice{transition:opacity .18s,filter .18s,stroke-width .18s}
+.asset-info p{position:relative;overflow:hidden}
+.asset-info.open p{animation:finlabReveal .28s ease both}
+.asset-info.open p::before{content:"";position:absolute;top:0;left:0;width:100%;height:1px;background:var(--gold);transform-origin:left;animation:finlabLine .45s ease both}
+.strategy-collapsible.is-open .section-head{position:relative}
+.strategy-collapsible.is-open .section-head::after{content:"";position:absolute;left:0;bottom:-12px;width:100%;height:1px;background:var(--gold);transform-origin:left;animation:finlabLine .45s ease both}
+.real-model.motion-visible{animation:finlabCardIn .55s cubic-bezier(.22,.8,.2,1) both}
+.editorial-main .chapter-panel.active{animation:finlabReveal .35s ease both}
+.quiz-option.quiz-answer-expanded{animation:finlabReveal .22s ease both}
+.metric-value.finlab-counting,.metric-value.finlab-final-pop{position:relative}
+.metric-value.finlab-final-pop{animation:finlabFinalGlow .85s ease both}
+.learning-progress-bar{transition:width .8s cubic-bezier(.22,.8,.2,1)!important}
+@media(max-width:650px){.allocation-visual{grid-template-columns:155px 1fr!important}.allocation-chart{width:150px!important;height:150px!important}}
+@media(prefers-reduced-motion:reduce){
+ .allocation-chart.model-pulse,.real-model.motion-visible,.editorial-main .chapter-panel.active,.quiz-option.quiz-answer-expanded,.metric-value.finlab-final-pop{animation:none!important}
+ .asset-info.open p,.asset-info.open p::before,.strategy-collapsible.is-open .section-head::after{animation:none!important}
+ .learning-progress-bar{transition:none!important}
+}
+</style></head>
 <body><header class="finlab-unified-header"><a class="brand" href="/">FIN<span>LAB</span></a>'+desktopNav+'</header>
 <main><section class="hero"><div class="wrap"><div class="eyebrow">STRATEGY LAB</div><h1>Costruisci una strategia. Poi mettila alla prova.</h1><p class="lead">Un laboratorio educativo per capire come allocazione, capitale, contributi e orizzonte temporale modificano il comportamento di un portafoglio ipotetico.</p></div></section>
 <section class="section" id="builder"><div class="wrap"><div class="section-head"><div><div class="section-kicker">01 — COSTRUISCI</div><h2>La tua strategia.</h2></div><p class="section-intro">Assegna un peso agli asset e imposta il piano. Il totale deve essere esattamente 100%.</p></div><div class="model-status is-custom" id="modelStatus" aria-live="polite"><div class="model-status-copy"><span class="model-status-kicker" id="modelStatusKicker">STRATEGIA PERSONALIZZATA</span><strong class="model-status-title" id="modelStatusTitle">Stai costruendo la tua allocazione</strong><span class="model-status-meta" id="modelStatusMeta">Puoi partire da zero oppure applicare uno dei modelli documentati nella sezione 05.</span></div><button class="model-status-reset" id="modelStatusReset" type="button">Ripristina personalizzata</button></div><div class="lab-grid"><div class="card"><h3>Allocazione</h3><p class="card-sub">Modifica le percentuali e osserva subito la composizione.</p>
@@ -591,4 +619,55 @@ render();
 <script id="finlab-unified-navigation-final-js">
 (()=>{document.addEventListener("DOMContentLoaded",()=>{const header=document.querySelector(".finlab-unified-header");const dropdown=header?.querySelector(".nav-dropdown");const db=dropdown?.querySelector(".nav-dropdown-toggle");if(db){db.addEventListener("click",e=>{e.preventDefault();e.stopPropagation();const open=dropdown.classList.toggle("open");db.setAttribute("aria-expanded",String(open))})}document.addEventListener("click",e=>{if(dropdown&&!dropdown.contains(e.target)){dropdown.classList.remove("open");db?.setAttribute("aria-expanded","false")}});const nav=document.querySelector(".finlab-mobile-nav");if(!nav)return;let panel=document.querySelector(".finlab-mobile-tools-panel");if(!panel){panel=document.createElement("div");panel.className="finlab-mobile-tools-panel";panel.innerHTML='<a href="/strumenti/interesse-composto/">Interesse composto</a><a href="/strumenti/emergency-fund/">Emergency Fund Planner</a><a href="/strumenti/portfolio-analyzer/">Portfolio Analyzer</a><a href="/strumenti/strategy-lab/">Strategy Lab</a>';document.body.appendChild(panel)}const tb=nav.querySelector(".finlab-mobile-tools");tb?.addEventListener("click",e=>{e.preventDefault();e.stopPropagation();const open=panel.classList.toggle("open");tb.setAttribute("aria-expanded",String(open))});panel.addEventListener("click",e=>e.stopPropagation());document.addEventListener("click",()=>{panel.classList.remove("open");tb?.setAttribute("aria-expanded","false")});document.addEventListener("keydown",e=>{if(e.key==="Escape"){panel.classList.remove("open");tb?.setAttribute("aria-expanded","false")}})})})();
 </script>
-</body></html>
+<script id="finlab-motion-pack-js">
+(()=>{
+ const reduced=window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+ const raf=fn=>requestAnimationFrame(()=>requestAnimationFrame(fn));
+ const pulseDonut=()=>{if(reduced)return;const c=document.querySelector('.allocation-chart');if(!c)return;c.classList.remove('model-pulse');void c.offsetWidth;c.classList.add('model-pulse');setTimeout(()=>c.classList.remove('model-pulse'),950)};
+ const animateDonut=()=>{
+   document.querySelectorAll('.allocation-slice').forEach((p,i)=>{
+     if(reduced)return;
+     try{
+       const len=p.getTotalLength();
+       p.style.strokeDasharray=len+' '+len;
+       p.style.strokeDashoffset=len;
+       p.style.transition='stroke-dashoffset '+Math.min(850,420+i*35)+'ms cubic-bezier(.22,.8,.2,1) '+Math.min(260,i*28)+'ms, opacity .18s, filter .18s, stroke-width .18s';
+       raf(()=>p.style.strokeDashoffset='0');
+     }catch(_){}
+   });
+ };
+ const countText=(el,target,duration=900)=>{
+   if(!el||reduced){if(el)el.textContent=target;return}
+   const m=String(target).match(/-?[d.,]+/);if(!m){el.textContent=target;return}
+   const raw=m[0].replace(/./g,'').replace(',','.');
+   const end=Number(raw);if(!Number.isFinite(end)){el.textContent=target;return}
+   const prefix=String(target).slice(0,m.index),suffix=String(target).slice((m.index||0)+m[0].length);
+   const start=performance.now();
+   const tick=now=>{const p=Math.min(1,(now-start)/duration),e=1-Math.pow(1-p,3),v=end*e;
+     el.textContent=prefix+new Intl.NumberFormat('it-IT',{maximumFractionDigits:0}).format(v)+suffix;
+     if(p<1)requestAnimationFrame(tick);else el.textContent=target;
+   };
+   requestAnimationFrame(tick);
+ };
+ const animateResults=()=>{
+   const ids=['contributed','finalValue','gain','rateShown','scenario3','scenario6','scenario9','shock20','shock30','shock50'];
+   ids.forEach(id=>{const el=document.getElementById(id);if(el&&el.textContent&&el.textContent!=='—')countText(el,el.textContent,900)});
+   const final=document.getElementById('finalValue');if(final&&!reduced){final.classList.remove('finlab-final-pop');void final.offsetWidth;final.classList.add('finlab-final-pop')}
+ };
+ const observeCards=()=>{
+   const cards=[...document.querySelectorAll('.real-model')];if(!cards.length)return;
+   if(reduced){cards.forEach(c=>c.classList.add('motion-visible'));return}
+   if(!('IntersectionObserver' in window)){cards.forEach(c=>c.classList.add('motion-visible'));return}
+   const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('motion-visible');io.unobserve(e.target)}}),{threshold:.12});
+   cards.forEach((c,i)=>{c.style.animationDelay=Math.min(i*35,350)+'ms';io.observe(c)});
+ };
+ const bind=()=>{
+   animateDonut();observeCards();
+   document.querySelectorAll('.model-load-btn').forEach(b=>b.addEventListener('click',()=>setTimeout(()=>{pulseDonut();animateDonut()},20)));
+   document.getElementById('run')?.addEventListener('click',()=>setTimeout(animateResults,30));
+   document.querySelectorAll('.asset-info button').forEach(b=>b.addEventListener('click',()=>{if(!reduced){const p=b.parentElement.querySelector('p');if(p&&b.parentElement.classList.contains('open'))p.animate([{opacity:0,transform:'translateY(4px)'},{opacity:1,transform:'translateY(0)'}],{duration:260,easing:'ease-out'})}}));
+   document.querySelectorAll('.strategy-collapse-toggle').forEach(b=>b.addEventListener('click',()=>{if(!reduced&&b.closest('.strategy-collapsible')?.classList.contains('is-open')){b.closest('.strategy-collapsible').querySelector('.section-head')?.animate([{opacity:.7},{opacity:1}],{duration:260})}}));
+ };
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bind,{once:true});else bind();
+})();
+</script></body></html>
