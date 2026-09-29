@@ -659,7 +659,7 @@ main section{scroll-margin-top:92px}
     if(!panel)return;
     const was=panel.classList.contains('active');
     panels.forEach(p=>p.classList.remove('active'));
-    details.forEach(d=>d.classList.remove('active'));
+    details.forEach(d=>{d.classList.remove('active');d.style.display='none';d.setAttribute('aria-hidden','true')});
     if(!was){
       panel.classList.add('active');
       setTimeout(()=>panel.scrollIntoView({behavior:'smooth',block:'nearest'}),60);
