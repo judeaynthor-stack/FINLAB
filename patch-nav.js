@@ -20,7 +20,7 @@ const mobileNav='<nav aria-label="Navigazione mobile" class="finlab-mobile-nav">
 const motionCss=`<style id="finlab-motion-system">
 :root{--fin-motion:cubic-bezier(.16,1,.3,1);--fin-duration:850ms}
 @keyframes finlabPageIn{from{opacity:0;transform:translateY(24px);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
-@keyframes finlabPageOut{from{opacity:1;transform:none;filter:none}to{opacity:0;transform:translateY(-18px);filter:blur(4px)}}
+@keyframes finlabPageOut{from{opacity:1;transform:none;filter:none}to{opacity:1;transform:translateY(-10px);filter:blur(1px)}}
 @keyframes finlabRise{from{opacity:0;transform:translateY(30px) scale(.985)}to{opacity:1;transform:none}}
 @keyframes finlabSoftGlow{0%,100%{box-shadow:0 0 0 rgba(208,180,119,0)}50%{box-shadow:0 0 38px rgba(208,180,119,.11)}}
 @keyframes finlabRipple{from{transform:scale(.92);opacity:.75}to{transform:scale(1.05);opacity:0}}
