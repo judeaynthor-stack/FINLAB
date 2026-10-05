@@ -31,7 +31,7 @@ input,select{width:100%;background:#0d0d0b;color:var(--white);border:1px solid #
 @media(max-width:600px){.holding-row{grid-template-columns:1fr 100px 38px}.fact-grid{grid-template-columns:1fr}.lab-collapse summary{align-items:center}}
 </style>
 <section class="section"><div class="wrap"><div class="section-head"><div><div class="kicker">01 · Crypto Builder</div><h2>Costruisci la tua esposizione</h2></div><p class="intro">Non partiamo da una lista fissa: inserisci le crypto che possiedi. Usa <b>+</b> per aggiungerne altre.</p></div>
-<div class="grid"><div class="card"><h3>Portafoglio crypto</h3><p class="sub">Inserisci nome o ticker e valore in euro. Puoi aggiungere tutte le righe che vuoi.</p><div id="holdingRows"></div><button class="add-btn" id="addHolding">＋ Aggiungi crypto</button><div class="form-grid" style="margin-top:14px"><div class="full"><label class="field">Totale patrimonio (€)</label><input id="totalPortfolio" value="0" type="number" min="0"></div></div></div>
+<div class="grid"><div class="card"><h3>Portafoglio crypto</h3><p class="sub">Inserisci nome o ticker e valore in euro. Puoi aggiungere tutte le righe che vuoi.</p><div id="holdingRows"></div><button type="button" class="add-btn" id="addHolding">＋ Aggiungi crypto</button><div class="form-grid" style="margin-top:14px"><div class="full"><label class="field">Totale patrimonio (€)</label><input id="totalPortfolio" value="0" type="number" min="0"></div></div></div>
 <div class="card"><h3>Composizione</h3><div class="metric-grid" id="holdingMetrics"></div><div class="alloc" id="allocationBars"></div></div></div></div></section>
 
 <section class="section"><div class="wrap"><div class="section-head"><div><div class="kicker">02 · Crypto Profile</div><h2>Analizza una crypto</h2></div><p class="intro">Cerca una crypto per nome o ticker. Il profilo cambia in base all'asset selezionato, senza dover scegliere tra decine di pulsanti.</p></div>
@@ -44,7 +44,7 @@ input,select{width:100%;background:#0d0d0b;color:var(--white);border:1px solid #
 <div class="collapse-body"><div class="card"><div class="risk-guide"><b>Come leggere i punteggi:</b> 1 = rischio relativamente basso · 5 = rischio relativamente alto. Un 5 non significa “progetto cattivo”: indica che quel fattore merita più attenzione.</div><div class="risk-grid" id="riskGrid"></div></div></div></details></div></section>
 
 <section class="section"><div class="wrap"><details class="lab-collapse" open><summary><div><div class="kicker">05 · Scenario Lab</div><h2>Dal prezzo alla market cap</h2><p class="intro">Un calcolo semplice per capire quale prezzo teorico corrisponde a una certa capitalizzazione.</p></div><span class="plus">+</span></summary>
-<div class="collapse-body"><div class="scenario"><div class="card"><h3>Scenario</h3><p class="sub">Formula: <b>market cap ÷ supply = prezzo teorico</b>. Non tiene conto di domanda, liquidità o prezzo reale.</p><div class="form-grid"><div><label class="field">Token</label><input id="scenarioCoin" value="HYPE"></div><div><label class="field">Supply (token)</label><input id="scenarioSupply" type="number" value="1000000000"></div><div class="full"><label class="field">Capitalizzazione futura (€)</label><input id="scenarioCap" type="number" value="100000000000"></div></div><button class="btn" id="calculateScenario">Calcola prezzo teorico</button></div>
+<div class="collapse-body"><div class="scenario"><div class="card"><h3>Scenario</h3><p class="sub">Formula: <b>market cap ÷ supply = prezzo teorico</b>. Non tiene conto di domanda, liquidità o prezzo reale.</p><div class="form-grid"><div><label class="field">Token</label><input id="scenarioCoin" value="HYPE"></div><div><label class="field">Supply (token)</label><input id="scenarioSupply" type="number" value="1000000000"></div><div class="full"><label class="field">Capitalizzazione futura (€)</label><input id="scenarioCap" type="number" value="100000000000"></div></div><button type="button" class="btn" id="calculateScenario">Calcola prezzo teorico</button></div>
 <div class="card scenario-result"><div class="kicker">Prezzo teorico</div><div class="big" id="scenarioPrice">€ 100,00</div><div class="formula">Market cap ÷ supply</div><div style="margin-top:22px;color:#8d8980;font-size:12px" id="scenarioContext"></div></div></div></div></details></div></section>
 
 <section class="section"><div class="wrap"><details class="lab-collapse" open><summary><div><div class="kicker">06 · Tesi di investimento</div><h2>Rete → adozione → token</h2><p class="intro">Una checklist per capire se la crescita della rete può davvero tradursi in domanda o valore per il token.</p></div><span class="plus">+</span></summary>
@@ -54,40 +54,7 @@ input,select{width:100%;background:#0d0d0b;color:var(--white);border:1px solid #
 </div></div></details></div></section>
 </main>
 <footer><div class="wrap footer"><span>FINLAB — Educazione finanziaria</span><span>Crypto Lab · Non consulenza finanziaria</span></div></footer>
-<script>
-const profiles={
-BTC:{name:'Bitcoin',symbol:'BTC',desc:'Asset monetario digitale con supply programmata e forte attenzione a scarsità, sicurezza e decentralizzazione.',risk:[5,2,4,2,5,4],facts:['Scarsità programmata','Proof of Work','Nessun emittente centrale','Halving come meccanismo di emissione'],supply:'~20M',maxSupply:'21M',emission:'Decrescente',burn:'Non centrale'},
-ETH:{name:'Ethereum',symbol:'ETH',desc:'Blockchain general-purpose per smart contract, DeFi, tokenizzazione e applicazioni decentralizzate.',risk:[3,3,3,2,4,3],facts:['Smart contract','Proof of Stake','Ecosistema DeFi','Burn delle fee secondo il protocollo'],supply:'Variabile',maxSupply:'Nessun cap fisso',emission:'Dinamica',burn:'EIP-1559'},
-SOL:{name:'Solana',symbol:'SOL',desc:'Blockchain ad alte prestazioni orientata a applicazioni, trading, DeFi e consumer crypto.',risk:[3,3,4,3,4,3],facts:['Proof of Stake + PoH','Elevato throughput','Ecosistema consumer','Token con emissione programmata'],supply:'Variabile',maxSupply:'Nessun cap fisso',emission:'Inflazionistica',burn:'Parziale'},
-TRX:{name:'TRON',symbol:'TRX',desc:'Blockchain fortemente orientata a stablecoin e pagamenti, con un ecosistema DeFi e infrastrutture complementari.',risk:[3,4,4,4,3,4],facts:['Forte presenza di USDT','Delegated Proof of Stake','Energy e Bandwidth','Burn/emissione da monitorare'],supply:'~95B',maxSupply:'Dinamica',emission:'Da monitorare',burn:'Attivo'},
-ALT:{name:'Altre crypto',symbol:'ALT',desc:'Categoria generica: analizzala singolarmente prima di considerarla parte strategica del portafoglio.',risk:[5,5,5,5,5,5],facts:['Dipende dal progetto','Verificare tokenomics','Verificare liquidità','Verificare sicurezza'],supply:'—',maxSupply:'—',emission:'—',burn:'—'}
-};
-const riskNames=['Tecnologia','Regolamentazione','Centralizzazione','Tokenomics','Competizione','Mercato'];
-let selected='TRX';
-function money(n){return new Intl.NumberFormat('it-IT',{style:'currency',currency:'EUR',maximumFractionDigits:2}).format(n||0)}
-function renderProfile(){
- const p=profiles[selected];document.getElementById('profile').innerHTML='<h3>'+p.name+' · '+p.symbol+'</h3><p style="color:#aaa69d;max-width:760px">'+p.desc+'</p><div class="alloc" style="margin-top:20px">'+p.facts.map((x,i)=>'<div style="padding:10px 0;border-bottom:1px solid #292823;font-size:12px;color:#c7c2b8"><span style="color:#d0b477">0'+(i+1)+'</span> &nbsp;'+x+'</div>').join('')+'</div>';
- document.getElementById('supply').textContent=p.supply;document.getElementById('maxSupply').textContent=p.maxSupply;document.getElementById('emission').textContent=p.emission;document.getElementById('burn').textContent=p.burn;
- document.getElementById('riskGrid').innerHTML=p.risk.map((v,i)=>'<div class="risk"><div class="risk-top"><span>'+riskNames[i]+'</span><em>'+v+'/5</em></div><div class="risk-bar"><i style="width:'+v*20+'%"></i></div></div>').join('');
- document.querySelectorAll('.coin').forEach(x=>x.classList.toggle('active',x.dataset.coin===selected));
-}
-function renderCoins(){document.getElementById('coinSelector').innerHTML=Object.entries(profiles).map(([k,p])=>'<button class="coin '+(k===selected?'active':'')+'" data-coin="'+k+'"><strong>'+p.symbol+'</strong><span>'+p.name+'</span></button>').join('');document.querySelectorAll('.coin').forEach(x=>x.addEventListener('click',()=>{selected=x.dataset.coin;renderProfile()}))}
-function updateHoldings(){
- const vals={};let total=0;document.querySelectorAll('.holding').forEach(i=>{const v=Math.max(0,Number(i.value)||0);vals[i.dataset.coin]=v;total+=v});
- const portfolio=Number(document.getElementById('totalPortfolio').value)||0;const rows=[['BTC','Bitcoin'],['ETH','Ethereum'],['SOL','Solana'],['TRX','TRON'],['ALT','Altre crypto']];
- document.getElementById('holdingMetrics').innerHTML='<div class="metric"><label>Crypto totali</label><b>'+money(total)+'</b></div><div class="metric"><label>Peso sul patrimonio</label><b>'+(portfolio>0?(total/portfolio*100).toFixed(1):'0.0')+'%</b></div>';
- document.getElementById('allocationBars').innerHTML=rows.map(([k,n])=>{const pct=total?vals[k]/total*100:0;return '<div class="alloc-row"><span>'+n+'</span><div class="bar"><i style="width:'+pct+'%"></i></div><strong>'+pct.toFixed(1)+'%</strong></div>'}).join('');
-}
-document.querySelectorAll('.holding,#totalPortfolio').forEach(x=>x.addEventListener('input',updateHoldings));
-document.getElementById('calculateScenario').addEventListener('click',()=>{
- const supply=Math.max(1,Number(document.getElementById('scenarioSupply').value)||1),cap=Math.max(0,Number(document.getElementById('scenarioCap').value)||0),price=cap/supply,coin=document.getElementById('scenarioCoin').value;
- document.getElementById('scenarioPrice').textContent=money(price);document.getElementById('scenarioContext').textContent='Se la supply fosse '+new Intl.NumberFormat('it-IT').format(supply)+' '+coin+' e la capitalizzazione '+money(cap)+', il prezzo teorico sarebbe '+money(price)+' per token.';
-});
-document.getElementById('thesisNetwork').innerHTML=['Adozione misurabile','Attività economica on-chain','Ecosistema e sviluppatori','Crescita sostenibile'].map((x,i)=>'<div style="padding:11px 0;border-bottom:1px solid #292823;font-size:12px"><span style="color:#d0b477">□</span> '+x+'</div>').join('');
-document.getElementById('thesisToken').innerHTML=['Domanda diretta del token','Tokenomics favorevole','Meccanismi di staking/fee/burn','Valore catturato dal token'].map((x,i)=>'<div style="padding:11px 0;border-bottom:1px solid #292823;font-size:12px"><span style="color:#d0b477">□</span> '+x+'</div>').join('');
-document.querySelector('.nav-dropdown-toggle').addEventListener('click',e=>{e.stopPropagation();document.querySelector('.nav-dropdown').classList.toggle('open')});document.addEventListener('click',()=>document.querySelector('.nav-dropdown').classList.remove('open'));
-renderCoins();renderProfile();updateHoldings();document.getElementById('calculateScenario').click();
-</script>
+
 
 <script>
 const profiles={
@@ -154,7 +121,7 @@ function renderSearch(query=''){
  const q=query.trim().toLowerCase();
  const keys=Object.keys(profiles).filter(k=>{const p=profiles[k];return !q||k.toLowerCase().includes(q)||p.name.toLowerCase().includes(q)});
  const out=keys.slice(0,12);
- document.getElementById('searchResults').innerHTML=out.map(k=>{const p=profiles[k];return '<button class="search-result '+(k===selected?'active':'')+'" data-coin="'+k+'"><b>'+p.symbol+'</b>'+p.name+'</button>'}).join('') || '<span style="color:#77736b;font-size:12px">Nessuna crypto trovata. Per ora il database contiene le principali crypto e stablecoin; le altre verranno aggiunte.</span>';
+ document.getElementById('searchResults').innerHTML=out.map(k=>{const p=profiles[k];return '<button type="button" class="search-result '+(k===selected?'active':'')+'" data-coin="'+k+'"><b>'+p.symbol+'</b>'+p.name+'</button>'}).join('') || '<span style="color:#77736b;font-size:12px">Nessuna crypto trovata. Per ora il database contiene le principali crypto e stablecoin; le altre verranno aggiunte.</span>';
  document.querySelectorAll('.search-result').forEach(x=>x.addEventListener('click',()=>{selected=x.dataset.coin;document.getElementById('cryptoSearch').value=profiles[selected].name;renderSearch(profiles[selected].name);renderProfile()}));
 }
 document.getElementById('cryptoSearch').addEventListener('input',e=>renderSearch(e.target.value));
@@ -163,7 +130,7 @@ let holdingId=0;
 function addHolding(name='',value=''){
  holdingId++;
  const row=document.createElement('div');row.className='holding-row';row.dataset.id=holdingId;
- row.innerHTML='<input class="holding-name" placeholder="Inserisci crypto (es. HYPE)" value="'+name.replace(/"/g,'&quot;')+'"><input class="holding-value" type="number" min="0" placeholder="€ 0" value="'+value+'"><button class="remove-btn" title="Rimuovi">×</button>';
+ row.innerHTML='<input class="holding-name" placeholder="Inserisci crypto (es. HYPE)" value="'+name.replace(/"/g,'&quot;')+'"><input class="holding-value" type="number" min="0" placeholder="€ 0" value="'+value+'"><button type="button" class="remove-btn" title="Rimuovi">×</button>';
  document.getElementById('holdingRows').appendChild(row);
  row.querySelectorAll('input').forEach(x=>x.addEventListener('input',updateHoldings));
  row.querySelector('.remove-btn').addEventListener('click',()=>{row.remove();updateHoldings()});
