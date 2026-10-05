@@ -26,7 +26,7 @@ const motionCss=`<style id="finlab-motion-system">
 @keyframes finlabRipple{from{transform:scale(.92);opacity:.75}to{transform:scale(1.05);opacity:0}}
 body.finlab-ready{animation:finlabPageIn 900ms var(--fin-motion) both}
 body.finlab-leaving{animation:finlabPageOut 520ms var(--fin-motion) both;pointer-events:none}
-body.finlab-ready main>.section{opacity:0;animation:finlabRise 900ms var(--fin-motion) both}
+body.finlab-ready main>.section{animation:finlabRise 900ms var(--fin-motion) both}
 body.finlab-ready main>.section:nth-child(1){animation-delay:90ms}
 body.finlab-ready main>.section:nth-child(2){animation-delay:170ms}
 body.finlab-ready main>.section:nth-child(3){animation-delay:250ms}
