@@ -44,7 +44,8 @@ button:active,.btn:active,.calc-btn:active,.primary:active,.month-btn:active,.qu
  body.finlab-ready,body.finlab-leaving,body.finlab-ready main>.section{animation:none!important}
  *,*:before,*:after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important}
 }
-</style>`;\nconst motionJs=`<script id="finlab-motion-system-js">
+</style>`;
+const motionJs=`<script id="finlab-motion-system-js">
 (()=>{
  const start=()=>{
    document.body.classList.add('finlab-ready');
@@ -75,7 +76,8 @@ button:active,.btn:active,.calc-btn:active,.primary:active,.month-btn:active,.qu
  };
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
 })();
-</script>`;\nconst css=`<style id="finlab-unified-navigation-final">
+</script>`;
+const css=`<style id="finlab-unified-navigation-final">
 body{margin:0!important;padding-top:0!important}
 .finlab-unified-header{display:flex!important;align-items:center!important;justify-content:center!important;gap:28px!important;position:relative!important;z-index:1200!important;width:min(1180px,calc(100% - 32px))!important;max-width:1180px!important;height:76px!important;min-height:76px!important;margin:0 auto!important;padding:7px 10px!important;box-sizing:border-box!important;top:0!important}
 .finlab-unified-header .brand{flex:0 0 auto!important;text-decoration:none!important;transform:translateX(10px) scale(1.045)!important;transform-origin:center left!important}
