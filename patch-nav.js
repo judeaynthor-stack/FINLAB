@@ -72,14 +72,6 @@ button:active,.btn:active,.calc-btn:active,.primary:active,.month-btn:active,.qu
      }),{threshold:.12,rootMargin:'0px 0px -8% 0px'});
      document.querySelectorAll('main>.section,.card,.chapter-card,.path-card,.template,.start-card').forEach(x=>io.observe(x));
    }
-   if(document.startViewTransition){
-     document.addEventListener('click',e=>{
-       const link=e.target.closest('a[href]');if(!link||link.target==='_blank'||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
-       const url=new URL(link.href,location.href);if(url.origin!==location.origin||url.pathname===location.pathname&&url.hash===location.hash)return;
-       e.preventDefault();
-       document.startViewTransition(async()=>{const html=await fetch(url.href).then(r=>r.text());const doc=new DOMParser().parseFromString(html,'text/html');document.title=doc.title;document.body.innerHTML=doc.body.innerHTML;document.body.className='finlab-ready';history.pushState({},'',url.href);window.dispatchEvent(new Event('popstate'));});
-     });
-   }
  };
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
 })();
