@@ -17,7 +17,73 @@ const header='<header class="finlab-unified-header"><a class="brand" href="/">FI
 
 const mobileNav='<nav aria-label="Navigazione mobile" class="finlab-mobile-nav"><a href="/"><span class="finlab-mobile-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7"/><path d="M5 9v11h14V9"/><path d="M9 20v-6h6v6"/></svg></span><span>Home</span></a><a href="/impara/"><span class="finlab-mobile-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14v16H5z"/><path d="M8 8h8M8 12h8M8 16h6"/></svg></span><span>Impara</span></a><button class="finlab-mobile-tools" type="button" aria-expanded="false"><span class="finlab-mobile-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="4"/></svg></span><span>Strumenti</span></button><a href="/impara/#lessonSearch"><span class="finlab-mobile-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></span><span>Cerca</span></a></nav>';
 
-const css=`<style id="finlab-unified-navigation-final">
+const motionCss=`<style id="finlab-motion-system">
+:root{--fin-motion:cubic-bezier(.16,1,.3,1);--fin-duration:850ms}
+@keyframes finlabPageIn{from{opacity:0;transform:translateY(24px);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
+@keyframes finlabPageOut{from{opacity:1;transform:none;filter:none}to{opacity:0;transform:translateY(-18px);filter:blur(4px)}}
+@keyframes finlabRise{from{opacity:0;transform:translateY(30px) scale(.985)}to{opacity:1;transform:none}}
+@keyframes finlabSoftGlow{0%,100%{box-shadow:0 0 0 rgba(208,180,119,0)}50%{box-shadow:0 0 38px rgba(208,180,119,.11)}}
+@keyframes finlabRipple{from{transform:scale(.92);opacity:.75}to{transform:scale(1.05);opacity:0}}
+body.finlab-ready{animation:finlabPageIn 900ms var(--fin-motion) both}
+body.finlab-leaving{animation:finlabPageOut 520ms var(--fin-motion) both;pointer-events:none}
+body.finlab-ready main>.section{opacity:0;animation:finlabRise 900ms var(--fin-motion) both}
+body.finlab-ready main>.section:nth-child(1){animation-delay:90ms}
+body.finlab-ready main>.section:nth-child(2){animation-delay:170ms}
+body.finlab-ready main>.section:nth-child(3){animation-delay:250ms}
+body.finlab-ready main>.section:nth-child(4){animation-delay:330ms}
+body.finlab-ready main>.section:nth-child(5){animation-delay:410ms}
+body.finlab-ready main>.section:nth-child(6){animation-delay:490ms}
+.card,.panel,.chapter-card,.path-card,.template,.metric,.start-card,.topic,.btn,.calc-btn,.primary,.month-btn,.quiz-check{transition:transform 650ms var(--fin-motion),box-shadow 650ms var(--fin-motion),border-color 500ms ease,background 500ms ease,opacity 500ms ease}
+.card:hover,.panel:hover,.chapter-card:hover,.path-card:hover,.template:hover,.start-card:hover{transform:translateY(-5px)}
+button,a{transition:color 450ms ease,background 450ms ease,border-color 450ms ease,transform 450ms var(--fin-motion),box-shadow 450ms var(--fin-motion)}
+button:active,.btn:active,.calc-btn:active,.primary:active,.month-btn:active,.quiz-check:active{transform:scale(.96)}
+.finlab-clicking{position:relative;overflow:hidden}
+.finlab-clicking:after{content:"";position:absolute;inset:0;border-radius:inherit;border:1px solid rgba(208,180,119,.55);animation:finlabRipple 900ms ease-out both;pointer-events:none}
+.finlab-focus{animation:finlabSoftGlow 1200ms ease both}
+@media(prefers-reduced-motion:reduce){
+ body.finlab-ready,body.finlab-leaving,body.finlab-ready main>.section{animation:none!important}
+ *,*:before,*:after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important}
+}
+</style>`;\nconst motionJs=`<script id="finlab-motion-system-js">
+(()=>{
+ const start=()=>{
+   document.body.classList.add('finlab-ready');
+   const clickable='button,a,.topic,.chapter-card,.path-card,.month-btn,.quiz-check,.calc-btn,.primary,.btn';
+   document.addEventListener('pointerdown',e=>{
+     const el=e.target.closest(clickable);if(!el)return;
+     el.classList.remove('finlab-clicking','finlab-focus');void el.offsetWidth;el.classList.add('finlab-clicking');
+   },{passive:true});
+   document.addEventListener('click',e=>{
+     const el=e.target.closest(clickable);if(!el)return;
+     el.classList.remove('finlab-focus');void el.offsetWidth;el.classList.add('finlab-focus');
+     setTimeout(()=>el.classList.remove('finlab-focus'),1250);
+     const link=el.closest('a[href]');
+     if(!link||link.target==='_blank'||link.hasAttribute('download')||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
+     const url=new URL(link.href,location.href);
+     if(url.origin!==location.origin||url.pathname===location.pathname&&url.hash===location.hash)return;
+     if(!document.startViewTransition){
+       e.preventDefault();document.body.classList.remove('finlab-ready');document.body.classList.add('finlab-leaving');
+       setTimeout(()=>location.href=url.href,520);
+     }
+   });
+   if('IntersectionObserver' in window){
+     const io=new IntersectionObserver(entries=>entries.forEach(entry=>{
+       if(entry.isIntersecting){entry.target.classList.add('finlab-in-view');io.unobserve(entry.target)}
+     }),{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+     document.querySelectorAll('main>.section,.card,.chapter-card,.path-card,.template,.start-card').forEach(x=>io.observe(x));
+   }
+   if(document.startViewTransition){
+     document.addEventListener('click',e=>{
+       const link=e.target.closest('a[href]');if(!link||link.target==='_blank'||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
+       const url=new URL(link.href,location.href);if(url.origin!==location.origin||url.pathname===location.pathname&&url.hash===location.hash)return;
+       e.preventDefault();
+       document.startViewTransition(async()=>{const html=await fetch(url.href).then(r=>r.text());const doc=new DOMParser().parseFromString(html,'text/html');document.title=doc.title;document.body.innerHTML=doc.body.innerHTML;document.body.className='finlab-ready';history.pushState({},'',url.href);window.dispatchEvent(new Event('popstate'));});
+     });
+   }
+ };
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
+})();
+</script>`;\nconst css=`<style id="finlab-unified-navigation-final">
 body{margin:0!important;padding-top:0!important}
 .finlab-unified-header{display:flex!important;align-items:center!important;justify-content:center!important;gap:28px!important;position:relative!important;z-index:1200!important;width:min(1180px,calc(100% - 32px))!important;max-width:1180px!important;height:76px!important;min-height:76px!important;margin:0 auto!important;padding:7px 10px!important;box-sizing:border-box!important;top:0!important}
 .finlab-unified-header .brand{flex:0 0 auto!important;text-decoration:none!important;transform:translateX(10px) scale(1.045)!important;transform-origin:center left!important}
@@ -290,8 +356,8 @@ for(const file of files){
   h=h.replace(/<div\b[^>]*class=["'][^"']*(?:mobile-tools-panel|finlab-mobile-tools-panel)[^"']*["'][^>]*>[\s\S]*?<\/div>/gi,'');
   h=h.replace(/<header\b[\s\S]*?<\/header>/i,header);
   if(!/<header\b/i.test(h)) throw new Error('No header in '+file);
-  h=h.replace(/<\/body>/i,mobileNav+'\n'+js+'\n</body>');
-  h=h.replace(/<\/head>/i,css+'\n'+designCss+'\n</head>');
+  h=h.replace(/<\/body>/i,mobileNav+'\n'+js+'\n'+motionJs+'\n</body>');
+  h=h.replace(/<\/head>/i,css+'\n'+designCss+'\n'+motionCss+'\n</head>');
   fs.writeFileSync(file,h);
 }
 console.log('FINLAB navigation normalized on every page');
